@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
+
+    <ImageView
+        android:id="@+id/img_bank"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:id="@+id/teks_nama_bank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/img_bank"
+        android:layout_toRightOf="@id/img_bank"
+        android:text="Nama Bank Sampah\t: "
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/teks_pemilik_bank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teks_nama_bank"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/img_bank"
+        android:layout_toRightOf="@id/img_bank"
+        android:text="Nama Pemilik\t\t\t\t: "
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/nama_bank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/teks_nama_bank"
+        android:layout_toRightOf="@id/teks_nama_bank"
+        android:textSize="14sp"
+        tools:text="Berkah Asri" />
+
+    <TextView
+        android:id="@+id/nama_pemilik_bank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teks_nama_bank"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/teks_pemilik_bank"
+        android:layout_toRightOf="@id/teks_pemilik_bank"
+        android:textSize="14sp"
+        tools:text="Asriah" />
+
+    <TextView
+        android:id="@+id/teks_alamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teks_pemilik_bank"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/img_bank"
+        android:layout_toRightOf="@id/img_bank"
+        android:text="Alamat\t\t\t\t\t\t\t: "
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/alamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teks_pemilik_bank"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/teks_alamat"
+        android:layout_toRightOf="@id/teks_alamat"
+        android:textSize="14sp"
+        tools:text="Sumbersari" />
+
+</RelativeLayout>
