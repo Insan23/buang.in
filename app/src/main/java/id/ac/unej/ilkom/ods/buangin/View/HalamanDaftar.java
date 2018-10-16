@@ -32,6 +32,11 @@ import id.ac.unej.ilkom.ods.buangin.R;
 
 public class HalamanDaftar extends AppCompatActivity {
 
+    /*
+     * TODO pendaftaran semua akun melalui online, volunteer, bank sampah, mitra, perusahaan
+     * Termasuk pengecekan dan verifikasi mereka
+     */
+
     private static String TAG = HalamanMasuk.class.getSimpleName();
     private TextInputEditText nama, email, password;
     private Button daftar;
@@ -176,8 +181,7 @@ public class HalamanDaftar extends AppCompatActivity {
     }
 
     private boolean cekJaringan() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

@@ -2,52 +2,47 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:layout_height="wrap_content"
     tools:context=".View.Volunteer.DialogSampah">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/img_preview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="192dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop" />
 
-            <ImageView
-                android:id="@+id/img_preview"
-                android:layout_width="512dp"
-                android:layout_height="192dp" />
+        <TextView
+            android:id="@+id/kode_sampah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_preview"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            tools:text="Kode Sampah" />
 
-            <TextView
-                android:id="@+id/kode_sampah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                tools:text="Kode Sampah" />
+        <TextView
+            android:id="@+id/tanggal_sampah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kode_sampah"
+            android:layout_marginBottom="8dp"
+            android:text="Tanggal"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tanggal_sampah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Tanggal"
-                android:textSize="16sp" />
+        <Button
+            android:id="@+id/kirim_sampah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tanggal_sampah"
+            android:background="@color/warnaUtama"
+            android:text="kirim" />
 
-            <Button
-                android:id="@+id/kirim_sampah"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/warnaUtama"
-                android:text="kirim" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </RelativeLayout>
 
 </FrameLayout>

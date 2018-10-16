@@ -84,11 +84,10 @@ public class SampahkuFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == HomeVolunteer.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Log.d("CAMERA : ", "SUCCESS");
             Bitmap thumb = (Bitmap) data.getExtras().get("data");
-//            img_hasil.setImageBitmap(thumb);
             Uri fotoURI = getImageUri(getContext(), thumb);
 
             DialogSampah dialog = new DialogSampah();

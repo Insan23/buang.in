@@ -127,6 +127,8 @@ public class DialogSampah extends DialogFragment {
                                     .getReference(uid)
                                     .child(key);
                             kirimDB(stor, imgUri, key, kodeMD5, tglAwal, tglAkhir, uid);
+                        } else {
+                            Log.w(TAG, "Database Error: " + databaseError.getDetails());
                         }
                     }
                 });

@@ -36,6 +36,17 @@ import id.ac.unej.ilkom.ods.buangin.View.Volunteer.HomeVolunteer;
 
 public class Welcome extends AppCompatActivity {
 
+    /**
+     * TODO tukar poin volunteer (ke produk mitra)
+     * TODO riwayat penukaran voucher di volunteer
+     * TODO verifikasi voucher di volunteer
+     * TODO tambah produk mitra
+     * TODO pencarian ID/Kode sampah milik volunteer di bank sampah
+     * TODO riwayat penukaran voucher di mitra
+     * TODO jumlah voucher berkurang di mitra
+     *
+     */
+
     private static final String TAG = "Welcome_Page";
     public static final int WRITE_EXTERNAL = 001;
 
@@ -64,11 +75,6 @@ public class Welcome extends AppCompatActivity {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("id.ac.unej.ilkom.ods.buangin", 0);
                         if (pref.getBoolean("first_launch", true)) {
                             pref.edit().putBoolean("first_lauch", false).commit();
-//                            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                                ActivityCompat.requestPermissions(Welcome.this,
-//                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                                        WRITE_EXTERNAL);
-//                            }
                             startActivity(new Intent(Welcome.this, HalamanAwal.class));
                         } else {
                             if (user != null) {
@@ -80,7 +86,6 @@ public class Welcome extends AppCompatActivity {
                                             cekLevel(pen.getLevel());
                                         }
                                     }
-
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                         Toast.makeText(Welcome.this, "Gagal Login / Sesi Berakhir", Toast.LENGTH_LONG).show();
@@ -91,16 +96,11 @@ public class Welcome extends AppCompatActivity {
                             } else {
                                 startActivity(new Intent(getApplicationContext(), HalamanMasuk.class));
                             }
-;
                         }
                     }
                 }, 2000);
             }
         }, 1000);
-
-//        if (getIntent().getBooleanExtra("EXIT", false)) {
-//            Welcome.this.finish();
-//        }
     }
 
 
