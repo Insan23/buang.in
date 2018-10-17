@@ -118,13 +118,14 @@ public class DialogSampah extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Sampah tempSampah = new Sampah(kodeMD5, null, tglAwal, tglAkhir, uid, Sampah.VERIFIKASI_MENUNGGU, null);
-                dbRef.child("dataSampah").child(uid).push().setValue(tempSampah, new DatabaseReference.CompletionListener() {
+                dbRef.child("dataSampah").push().setValue(tempSampah, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         if (databaseError == null) {
                             String key = databaseReference.getKey();
                             StorageReference stor = FirebaseStorage.getInstance()
-                                    .getReference(uid)
+                                    .getReference("sampah_volunteer")
+                                    .child(uid)
                                     .child(key);
                             kirimDB(stor, imgUri, key, kodeMD5, tglAwal, tglAkhir, uid);
                         } else {
