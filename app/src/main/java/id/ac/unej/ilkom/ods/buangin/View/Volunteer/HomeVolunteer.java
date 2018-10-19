@@ -36,9 +36,6 @@ public class HomeVolunteer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener /*, HomeFragment.OnMenuClickListener*/ {
 
     public static String ACTIVE = "fragment_volunteer_aktif";
-    //    public static final int request = 1;
-    public static final int REQUEST_IMAGE_CAPTURE = 1;
-
 
     private BottomNavigationView nav_volunteer;
     private NavigationView navigationView;

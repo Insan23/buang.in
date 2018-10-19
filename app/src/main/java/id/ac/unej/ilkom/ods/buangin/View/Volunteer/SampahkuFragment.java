@@ -37,17 +37,14 @@ import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.Welcome;
 
 import static android.app.Activity.RESULT_OK;
-import static id.ac.unej.ilkom.ods.buangin.Welcome.WRITE_EXTERNAL;
+import static id.ac.unej.ilkom.ods.buangin.Util.Util.REQUEST_IMAGE_CAPTURE;
+import static id.ac.unej.ilkom.ods.buangin.Util.Util.WRITE_EXTERNAL;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SampahkuFragment extends Fragment {
 
-    //    private ImageButton buka_kamera;
-    private static final int req = 1;
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private static final int CAMERA_REQUEST = 1888;
     private FloatingActionButton buka_kamera;
     private ImageView img_hasil;
     String name = "";
@@ -74,7 +71,7 @@ public class SampahkuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 cekIzin();
-                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), HomeVolunteer.REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE);
 
             }
         });
@@ -85,7 +82,7 @@ public class SampahkuFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == HomeVolunteer.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Log.d("CAMERA : ", "SUCCESS");
             Bitmap thumb = (Bitmap) data.getExtras().get("data");
             Uri fotoURI = getImageUri(getContext(), thumb);

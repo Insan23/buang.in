@@ -34,6 +34,8 @@ import id.ac.unej.ilkom.ods.buangin.View.Mitra.HomeMitra;
 import id.ac.unej.ilkom.ods.buangin.View.Perusahaan.HomePerusahaan;
 import id.ac.unej.ilkom.ods.buangin.View.Volunteer.HomeVolunteer;
 
+import static id.ac.unej.ilkom.ods.buangin.Util.Util.WRITE_EXTERNAL;
+
 public class Welcome extends AppCompatActivity {
 
     /**
@@ -44,11 +46,12 @@ public class Welcome extends AppCompatActivity {
      * TODO pencarian ID/Kode sampah milik volunteer di bank sampah
      * TODO riwayat penukaran voucher di mitra
      * TODO jumlah voucher berkurang di mitra
+     * TODO fitur perusahaan request sampah kepada bank sampah dengan harga tersendiri
+     * TODO verifikasi per sampah di bank sampah (memilah sampah)
      *
      */
 
     private static final String TAG = "Welcome_Page";
-    public static final int WRITE_EXTERNAL = 001;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -107,22 +110,6 @@ public class Welcome extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case WRITE_EXTERNAL: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-        }
     }
 
     private void cekLevel(String level) {
