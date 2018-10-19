@@ -103,9 +103,6 @@ public class DialogSampah extends DialogFragment {
         tanggalAkhir = formatter.format(akhir);
 
         final String kodeMD5 = md5(tanggalAwal + tanggalAkhir + uid);
-        Log.d("DialogSampah", "Tanggal Awal: " + tanggalAwal);
-        Log.d("DialogSampah", "Tanggal Akhir: " + tanggalAkhir);
-        Log.d("DialogSampah", "Kode: " + kodeMD5);
 
         kode.setText(kodeMD5);
         tanggal.setText(tanggalAwal);
@@ -126,7 +123,8 @@ public class DialogSampah extends DialogFragment {
                             StorageReference stor = FirebaseStorage.getInstance()
                                     .getReference("sampah_volunteer")
                                     .child(uid)
-                                    .child(key);
+                                    .child(key)
+                                    .child(imgUri.getLastPathSegment());
                             kirimDB(stor, imgUri, key, kodeMD5, tglAwal, tglAkhir, uid);
                         } else {
                             Log.w(TAG, "Database Error: " + databaseError.getDetails());
@@ -174,11 +172,10 @@ public class DialogSampah extends DialogFragment {
                     String url = storageReference.getDownloadUrl().toString();
                     Log.d(TAG, "Download URL : " + url);
                     Sampah sampah = new Sampah(kode, url, tAwal, tAkhir, uid, Sampah.VERIFIKASI_MENUNGGU, null);
-//                    dbRef.child("dataSampah").child(key).setValue(sampah);
+                    dbRef.child("dataSampah").child(key).setValue(sampah);
                 } else {
-                    Toast.makeText(getContext(), "Gagal Mengupload Foto : " + task.getException(), Toast.LENGTH_LONG).show();;
-                    Log.w(TAG, "Image upload task was not successful.",
-                            task.getException());
+                    Toast.makeText(getContext(), "Gagal Mengupload Foto : " + task.getException(), Toast.LENGTH_LONG).show();
+                    Log.w(TAG, "Image upload task was not successful.", task.getException());
                 }
             }
         });
