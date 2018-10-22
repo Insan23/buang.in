@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +23,12 @@ import id.ac.unej.ilkom.ods.buangin.R;
  * A simple {@link Fragment} subclass.
  */
 public class TabVerifikasiFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private bs_verifikasi_adapter adapter;
     private List<bs_verifikasi_model> modelList;
-
+    private EditText cari_kode;
+    private Button cek;
 
     public TabVerifikasiFragment() {
         // Required empty public constructor
@@ -35,6 +40,22 @@ public class TabVerifikasiFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bank_sampah_tab_verifikasi, container, false);
+
+        cari_kode = (EditText) view.findViewById(R.id.input_kode);
+        cek = (Button) view.findViewById(R.id.btn_cek_kode);
+        cek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String stringKode = cari_kode.getText().toString().trim();
+
+                String str = "-LP3ugLU-XGy8RN_lLY-";
+                Toast.makeText(getContext(), stringKode, Toast.LENGTH_SHORT).show();
+//                mCallback.passData(stringKode);
+                DialogVerifikasi dialogVerifikasi = new DialogVerifikasi();
+                dialogVerifikasi.setKode(stringKode);
+                dialogVerifikasi.show(getChildFragmentManager(), "verifikasi");
+            }
+        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_verifikasi);
         modelList = new ArrayList<>();

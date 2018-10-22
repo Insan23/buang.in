@@ -1,1 +1,1 @@
-include ':app', ':adminbuang.in'
+include ':buangin', ':adminbuangin'
