@@ -1,6 +1,7 @@
 package id.ac.unej.ilkom.ods.buangin.Adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class v_daftarSampah_adapter extends RecyclerView.Adapter<v_daftarSampah_
         holder.tanggal.setText(model.getTanggal());
         holder.waktu.setText(model.getWaktu());
         holder.status.setText(model.getStatus());
-        holder.gambar.setImageResource(model.getGambar());
+        holder.gambar.setImageURI(Uri.parse(model.getGambar()));
     }
 
     @Override

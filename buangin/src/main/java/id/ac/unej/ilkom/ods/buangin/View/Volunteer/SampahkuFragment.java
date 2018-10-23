@@ -19,6 +19,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +28,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
+import id.ac.unej.ilkom.ods.buangin.Adapter.v_daftarSampah_adapter;
+import id.ac.unej.ilkom.ods.buangin.Model.Sampah;
+import id.ac.unej.ilkom.ods.buangin.Model.v_daftarSampah_model;
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.Welcome;
 
@@ -44,6 +62,20 @@ import static id.ac.unej.ilkom.ods.buangin.Util.Util.WRITE_EXTERNAL;
  * A simple {@link Fragment} subclass.
  */
 public class SampahkuFragment extends Fragment {
+
+    //    private ImageButton buka_kamera;
+    private static final int req = 1;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private static final int CAMERA_REQUEST = 1888;
+
+    private RecyclerView recyclerView;
+    private v_daftarSampah_adapter adapter;
+    private List<v_daftarSampah_model> modelList;
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+    private FirebaseDatabase database;
+    private DatabaseReference dbRef;
 
     private FloatingActionButton buka_kamera;
     private ImageView img_hasil;
@@ -63,6 +95,7 @@ public class SampahkuFragment extends Fragment {
         // Inflate the layout for this fragment
         ((HomeVolunteer) getActivity()).setActionBarTitle("Sampahku");
         View view = inflater.inflate(R.layout.fragment_volunteer_sampah, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_daftarMySampah);
 
         img_hasil = (ImageView) view.findViewById(R.id.img_scan);
         buka_kamera = (FloatingActionButton) view.findViewById(R.id.btn_sampah_buka_kamera);
@@ -76,7 +109,64 @@ public class SampahkuFragment extends Fragment {
             }
         });
 
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        dbRef = database.getReference("dataSampah").child(user.getUid());
+
+        modelList = new ArrayList<>();
+        adapter = new v_daftarSampah_adapter(getActivity(), modelList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        viewAllMySampah();
+
         return view;
+    }
+
+    private void viewAllMySampah() {
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        modelList.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    final Sampah sampah = dataSnapshot1.getValue(Sampah.class);
+                    String uid = sampah.getUidVolunteer();
+                    String dbrefnya = dataSnapshot1.getKey();
+                    System.out.println("kuncinya "+dbrefnya);
+                    StorageReference stor = FirebaseStorage.getInstance()
+                        .getReference(uid)
+                        .child(dbrefnya)
+                        ;
+                    stor.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            sampah.setUrlFoto(uri.toString());
+                        }
+                    });
+                    String tgl = sampah.getTanggalSubmit();
+                    String waktu = sampah.getTanggalBerakhir();
+                    String status = sampah.getStatusVerifikasi();
+                    String gambar = sampah.getUrlFoto();
+                    System.out.println("uid ku "+uid);
+                    System.out.println("kode sampa "+dbrefnya);
+                    System.out.println("tgl sub "+tgl);
+                    System.out.println("tgl akhir "+waktu);
+                    System.out.println("statusnya "+status);
+                    System.out.println("url gambare "+gambar);
+                    v_daftarSampah_model vm = new v_daftarSampah_model(tgl,waktu,status,"http://cdn2.tstatic.net/tribunnews/foto/bank/images/sampah-kemasan-plastik_20180425_211722.jpg");
+                    modelList.add(vm);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

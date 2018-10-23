@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "694168713709",
-    "firebase_url": "https://buang-in.firebaseio.com",
-    "project_id": "buang-in",
-    "storage_bucket": "buang-in.appspot.com"
+    "project_number": "1096613755096",
+    "firebase_url": "https://buangin-ods.firebaseio.com",
+    "project_id": "buangin-ods",
+    "storage_bucket": "buangin-ods.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:694168713709:android:e957bb8c60db219c",
+        "mobilesdk_app_id": "1:1096613755096:android:e957bb8c60db219c",
         "android_client_info": {
           "package_name": "id.ac.unej.ilkom.ods.buangin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "694168713709-m50it2nj7lsfrh9t1e8t2cq3vp4ck29v.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "id.ac.unej.ilkom.ods.buangin",
-            "certificate_hash": "40c5d2e80a896b769d0e87a90a834257834fc68b"
-          }
-        },
-        {
-          "client_id": "694168713709-opf9bvkep5er8arqek41kd11hc2funoc.apps.googleusercontent.com",
+          "client_id": "1096613755096-gsgr6ukvkd8prplq3nnfa0dmi5hvakus.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB3bT4vbfksmnebiDv1hSf2qelnMDio3JI"
+          "current_key": "AIzaSyCXwYfEQXzF8V3GzT736VQyUj2H4vhgxhQ"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "694168713709-opf9bvkep5er8arqek41kd11hc2funoc.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
