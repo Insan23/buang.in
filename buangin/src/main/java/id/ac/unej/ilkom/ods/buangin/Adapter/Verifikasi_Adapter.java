@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,15 +10,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.Verifikasi;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 
 public class Verifikasi_Adapter extends RecyclerView.Adapter<Verifikasi_Adapter.MyHolder> {
 
-    List<Verifikasi> list;
+    List<ModelSampah> list;
     Context context;
 
-    public Verifikasi_Adapter(List<Verifikasi> list, Context context) {
+    public Verifikasi_Adapter(List<ModelSampah> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -33,7 +33,7 @@ public class Verifikasi_Adapter extends RecyclerView.Adapter<Verifikasi_Adapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        Verifikasi model = list.get(position);
+        ModelSampah model = list.get(position);
         holder.kode.setText(model.getKodeSampah());
         holder.submit.setText(model.getTanggalSubmit());
         holder.poin.setText(model.getPoinSampah());

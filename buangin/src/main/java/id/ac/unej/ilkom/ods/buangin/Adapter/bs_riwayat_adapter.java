@@ -1,8 +1,7 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.bs_riwayat_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.bs_riwayat_model;
 
 public class bs_riwayat_adapter extends RecyclerView.Adapter<bs_riwayat_adapter.MyViewHolder> {
     private Context context;

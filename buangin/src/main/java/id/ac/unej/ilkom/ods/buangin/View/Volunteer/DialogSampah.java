@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.graphics.Bitmap;
@@ -21,9 +21,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -35,15 +37,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import id.ac.unej.ilkom.ods.buangin.Model.Sampah;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
+import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DialogSampah extends DialogFragment {
 
-    private static final String TAG = "Dialog Sampah";
+    private static final String TAG = "Dialog ModelSampah";
 
     private ImageView imgPreview;
     private TextView kode, tanggal;
@@ -53,6 +56,7 @@ public class DialogSampah extends DialogFragment {
     private FirebaseUser user;
     private DatabaseReference dbRef;
     private StorageReference stRef;
+    private String nama;
 
     private Bitmap img;
     private Uri imgUri;
@@ -102,7 +106,6 @@ public class DialogSampah extends DialogFragment {
 
         tanggalAkhir = formatter.format(akhir);
 
-        final String kodeMD5 = md5(tanggalAwal + tanggalAkhir + uid);
 
         SimpleDateFormat menit = new SimpleDateFormat("mm");
         SimpleDateFormat detik = new SimpleDateFormat("ss");
@@ -110,19 +113,34 @@ public class DialogSampah extends DialogFragment {
         String strDetik = detik.format(new Date());
         String strUID = uid.substring(0, 3);
 
-        final String stringKode = strUID + strMenit + strDetik;
+        final String stringKode = md5(strUID + strMenit + strDetik);
 
-        kode.setText(kodeMD5);
+        kode.setText(stringKode);
         tanggal.setText(tanggalAwal);
         imgPreview.setImageBitmap(img);
 
         final String tglAwal = tanggalAwal;
         final String tglAkhir = tanggalAkhir;
+        dbRef.child("Pengguna").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Pengguna pen = child.getValue(Pengguna.class);
+                    nama = pen.getNama();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         kirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sampah tempSampah = new Sampah(kodeMD5, null, tglAwal, tglAkhir, uid, Sampah.VERIFIKASI_MENUNGGU, null);
+                //(String kodeSampah, String uidVolunteer, String namaVolunteer, String uidBank, String urlFoto, String jenisSampah, String poinSampah, String tanggalSubmit, String tanggalAkhir, String hargaSampah, String beratSampah, String statusVerifikasi)
+                ModelSampah tempSampah = new ModelSampah(stringKode, uid, nama, null, null, null, "0", tglAwal, tglAkhir, null, null, ModelSampah.VERIFIKASI_MENUNGGU);
                 dbRef.child("dataSampah").child(stringKode).setValue(tempSampah, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
@@ -133,7 +151,7 @@ public class DialogSampah extends DialogFragment {
                                     .child(uid)
                                     .child(key)
                                     .child(imgUri.getLastPathSegment());
-                            kirimDB(stor, imgUri, key, kodeMD5, tglAwal, tglAkhir, uid);
+                            kirimDB(stor, imgUri, key, stringKode, tglAwal, tglAkhir, uid);
                         } else {
                             Log.w(TAG, "Database Error: " + databaseError.getDetails());
                         }
@@ -179,7 +197,7 @@ public class DialogSampah extends DialogFragment {
                 if (task.isSuccessful()) {
                     String url = storageReference.getDownloadUrl().toString();
                     Log.d(TAG, "Download URL : " + url);
-                    Sampah sampah = new Sampah(kode, url, tAwal, tAkhir, uid, Sampah.VERIFIKASI_MENUNGGU, null);
+                    ModelSampah sampah = new ModelSampah(kode, uid, nama, null, url, null, "0", tAwal, tAkhir, null, null, ModelSampah.VERIFIKASI_MENUNGGU);
                     dbRef.child("dataSampah").child(key).setValue(sampah);
                 } else {
                     Toast.makeText(getContext(), "Gagal Mengupload Foto : " + task.getException(), Toast.LENGTH_LONG).show();

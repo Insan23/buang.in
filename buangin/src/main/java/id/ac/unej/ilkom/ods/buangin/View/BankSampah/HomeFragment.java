@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.BankSampah;
+package id.ac.unej.ilkom.ods.buangin.view.BankSampah;
 
 
 import android.os.Bundle;

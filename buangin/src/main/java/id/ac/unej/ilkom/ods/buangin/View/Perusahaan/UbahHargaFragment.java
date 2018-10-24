@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Perusahaan;
+package id.ac.unej.ilkom.ods.buangin.view.Perusahaan;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.TabAdapter;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.TabAdapter;
 
 public class UbahHargaFragment extends Fragment {
 

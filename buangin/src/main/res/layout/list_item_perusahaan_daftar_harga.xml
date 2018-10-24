@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/teks_alamat"
         android:layout_toRightOf="@id/img_perusahaan"
-        android:text="Harga Barang / Kg\t: "/>
+        android:text="Harga Barang / Kg\t: " />
 
     <TextView
         android:id="@+id/alamat"

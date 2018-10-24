@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.bs_daftarPerusahaan_model;
-import id.ac.unej.ilkom.ods.buangin.Model.m_daftarVoucher_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.bs_daftarPerusahaan_model;
 
 public class bs_daftarPerusahaan_adapter extends RecyclerView.Adapter<bs_daftarPerusahaan_adapter.MyViewHolder> {
     private Context context;

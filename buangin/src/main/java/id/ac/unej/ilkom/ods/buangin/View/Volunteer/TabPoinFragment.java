@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.os.Bundle;
@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.v_poin_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.v_poin_model;
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.Adapter.rv_poin_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.cv_poin_model;
+import id.ac.unej.ilkom.ods.buangin.adapter.v_poin_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.v_poin_model;
 
 /**
  * A simple {@link Fragment} subclass.

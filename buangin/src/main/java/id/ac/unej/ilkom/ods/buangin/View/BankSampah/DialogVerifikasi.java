@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.BankSampah;
+package id.ac.unej.ilkom.ods.buangin.view.BankSampah;
 
 
 import android.app.AlertDialog;
@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.Verifikasi;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,11 +70,11 @@ public class DialogVerifikasi extends DialogFragment {
 
 //    private static final String[] jenis = {"botol plastik", "kertas", "jenis lain"};
 
-    public void setKode(String kode) {
-        this.kode = kode;
+    public DialogVerifikasi() {
     }
 
-    public DialogVerifikasi() {
+    public void setKode(String kode) {
+        this.kode = kode;
     }
 
     @Nullable
@@ -131,74 +131,63 @@ public class DialogVerifikasi extends DialogFragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Verifikasi model = dataSnapshot.getValue(Verifikasi.class);
+                ModelSampah model = dataSnapshot.getValue(ModelSampah.class);
                 final String stringStatus = model.getStatusVerifikasi();
                 final String stringUID = model.getUidVolunteer();
+                String stringNama = model.getNamaVolunteer();
+                pemilik.setText(stringNama);
 
                 id_sampah.setText(kode);
                 status.setText(stringStatus);
-                databaseReference = firebaseDatabase.getReference("pengguna").child(stringUID);
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            Verifikasi verifikasi = dataSnapshot1.getValue(Verifikasi.class);
-                            String stringNama = verifikasi.getNama();
-//                            String stringPoin = verifikasi.getUidVolunteer();
-                            pemilik.setText(stringNama);
-                            System.out.println("sampah nama : " + stringNama);
-                            System.out.println("sampah kode : " + kode);
-                            System.out.println("sampah status : " + stringStatus);
-                            System.out.println("sampah UID : " + stringUID);
 
-                            cekHarga.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    String jenis_sampah = String.valueOf(jenisSampah.getSelectedItem());
-                                    final String stringHargaSampah = harga.getText().toString().trim();
-                                    final String stringBeratSampah = berat.getText().toString().trim();
+                cekHarga.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String jenis_sampah = String.valueOf(jenisSampah.getSelectedItem());
+                        final String stringHargaSampah = harga.getText().toString().trim();
+                        final String stringBeratSampah = berat.getText().toString().trim();
 //                                    final double doubleBeratSampah = Double.valueOf(stringBeratSampah);
 
-                                    hargaBotolPlastik = 3600;
-                                    hargaKertas = 950;
-                                    poinBotolPlastik = hargaBotolPlastik / 100;
-                                    poinKertas = hargaKertas / 100;
-                                    if (jenis_sampah.equalsIgnoreCase("botol plastik")) {
-                                        totalPoin = poinBotolPlastik;
-                                        hargaSampah = totalPoin * 100;
+                        hargaBotolPlastik = 3600;
+                        hargaKertas = 950;
+                        poinBotolPlastik = hargaBotolPlastik / 100;
+                        poinKertas = hargaKertas / 100;
+                        if (jenis_sampah.equalsIgnoreCase("botol plastik")) {
+                            totalPoin = poinBotolPlastik;
+                            hargaSampah = totalPoin * 100;
 
-                                        Toast.makeText(getContext(), "jenis sampah : " + jenis_sampah + ", getSampah " + sampah.getText().toString().trim(), Toast.LENGTH_SHORT).show();
-                                        poin.setText(String.valueOf(totalPoin * Double.valueOf(stringBeratSampah)) + " poin");
-                                        sampah.setText(jenis_sampah);
+                            Toast.makeText(getContext(), "jenis sampah : " + jenis_sampah + ", getSampah " + sampah.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+                            poin.setText(String.valueOf(totalPoin * Double.valueOf(stringBeratSampah)) + " poin");
+                            sampah.setText(jenis_sampah);
 
-                                        sampah.setEnabled(false);
-                                        harga.setEnabled(false);
+                            sampah.setEnabled(false);
+                            harga.setEnabled(false);
 
-                                        textHarga.setText("Rp. " + String.valueOf(hargaSampah * Double.valueOf(stringBeratSampah)));
-                                        harga.setText(String.valueOf(hargaSampah));
-                                    } else if (jenis_sampah.equalsIgnoreCase("kertas")) {
-                                        totalPoin = poinKertas;
-                                        hargaSampah = totalPoin * 100;
+                            textHarga.setText("Rp. " + String.valueOf(hargaSampah * Double.valueOf(stringBeratSampah)));
+                            harga.setText(String.valueOf(hargaSampah));
+                        } else if (jenis_sampah.equalsIgnoreCase("kertas")) {
+                            totalPoin = poinKertas;
+                            hargaSampah = totalPoin * 100;
 
-                                        sampah.setEnabled(false);
-                                        harga.setEnabled(false);
+                            sampah.setEnabled(false);
+                            harga.setEnabled(false);
 
-                                        Toast.makeText(getContext(), "jenis sampah : " + jenis_sampah + ", getSampah " + sampah.getText().toString().trim(), Toast.LENGTH_SHORT).show();
-                                        textHarga.setText("Rp. " + String.valueOf(hargaSampah * Double.valueOf(stringBeratSampah)));
-                                        poin.setText(String.valueOf(totalPoin * Double.valueOf(stringBeratSampah)) + " poin");
-                                        sampah.setText(jenis_sampah);
-                                        harga.setText(String.valueOf(hargaSampah));
-                                    } else if (jenis_sampah.equalsIgnoreCase("jenis lain")) {
-                                        sampah.setEnabled(true);
-                                        harga.setEnabled(true);
+                            Toast.makeText(getContext(), "jenis sampah : " + jenis_sampah + ", getSampah " + sampah.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+                            textHarga.setText("Rp. " + String.valueOf(hargaSampah * Double.valueOf(stringBeratSampah)));
+                            poin.setText(String.valueOf(totalPoin * Double.valueOf(stringBeratSampah)) + " poin");
+                            sampah.setText(jenis_sampah);
+                            harga.setText(String.valueOf(hargaSampah));
+                        } else if (jenis_sampah.equalsIgnoreCase("jenis lain")) {
+                            sampah.setEnabled(true);
+                            harga.setEnabled(true);
 
-                                        Toast.makeText(getContext(), "jenis sampah : " + jenis_sampah + ", getSampah " + sampah.getText().toString().trim(), Toast.LENGTH_SHORT).show();
-                                        textHarga.setText("Rp. " + String.valueOf(hargaSampah * Double.valueOf(stringBeratSampah)));
-                                        Double doubleHargaSampah = Double.valueOf(stringHargaSampah);
-                                        totalPoin = doubleHargaSampah / 100;
-                                        hargaSampah = totalPoin * 100;
-                                        poin.setText(String.valueOf(totalPoin * Double.valueOf(stringBeratSampah)) + " poin");
-                                    }
+                            Toast.makeText(getContext(), "jenis sampah : " + jenis_sampah + ", getSampah " + sampah.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+                            textHarga.setText("Rp. " + String.valueOf(hargaSampah * Double.valueOf(stringBeratSampah)));
+                            Double doubleHargaSampah = Double.valueOf(stringHargaSampah);
+                            totalPoin = doubleHargaSampah / 100;
+                            hargaSampah = totalPoin * 100;
+                            poin.setText(String.valueOf(totalPoin * Double.valueOf(stringBeratSampah)) + " poin");
+                        }
 
 //                                    final double finalHargaSampah = hargaSampah;
 //                                    finalTotalPoin = totalPoin;
@@ -207,102 +196,104 @@ public class DialogVerifikasi extends DialogFragment {
 //                                            ", beratSampah : " + Double.parseDouble(stringBeratSampah) +
 //                                            ", hargaSampah : " + finalHargaSampah, Toast.LENGTH_LONG).show();
 
-                                    terima.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Boolean bolehVerifikasi = true;
-                                            String stringBerat = berat.getText().toString().trim();
-                                            String stringJenisSampah = sampah.getText().toString().trim();
-                                            String stringHargaSampah = harga.getText().toString().trim();
-                                            Double doubleHarga = Double.valueOf(stringHargaSampah);
-                                            Double doublePoinSampah = doubleHarga / 100;
-                                            Double dooubleTotalHarga = doubleHarga * Double.valueOf(stringBerat);
-                                            Double doubleTotalPoin = (Double.valueOf(doubleHarga) / 100) * Double.valueOf(stringBerat);
+                        terima.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Boolean bolehVerifikasi = true;
+                                String stringBerat = berat.getText().toString().trim();
+                                String stringJenisSampah = sampah.getText().toString().trim();
+                                String stringHargaSampah = harga.getText().toString().trim();
+                                Double doubleHarga = Double.valueOf(stringHargaSampah);
+                                Double doublePoinSampah = doubleHarga / 100;
+                                Double dooubleTotalHarga = doubleHarga * Double.valueOf(stringBerat);
+                                Double doubleTotalPoin = (Double.valueOf(doubleHarga) / 100) * Double.valueOf(stringBerat);
 
-                                            String stringVerifikasi = "Sudah diverifikasi";
-                                            String stringBatalverifikasi = "belum diverifikasi";
-                                            if (sampah.getText().toString().trim().isEmpty()) {
-                                                sampah.requestFocus();
-                                                bolehVerifikasi = false;
-                                                Toast.makeText(getContext(), "Masukkan jenis sampah", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                bolehVerifikasi = true;
-                                            }
-                                            if (harga.getText().toString().trim().isEmpty() || harga.getText().toString().trim().equalsIgnoreCase("0")) {
-                                                harga.requestFocus();
-                                                bolehVerifikasi = false;
-                                                Toast.makeText(getContext(), "Masukkan harga sampah", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                bolehVerifikasi = true;
-                                            }
-                                            if (berat.getText().toString().trim().isEmpty() || berat.getText().toString().trim().equalsIgnoreCase("0")) {
-                                                berat.requestFocus();
-                                                bolehVerifikasi = false;
-                                                Toast.makeText(getContext(), "Masukkan berat sampah", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                bolehVerifikasi = true;
-                                            }
-                                            if (stringStatus.equalsIgnoreCase(stringVerifikasi)) {
-                                                bolehVerifikasi = false;
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                                                        .setCancelable(false)
-                                                        .setTitle("Gagal Verifikasi")
-                                                        .setMessage("Maaf data sampah dengan kode " + kode + "sudah diverifikasi")
-                                                        .setPositiveButton("Tutup", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                dialog.cancel();
-                                                            }
-                                                        });
-                                                AlertDialog alertDialog = builder.create();
-                                                alertDialog.show();
-                                            } else {
-                                                bolehVerifikasi = true;
-                                            }
-
-                                            if (bolehVerifikasi) {
-                                                SimpleDateFormat data = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-                                                String stringTanggalSubmit = data.format(new Date());
-                                                if (stringBerat.isEmpty()) {
-                                                    berat.requestFocus();
-                                                    berat.setError("Masukan berat sampah terlebih dahulu");
-                                                } else {
-                                                    firebaseDatabase.getReference("dataSampah").child(kode).child("jenisSampah").setValue(stringJenisSampah);
-                                                    firebaseDatabase.getReference("dataSampah").child(kode).child("statusVerifikasi").setValue(stringVerifikasi);
-                                                    firebaseDatabase.getReference("dataSampah").child(kode).child("beratSampah").setValue(stringBerat);
-                                                    firebaseDatabase.getReference("dataSampah").child(kode).child("poinSampah").setValue(String.valueOf(doubleTotalPoin));
-                                                    firebaseDatabase.getReference("dataSampah").child(kode).child("tanggalSubmit").setValue(stringTanggalSubmit);
-                                                    firebaseDatabase.getReference("dataSampah").child(kode).child("hargaSampah").setValue(String.valueOf(dooubleTotalHarga));
-
-                                                    Toast.makeText(getContext(), "jenis : " + stringJenisSampah +
-                                                                    ", berat : " + stringBerat + ", poin : " + String.valueOf(doubleTotalPoin) +
-                                                                    ", harga : " + String.valueOf(dooubleTotalHarga)
-                                                            , Toast.LENGTH_LONG).show();
-
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                                                            .setCancelable(false)
-                                                            .setTitle("Sukses Verifikasi")
-                                                            .setMessage("Terima kasih, data sampah dengan kode " + kode + " telah berhasil diverifikasi")
-                                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    dialog.cancel();
-                                                                }
-                                                            });
-                                                    AlertDialog alertDialog = builder.create();
-                                                    alertDialog.show();
-                                                    dismiss();
+                                String stringVerifikasi = "Sudah diverifikasi";
+                                String stringBatalverifikasi = "belum diverifikasi";
+                                if (sampah.getText().toString().trim().isEmpty()) {
+                                    sampah.requestFocus();
+                                    bolehVerifikasi = false;
+                                    Toast.makeText(getContext(), "Masukkan jenis sampah", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    bolehVerifikasi = true;
+                                }
+                                if (harga.getText().toString().trim().isEmpty() || harga.getText().toString().trim().equalsIgnoreCase("0")) {
+                                    harga.requestFocus();
+                                    bolehVerifikasi = false;
+                                    Toast.makeText(getContext(), "Masukkan harga sampah", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    bolehVerifikasi = true;
+                                }
+                                if (berat.getText().toString().trim().isEmpty() || berat.getText().toString().trim().equalsIgnoreCase("0")) {
+                                    berat.requestFocus();
+                                    bolehVerifikasi = false;
+                                    Toast.makeText(getContext(), "Masukkan berat sampah", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    bolehVerifikasi = true;
+                                }
+                                if (stringStatus.equalsIgnoreCase(stringVerifikasi)) {
+                                    bolehVerifikasi = false;
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                                            .setCancelable(false)
+                                            .setTitle("Gagal Verifikasi")
+                                            .setMessage("Maaf data sampah dengan kode " + kode + "sudah diverifikasi")
+                                            .setPositiveButton("Tutup", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.cancel();
                                                 }
-                                            }
-                                        }
-                                    });
+                                            });
+                                    AlertDialog alertDialog = builder.create();
+                                    alertDialog.show();
+                                } else {
+                                    bolehVerifikasi = true;
+                                }
 
-                                    tolak.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dismiss();
-                                        }
-                                    });
+                                if (bolehVerifikasi) {
+                                    SimpleDateFormat data = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+                                    String stringTanggalSubmit = data.format(new Date());
+                                    if (stringBerat.isEmpty()) {
+                                        berat.requestFocus();
+                                        berat.setError("Masukan berat sampah terlebih dahulu");
+                                    } else {
+                                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("jenisSampah").setValue(stringJenisSampah);
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("statusVerifikasi").setValue(ModelSampah.VERIFIKASI_DITERIMA);
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("idBank").setValue(uid);
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("beratSampah").setValue(stringBerat);
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("poinSampah").setValue(String.valueOf(doubleTotalPoin));
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("tanggalSubmit").setValue(stringTanggalSubmit);
+                                        firebaseDatabase.getReference("dataSampah").child(kode).child("hargaSampah").setValue(String.valueOf(dooubleTotalHarga));
+
+                                        Toast.makeText(getContext(), "jenis : " + stringJenisSampah +
+                                                        ", berat : " + stringBerat + ", poin : " + String.valueOf(doubleTotalPoin) +
+                                                        ", harga : " + String.valueOf(dooubleTotalHarga)
+                                                , Toast.LENGTH_LONG).show();
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                                                .setCancelable(false)
+                                                .setTitle("Sukses Verifikasi")
+                                                .setMessage("Terima kasih, data sampah dengan kode " + kode + " telah berhasil diverifikasi")
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                        AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
+                                        dismiss();
+                                    }
+                                }
+                            }
+                        });
+
+                        tolak.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dismiss();
+                            }
+                        });
 
 //                                    cekHarga.setOnClickListener(new View.OnClickListener() {
 //                                        @Override
@@ -339,8 +330,8 @@ public class DialogVerifikasi extends DialogFragment {
 //                                            }
 //                                        }
 //                                    });
-                                }
-                            });
+                    }
+                });
 
 //                            if (stringStatus.equalsIgnoreCase("sudah diverifikasi")) {
 //                                terima.setEnabled(false);
@@ -368,14 +359,6 @@ public class DialogVerifikasi extends DialogFragment {
 //
 //                                }
 //                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
             }
 
             @Override

@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.BankSampah;
+package id.ac.unej.ilkom.ods.buangin.view.BankSampah;
 
 
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.bs_daftarPerusahaan_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.bs_daftarPerusahaan_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.bs_daftarPerusahaan_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.bs_daftarPerusahaan_model;
 
 /**
  * A simple {@link Fragment} subclass.

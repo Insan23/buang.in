@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/style_gradasi_1"
-    tools:context=".View.HalamanMasuk">
+    tools:context=".view.HalamanMasuk">
 
     <ImageView
         android:id="@+id/img_logo"

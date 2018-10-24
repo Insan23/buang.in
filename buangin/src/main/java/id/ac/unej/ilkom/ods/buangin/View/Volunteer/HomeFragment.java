@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.content.Context;
@@ -9,14 +9,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import id.ac.unej.ilkom.ods.buangin.Adapter.DaftarMenuAdapter;
-import id.ac.unej.ilkom.ods.buangin.Model.DaftarMenu;
 import id.ac.unej.ilkom.ods.buangin.R;
 
 /**
@@ -83,7 +76,7 @@ public class HomeFragment extends Fragment {
 //        List<DaftarMenu> menu = new ArrayList<>();
 //        menu.add(new DaftarMenu(0, "Sampahku", R.drawable.ic_delete_black_24dp));
 //        menu.add(new DaftarMenu(1, "Info Poin", R.drawable.ic_attach_money_black_24dp));
-//        menu.add(new DaftarMenu(2, "Bank Sampah", R.drawable.ic_history_black_24dp));
+//        menu.add(new DaftarMenu(2, "Bank ModelSampah", R.drawable.ic_history_black_24dp));
 //
 //        DaftarMenuAdapter adapter = new DaftarMenuAdapter(getActivity(), menu);
 //        listMenu.setAdapter(adapter);

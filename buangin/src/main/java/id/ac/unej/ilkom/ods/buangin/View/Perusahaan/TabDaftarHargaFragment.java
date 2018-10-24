@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Perusahaan;
+package id.ac.unej.ilkom.ods.buangin.view.Perusahaan;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.p_ubahHarga_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.p_ubahHarga_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.p_ubahHarga_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.p_ubahHarga_model;
 
 public class TabDaftarHargaFragment extends Fragment {
     private RecyclerView recyclerView;

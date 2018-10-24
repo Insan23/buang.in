@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.VoucherAdapter;
-import id.ac.unej.ilkom.ods.buangin.Model.Voucher;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.VoucherAdapter;
+import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +25,7 @@ public class TabVoucherFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private VoucherAdapter adapter;
-    private List<Voucher> modelList;
+    private List<ModelVoucher> modelList;
 
     public TabVoucherFragment() {
         // Required empty public constructor

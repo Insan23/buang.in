@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.BankSampah;
+package id.ac.unej.ilkom.ods.buangin.view.BankSampah;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -27,10 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.Verifikasi_Adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.Verifikasi;
-import id.ac.unej.ilkom.ods.buangin.Model.bs_verifikasi_model_2;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.Verifikasi_Adapter;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
+import id.ac.unej.ilkom.ods.buangin.model.bs_verifikasi_model_2;
 
 public class Verifikasi_Fragment_2 extends Fragment {
 
@@ -46,7 +46,7 @@ public class Verifikasi_Fragment_2 extends Fragment {
     private bs_verifikasi_model_2 verifikasi_model;
 
     private Verifikasi_Adapter adapter;
-    private List<Verifikasi> list;
+    private List<ModelSampah> list;
     private RecyclerView recyclerView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class Verifikasi_Fragment_2 extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        String UID = firebaseUser.getUid();
+        final String UID = firebaseUser.getUid();
 
         fDat = FirebaseDatabase.getInstance();
         dRef = fDat.getReference("pengguna").child(UID);
@@ -138,47 +138,19 @@ public class Verifikasi_Fragment_2 extends Fragment {
             }
         });
 
-        adapter = new Verifikasi_Adapter(list, getActivity());
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("dataSampah");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<Verifikasi>();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Verifikasi verifikasi = dataSnapshot1.getValue(Verifikasi.class);
-                    Verifikasi model = new Verifikasi();
-                    String kode = verifikasi.getKodeSampah();
-                    String submit = verifikasi.getTanggalSubmit();
-                    String poin = verifikasi.getPoinSampah();
-                    String harga = verifikasi.getHargaSampah();
-                    String status = verifikasi.getStatusVerifikasi();
-                    String berat = verifikasi.getBeratSampah();
-                    String jenis = verifikasi.getJenisSampah();
-//                    model.setBeratSampah(berat);
-//                    model.setHargaSampah(harga);
-//                    model.setJenisSampah(jenis);
-//                    model.setKodeSampah(kode);
-//                    model.setPoinSampah(poin);
-//                    model.setStatusVerifikasi(status);
-//                    model.setTanggalSubmit(submit);
+                list = new ArrayList<ModelSampah>();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    ModelSampah verifikasi = data.getValue(ModelSampah.class);
+                    if ((verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITERIMA) || verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITOLAK)) && verifikasi.getUidBank().equals(UID)) {
+                        list.add(verifikasi);
+                    } else {
 
-                    Verifikasi verifikasi1_model = new Verifikasi(kode, null, null, jenis, poin + " poin", submit, "Rp. " + harga, berat + " Kg", status);
-                    list.add(verifikasi1_model);
-
-                    System.out.println("verifikasi kode : " + kode);
-                    System.out.println("verifikasi submit : " + submit);
-                    System.out.println("verifikasi poin : " + poin);
-                    System.out.println("verifikasi harga : " + harga);
-                    System.out.println("verifikasi status : " + status);
-                    System.out.println("verifikasi berat : " + berat);
-                    System.out.println("verifikasi jenis : " + jenis);
-
+                    }
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -188,6 +160,12 @@ public class Verifikasi_Fragment_2 extends Fragment {
                 Log.w("Hello", "Database error : ", databaseError.toException());
             }
         });
+
+        adapter = new Verifikasi_Adapter(list, getActivity());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
         return view;
     }
 }

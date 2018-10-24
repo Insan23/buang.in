@@ -1,10 +1,9 @@
-package id.ac.unej.ilkom.ods.buangin.View.Mitra;
+package id.ac.unej.ilkom.ods.buangin.view.Mitra;
 
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,12 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.VoucherAdapter;
-import id.ac.unej.ilkom.ods.buangin.Adapter.m_daftarVoucher_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.Voucher;
-import id.ac.unej.ilkom.ods.buangin.Model.m_daftarVoucher_model;
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.Util.Util;
+import id.ac.unej.ilkom.ods.buangin.adapter.VoucherAdapter;
+import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
+import id.ac.unej.ilkom.ods.buangin.util.Util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,10 +35,10 @@ public class TabDaftarVoucherFragment extends Fragment {
 
     private static final String TAG = TabDaftarVoucherFragment.class.getSimpleName();
 
-    private List<Voucher> listVoucher;
+    private List<ModelVoucher> listVoucher;
     private RecyclerView recyclerView;
     private TextView listKosong;
-    private Voucher voucher;
+    private ModelVoucher voucher;
 
     private DatabaseReference dbRef;
     private FirebaseAuth auth;
@@ -53,7 +50,7 @@ public class TabDaftarVoucherFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((HomeMitra) getActivity()).setActionBarTitle("Daftar Voucher");
+        ((HomeMitra) getActivity()).setActionBarTitle("Daftar ModelVoucher");
         View view = inflater.inflate(R.layout.fragment_mitra_tab_daftar_voucher, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_daftarVoucher);
@@ -66,7 +63,7 @@ public class TabDaftarVoucherFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        Voucher perVoucher = data.getValue(Voucher.class);
+                        ModelVoucher perVoucher = data.getValue(ModelVoucher.class);
                         listVoucher.add(perVoucher);
                     }
                     recyclerView.setVisibility(View.VISIBLE);

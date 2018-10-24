@@ -1,32 +1,28 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.Voucher;
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.Util.Util;
+import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
 
 public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.MyViewHolder> {
     private Context context;
-    private List<Voucher> list;
+    private List<ModelVoucher> list;
 
+
+    public VoucherAdapter(Context context, List<ModelVoucher> list) {
+        this.context = context;
+        this.list = list;
+    }
 
     @NonNull
     @Override
@@ -37,7 +33,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
-        Voucher model = list.get(position);
+        ModelVoucher model = list.get(position);
 //        if (model != null) {
 //
 //        }
@@ -81,10 +77,5 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.MyViewHo
             judul = (TextView) itemView.findViewById(R.id.judul_voucher);
             harga = (TextView) itemView.findViewById(R.id.harga_voucher);
         }
-    }
-
-    public VoucherAdapter(Context context, List<Voucher> list) {
-        this.context = context;
-        this.list = list;
     }
 }

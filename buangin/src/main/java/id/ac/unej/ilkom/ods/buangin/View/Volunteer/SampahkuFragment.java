@@ -1,13 +1,11 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,23 +37,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.v_daftarSampah_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.Sampah;
-import id.ac.unej.ilkom.ods.buangin.Model.v_daftarSampah_model;
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.Welcome;
+import id.ac.unej.ilkom.ods.buangin.adapter.v_daftarSampah_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
+import id.ac.unej.ilkom.ods.buangin.model.v_daftarSampah_model;
 
 import static android.app.Activity.RESULT_OK;
-import static id.ac.unej.ilkom.ods.buangin.Util.Util.REQUEST_IMAGE_CAPTURE;
-import static id.ac.unej.ilkom.ods.buangin.Util.Util.WRITE_EXTERNAL;
+import static id.ac.unej.ilkom.ods.buangin.util.Util.REQUEST_IMAGE_CAPTURE;
+import static id.ac.unej.ilkom.ods.buangin.util.Util.WRITE_EXTERNAL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,20 +58,16 @@ public class SampahkuFragment extends Fragment {
     private static final int req = 1;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int CAMERA_REQUEST = 1888;
-
+    String name = "";
     private RecyclerView recyclerView;
     private v_daftarSampah_adapter adapter;
     private List<v_daftarSampah_model> modelList;
-
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
-
     private FloatingActionButton buka_kamera;
     private ImageView img_hasil;
-    String name = "";
-
     private TabVoucherFragment voucherFragment;
     private TabPoinFragment poinFragment;
 
@@ -131,14 +118,13 @@ public class SampahkuFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 modelList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    final Sampah sampah = dataSnapshot1.getValue(Sampah.class);
+                    final ModelSampah sampah = dataSnapshot1.getValue(ModelSampah.class);
                     String uid = sampah.getUidVolunteer();
                     String dbrefnya = dataSnapshot1.getKey();
-                    System.out.println("kuncinya "+dbrefnya);
+                    System.out.println("kuncinya " + dbrefnya);
                     StorageReference stor = FirebaseStorage.getInstance()
                             .getReference(uid)
-                            .child(dbrefnya)
-                            ;
+                            .child(dbrefnya);
                     stor.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -149,13 +135,13 @@ public class SampahkuFragment extends Fragment {
                     String waktu = sampah.getTanggalBerakhir();
                     String status = sampah.getStatusVerifikasi();
                     String gambar = sampah.getUrlFoto();
-                    System.out.println("uid ku "+uid);
-                    System.out.println("kode sampa "+dbrefnya);
-                    System.out.println("tgl sub "+tgl);
-                    System.out.println("tgl akhir "+waktu);
-                    System.out.println("statusnya "+status);
-                    System.out.println("url gambare "+gambar);
-                    v_daftarSampah_model vm = new v_daftarSampah_model(tgl,waktu,status,"http://cdn2.tstatic.net/tribunnews/foto/bank/images/sampah-kemasan-plastik_20180425_211722.jpg");
+                    System.out.println("uid ku " + uid);
+                    System.out.println("kode sampa " + dbrefnya);
+                    System.out.println("tgl sub " + tgl);
+                    System.out.println("tgl akhir " + waktu);
+                    System.out.println("statusnya " + status);
+                    System.out.println("url gambare " + gambar);
+                    v_daftarSampah_model vm = new v_daftarSampah_model(tgl, waktu, status, "http://cdn2.tstatic.net/tribunnews/foto/bank/images/sampah-kemasan-plastik_20180425_211722.jpg");
                     modelList.add(vm);
                 }
                 adapter.notifyDataSetChanged();
@@ -181,7 +167,7 @@ public class SampahkuFragment extends Fragment {
 
             dialog.setImg(thumb);
             dialog.setImgUri(fotoURI);
-            dialog.show(getChildFragmentManager(), "Konfirmasi Sampah");
+            dialog.show(getChildFragmentManager(), "Konfirmasi ModelSampah");
             Toast.makeText(getContext(), "sukses", Toast.LENGTH_LONG).show();
         }
     }

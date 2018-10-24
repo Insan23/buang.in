@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    tools:context=".View.Volunteer.SampahkuFragment">
+    tools:context=".view.Volunteer.SampahkuFragment">
 
     <TextView
         android:id="@+id/text_scan"
@@ -23,8 +22,8 @@
         android:layout_below="@id/text_scan"
         android:layout_marginTop="10dp"
         android:scaleType="fitCenter"
-        android:tint="@color/warnaGelap"
-        android:src="@drawable/ic_camera" />
+        android:src="@drawable/ic_camera"
+        android:tint="@color/warnaGelap" />
 
     <ScrollView
         android:layout_width="match_parent"

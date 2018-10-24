@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,14 +10,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.v_poin_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.v_poin_model;
 
 public class v_poin_adapter extends RecyclerView.Adapter<v_poin_adapter.MyViewHolder> {
 
     private Context context;
     private List<v_poin_model> modelList;
 
+
+    public v_poin_adapter(Context context, List<v_poin_model> modelList) {
+        this.context = context;
+        this.modelList = modelList;
+    }
 
     @NonNull
     @Override
@@ -48,10 +53,5 @@ public class v_poin_adapter extends RecyclerView.Adapter<v_poin_adapter.MyViewHo
             poin = (TextView) itemView.findViewById(R.id.volunteer_poin_poin);
             berat = (TextView) itemView.findViewById(R.id.volunteer_poin_beratSampah);
         }
-    }
-
-    public v_poin_adapter(Context context, List<v_poin_model> modelList) {
-        this.context = context;
-        this.modelList = modelList;
     }
 }

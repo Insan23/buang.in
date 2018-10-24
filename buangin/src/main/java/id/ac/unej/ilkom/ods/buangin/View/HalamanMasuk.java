@@ -1,16 +1,16 @@
-package id.ac.unej.ilkom.ods.buangin.View;
+package id.ac.unej.ilkom.ods.buangin.view;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,15 +29,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import id.ac.unej.ilkom.ods.buangin.Model.Pengguna;
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.View.BankSampah.HomeBankSampah;
-import id.ac.unej.ilkom.ods.buangin.View.BankSampah.VerifikasiFragment;
-import id.ac.unej.ilkom.ods.buangin.View.Mitra.HomeMitra;
-import id.ac.unej.ilkom.ods.buangin.View.Perusahaan.HomePerusahaan;
-import id.ac.unej.ilkom.ods.buangin.View.Volunteer.HomeFragment;
-import id.ac.unej.ilkom.ods.buangin.View.Volunteer.HomeVolunteer;
 import id.ac.unej.ilkom.ods.buangin.Welcome;
+import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
+import id.ac.unej.ilkom.ods.buangin.view.BankSampah.HomeBankSampah;
+import id.ac.unej.ilkom.ods.buangin.view.Mitra.HomeMitra;
+import id.ac.unej.ilkom.ods.buangin.view.Perusahaan.HomePerusahaan;
+import id.ac.unej.ilkom.ods.buangin.view.Volunteer.HomeVolunteer;
 
 public class HalamanMasuk extends AppCompatActivity {
 

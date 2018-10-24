@@ -15,7 +15,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_img_voucher"/>
+            android:src="@drawable/bg_img_voucher" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,10 +87,10 @@
                     android:text=":" />
 
                 <TextView
+                    android:id="@+id/perusahaan_alamat_ubahHarga"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/perusahaan_alamat_ubahHarga"
                     android:text="alamat" />
 
             </LinearLayout>
@@ -116,11 +116,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="harga" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="/Kg"/>
+                    android:text="/Kg" />
 
             </LinearLayout>
 

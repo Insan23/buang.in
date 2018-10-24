@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,12 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.m_riwayat_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.m_riwayat_model;
 
 public class m_riwayat_adapter extends RecyclerView.Adapter<m_riwayat_adapter.MyViewHolder> {
     private Context context;
     private List<m_riwayat_model> modelList;
+
+    public m_riwayat_adapter(Context context, List<m_riwayat_model> modelList) {
+        this.context = context;
+        this.modelList = modelList;
+    }
 
     @NonNull
     @Override
@@ -50,10 +55,5 @@ public class m_riwayat_adapter extends RecyclerView.Adapter<m_riwayat_adapter.My
             tanggal = (TextView) itemView.findViewById(R.id.mitra_tanggal_riwayat);
             gambar = (ImageView) itemView.findViewById(R.id.mitra_gambar_riwayat);
         }
-    }
-
-    public m_riwayat_adapter(Context context, List<m_riwayat_model> modelList) {
-        this.context = context;
-        this.modelList = modelList;
     }
 }

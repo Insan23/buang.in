@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Perusahaan;
+package id.ac.unej.ilkom.ods.buangin.view.Perusahaan;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
 //        ((HomePerusahaan)getActivity()).setActionBarTitle("Menu Perusahaan");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_perusahaan_home, container, false);
-        mUbahHarga =(CardView)view.findViewById(R.id.cv_ubahHarga);
+        mUbahHarga = (CardView) view.findViewById(R.id.cv_ubahHarga);
         mUbahHarga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

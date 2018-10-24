@@ -1,28 +1,26 @@
 {
-  "pengguna" : {
+  "pengguna": {
     "dummyID": {
       "nama": "dummy",
       "email": "dummy@gmail.com",
       "level": "volunteer"
     }
   },
-  "dataPoin" : {
+  "dataPoin": {
     "dummyID": {
       "tanggal": "20 Oktober 2018",
       "jmlPoin": "30",
       "sampahDidapat": "3"
     }
   },
-
-  "dataVoucher" : {
+  "dataVoucher": {
     "dummyID": {
       "tanggal": "20 Oktober 2018",
       "jmlPoin": "30",
       "sampahDidapat": "3"
     }
   },
-
-  "dataSampah" : {
+  "dataSampah": {
     "dummyID": {
       "kode": "alasdasd",
       "urlSampah": "http://www.example.com"
@@ -32,16 +30,14 @@
       "status": "menunggu"
     }
   },
-
-  "dataBankSampah" : {
+  "dataBankSampah": {
     "dummyID": {
       "namaBank": "aaaaa",
       "namaPemilik": "lala",
       "Alamat": "jalan wijaya"
     }
   },
-
-  "dataPerusahaan" : {
+  "dataPerusahaan": {
     "dummyID": {
       "namaBank": "aaaaa",
       "namaPemilik": "lala",

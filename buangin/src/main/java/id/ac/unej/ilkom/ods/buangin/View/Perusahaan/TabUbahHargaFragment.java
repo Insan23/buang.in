@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Perusahaan;
+package id.ac.unej.ilkom.ods.buangin.view.Perusahaan;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

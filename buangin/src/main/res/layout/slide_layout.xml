@@ -22,19 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/silde_img"
-        android:textAllCaps="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="Heading"
-        android:textStyle="bold"
-        android:textColor="@color/warnaPutih"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textAllCaps="true"
+        android:textColor="@color/warnaPutih"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/slide_deskripsi"
         android:layout_width="match_parent"
-        android:textColor="@color/warnaPutih"
         android:layout_height="wrap_content"
         android:layout_below="@id/slide_heading"
         android:layout_centerHorizontal="true"
@@ -43,6 +42,7 @@
         android:layout_marginTop="30dp"
         android:text="Heading"
         android:textAlignment="center"
+        android:textColor="@color/warnaPutih"
         android:textSize="20sp" />
 
 </RelativeLayout>

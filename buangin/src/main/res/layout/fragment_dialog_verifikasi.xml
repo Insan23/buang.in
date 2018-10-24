@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -187,8 +186,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_linear_2"
-            android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/btn_cek_harga"
             android:orientation="horizontal">
 
@@ -216,8 +215,8 @@
             android:id="@+id/btn_cek_harga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_linear_2"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/layout_linear_2"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_bulat_hijau"
             android:foreground="?attr/actionBarItemBackground"
@@ -228,8 +227,8 @@
             android:id="@+id/kg_sampah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_linear"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/layout_linear"
             android:layout_marginLeft="8dp"
             android:gravity="center_vertical"
             android:text="Kg"

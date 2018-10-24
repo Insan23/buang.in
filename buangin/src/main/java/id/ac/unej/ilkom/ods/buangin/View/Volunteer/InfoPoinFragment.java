@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.TabAdapter;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.TabAdapter;
 
 public class InfoPoinFragment extends Fragment {
 
@@ -30,10 +30,10 @@ public class InfoPoinFragment extends Fragment {
 
         TabAdapter infopoin_adapter = new TabAdapter(getChildFragmentManager());
         infopoin_adapter.tambahFragment(new TabPoinFragment(), "Poin");
-        infopoin_adapter.tambahFragment(new TabVoucherFragment(), "Voucher");
+        infopoin_adapter.tambahFragment(new TabVoucherFragment(), "ModelVoucher");
 
 //        infopoin_adapter.tambahFragment(((HomeVolunteer) getActivity()).getTabPoin(), "Poin");
-//        infopoin_adapter.tambahFragment(((HomeVolunteer) getActivity()).getTabVoucher(), "Voucher");
+//        infopoin_adapter.tambahFragment(((HomeVolunteer) getActivity()).getTabVoucher(), "ModelVoucher");
 
         viewPager.setAdapter(infopoin_adapter);
         tabLayout.setupWithViewPager(viewPager);

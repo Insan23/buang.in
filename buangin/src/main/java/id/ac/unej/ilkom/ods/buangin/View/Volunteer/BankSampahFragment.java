@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.v_daftarBank_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.v_daftarBank_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.v_daftarBank_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.v_daftarBank_model;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +34,7 @@ public class BankSampahFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((HomeVolunteer) getActivity()).setActionBarTitle("Bank Sampah");
+        ((HomeVolunteer) getActivity()).setActionBarTitle("Bank ModelSampah");
         View view = inflater.inflate(R.layout.fragment_volunteer_daftar_bank_sampah, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_daftarBankSampah);

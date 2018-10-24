@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,17 +11,22 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.v_daftarBank_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.v_daftarBank_model;
 
 public class v_daftarBank_adapter extends RecyclerView.Adapter<v_daftarBank_adapter.MyViewHolder> {
     private Context context;
     private List<v_daftarBank_model> modelList;
 
+    public v_daftarBank_adapter(Context context, List<v_daftarBank_model> modelList) {
+        this.context = context;
+        this.modelList = modelList;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_volunteer_daftarbank,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_volunteer_daftarbank, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -40,19 +45,15 @@ public class v_daftarBank_adapter extends RecyclerView.Adapter<v_daftarBank_adap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView namaBank,pemilik,alamat;
+        public TextView namaBank, pemilik, alamat;
         private ImageView gambar;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            namaBank=(TextView)itemView.findViewById(R.id.volunteer_namaBank_daftarBank);
-            pemilik=(TextView)itemView.findViewById(R.id.volunteer_pemilik_daftarBank);
-            alamat=(TextView)itemView.findViewById(R.id.volunteer_alamat_daftarBank);
-            gambar=(ImageView) itemView.findViewById(R.id.volunteer_gambar_daftarBank);
+            namaBank = (TextView) itemView.findViewById(R.id.volunteer_namaBank_daftarBank);
+            pemilik = (TextView) itemView.findViewById(R.id.volunteer_pemilik_daftarBank);
+            alamat = (TextView) itemView.findViewById(R.id.volunteer_alamat_daftarBank);
+            gambar = (ImageView) itemView.findViewById(R.id.volunteer_gambar_daftarBank);
         }
-    }
-
-    public v_daftarBank_adapter(Context context, List<v_daftarBank_model> modelList) {
-        this.context = context;
-        this.modelList = modelList;
     }
 }

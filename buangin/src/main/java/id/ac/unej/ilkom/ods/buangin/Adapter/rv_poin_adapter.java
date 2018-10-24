@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.Model.cv_poin_model;
+import id.ac.unej.ilkom.ods.buangin.model.cv_poin_model;
 
 public class rv_poin_adapter extends RecyclerView.Adapter<rv_poin_adapter.list_poin> {
 

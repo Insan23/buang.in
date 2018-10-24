@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Mitra;
+package id.ac.unej.ilkom.ods.buangin.view.Mitra;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -37,13 +37,12 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
-import id.ac.unej.ilkom.ods.buangin.Model.Sampah;
-import id.ac.unej.ilkom.ods.buangin.Model.Voucher;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
 
 import static android.app.Activity.RESULT_OK;
-import static id.ac.unej.ilkom.ods.buangin.Util.Util.REQUEST_IMAGE_CAPTURE;
-import static id.ac.unej.ilkom.ods.buangin.Util.Util.WRITE_EXTERNAL;
+import static id.ac.unej.ilkom.ods.buangin.util.Util.REQUEST_IMAGE_CAPTURE;
+import static id.ac.unej.ilkom.ods.buangin.util.Util.WRITE_EXTERNAL;
 
 public class TabBuatVoucherFragment extends Fragment {
 
@@ -136,13 +135,13 @@ public class TabBuatVoucherFragment extends Fragment {
                 }
 
                 if (kirim) {
-                    Voucher voucher = new Voucher(null, strNama, strDeskripsi, strPoin, strKuota, uid, Voucher.VOUCHER_BERLAKU);
+                    ModelVoucher voucher = new ModelVoucher(null, strNama, strDeskripsi, strPoin, strKuota, uid, ModelVoucher.VOUCHER_BERLAKU);
 
                     dbRef.child("dataVoucher").push().setValue(voucher, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError dbErr, @NonNull DatabaseReference dbRef) {
                             if (dbErr == null) {
-                                Toast.makeText(getContext(), "Berhasil Membuat Voucher", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Berhasil Membuat ModelVoucher", Toast.LENGTH_LONG).show();
                                 String key = dbRef.getKey();
                                 StorageReference stor = FirebaseStorage.getInstance()
                                         .getReference("voucher_mitra")
@@ -150,7 +149,7 @@ public class TabBuatVoucherFragment extends Fragment {
                                         .child(uriFoto.getLastPathSegment());
                                 kirimStorage(stor, uriFoto, strNama, strDeskripsi, strPoin, strKuota, uid, key);
                             } else {
-                                Toast.makeText(getContext(), "Gagal Membuat Voucher", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Gagal Membuat ModelVoucher", Toast.LENGTH_LONG).show();
                                 Log.w("TabBuatVoucherFragment", dbErr.getDetails());
                             }
                         }
@@ -163,7 +162,7 @@ public class TabBuatVoucherFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Voucher");
+                builder.setTitle("ModelVoucher");
                 builder.setMessage("Batal menambahkan voucher?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
@@ -207,8 +206,8 @@ public class TabBuatVoucherFragment extends Fragment {
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
                     String url = storageReference.getDownloadUrl().toString();
-                    Log.d("TabBuatVoucherFragment", "URL foto Voucher: " + url);
-                    Voucher voucher = new Voucher(url, namaVoucher, deskripsi, hargaPoin, jumlahKuota, uid, Voucher.VOUCHER_BERLAKU);
+                    Log.d("TabBuatVoucherFragment", "URL foto ModelVoucher: " + url);
+                    ModelVoucher voucher = new ModelVoucher(url, namaVoucher, deskripsi, hargaPoin, jumlahKuota, uid, ModelVoucher.VOUCHER_BERLAKU);
                     dbRef.child("dataVoucher").child(key).setValue(voucher);
                 } else {
                     Log.w("TabBuatVoucherFragment", "Gagal Upload Foto" + task.getException());

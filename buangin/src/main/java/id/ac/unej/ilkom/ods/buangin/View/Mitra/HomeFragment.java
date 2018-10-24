@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Mitra;
+package id.ac.unej.ilkom.ods.buangin.view.Mitra;
 
 
 import android.content.Context;
@@ -17,7 +17,7 @@ import id.ac.unej.ilkom.ods.buangin.R;
  */
 public class HomeFragment extends Fragment {
 
-//    ListView listMenu;
+    //    ListView listMenu;
 //    OnMenuClickListener mCallback;
     CardView mDaftarVoucher, mRiwayatPenukaran;
 
@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((HomeMitra)getActivity()).setActionBarTitle("Halaman Menu");
+        ((HomeMitra) getActivity()).setActionBarTitle("Halaman Menu");
         View rootView = inflater.inflate(R.layout.fragment_mitra_home, container, false);
 
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment {
 
 //        listMenu = rootView.findViewById(R.id.daftar_utama_mitra);
 //        List<DaftarMenu> menu = new ArrayList<>();
-//        menu.add(new DaftarMenu(1, "Daftar Voucher", R.drawable.ic_attach_money_black_24dp));
-//        menu.add(new DaftarMenu(2, "Riwayat Penukaran Voucher", R.drawable.ic_history_black_24dp));
+//        menu.add(new DaftarMenu(1, "Daftar ModelVoucher", R.drawable.ic_attach_money_black_24dp));
+//        menu.add(new DaftarMenu(2, "Riwayat Penukaran ModelVoucher", R.drawable.ic_history_black_24dp));
 //
 //        DaftarMenuAdapter adapter = new DaftarMenuAdapter(getActivity(), menu);
 //        listMenu.setAdapter(adapter);

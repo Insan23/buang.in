@@ -1,11 +1,8 @@
-package id.ac.unej.ilkom.ods.buangin.View.Volunteer;
+package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -17,36 +14,28 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.FileNotFoundException;
-
 import id.ac.unej.ilkom.ods.buangin.R;
-import id.ac.unej.ilkom.ods.buangin.View.HalamanMasuk;
-import id.ac.unej.ilkom.ods.buangin.View.Pengaturan;
-import id.ac.unej.ilkom.ods.buangin.View.Riwayatku;
-import id.ac.unej.ilkom.ods.buangin.View.UmpanBalik;
+import id.ac.unej.ilkom.ods.buangin.view.HalamanMasuk;
+import id.ac.unej.ilkom.ods.buangin.view.Pengaturan;
+import id.ac.unej.ilkom.ods.buangin.view.Riwayatku;
+import id.ac.unej.ilkom.ods.buangin.view.UmpanBalik;
 
 public class HomeVolunteer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener /*, HomeFragment.OnMenuClickListener*/ {
 
     public static String ACTIVE = "fragment_volunteer_aktif";
-
-    private BottomNavigationView nav_volunteer;
-    private NavigationView navigationView;
-
-    private ImageButton buka_kamera;
-
     HomeFragment homeFragment;
     SampahkuFragment sampahkuFragment;
     BankSampahFragment bankSampahFragment;
     InfoPoinFragment infoPoinFragment;
-
+    private BottomNavigationView nav_volunteer;
+    private NavigationView navigationView;
+    private ImageButton buka_kamera;
     private Pengaturan f_nav_pengaturan;
     private Riwayatku f_nav_riwayat;
     private UmpanBalik f_nav_timbalBalik;
@@ -142,25 +131,25 @@ public class HomeVolunteer extends AppCompatActivity
 
     private void logout() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_volunteer);
-            drawer.closeDrawer(GravityCompat.START);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            builder.setMessage("Keluar?");
-            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    auth.signOut();
-                    startActivity(new Intent(getApplicationContext(), HalamanMasuk.class));
-                    HomeVolunteer.this.finish();
-                }
-            });
-            builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+        drawer.closeDrawer(GravityCompat.START);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Keluar?");
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                auth.signOut();
+                startActivity(new Intent(getApplicationContext(), HalamanMasuk.class));
+                HomeVolunteer.this.finish();
+            }
+        });
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

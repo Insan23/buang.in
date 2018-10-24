@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.BankSampah;
+package id.ac.unej.ilkom.ods.buangin.view.BankSampah;
 
 
 import android.app.AlertDialog;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,10 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.Verifikasi_Adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.Verifikasi;
-import id.ac.unej.ilkom.ods.buangin.Model.bs_verifikasi_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.Verifikasi_Adapter;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +34,7 @@ public class TabVerifikasiFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Verifikasi_Adapter adapter;
-    private List<Verifikasi> modelList;
+    private List<ModelSampah> modelList;
     private EditText cari_kode;
     private Button cek;
 

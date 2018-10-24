@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.View.Mitra;
+package id.ac.unej.ilkom.ods.buangin.view.Mitra;
 
 
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.m_riwayat_adapter;
-import id.ac.unej.ilkom.ods.buangin.Model.m_riwayat_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.m_riwayat_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.m_riwayat_model;
 
 /**
  * A simple {@link Fragment} subclass.

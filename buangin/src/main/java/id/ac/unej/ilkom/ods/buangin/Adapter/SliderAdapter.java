@@ -1,7 +1,6 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,36 +13,32 @@ import id.ac.unej.ilkom.ods.buangin.R;
 
 public class SliderAdapter extends PagerAdapter {
 
+    public int[] slide_image = {
+            R.drawable.ic_langkah_1_scan,
+            R.drawable.ic_langkah_2_kumpul_poin,
+            R.drawable.ic_langkah_3_makanan
+    };
+    public int[] bg_resource = {
+            R.drawable.bg_langkah_1,
+            R.drawable.bg_langkah_2,
+            R.drawable.bg_langkah_3
+    };
+    public String[] slide_heading = {
+            "Scan ModelSampah",
+            "Kumpulkan Poin",
+            "Tukar Poin Dengan Makanan"
+    };
+    public String[] slide_deskripsi = {
+            "Kumpulkan sampah anda dengan cara memindai sampah menggunakan fitur yang telah tersedia untuk mendapatkan poin",
+            "Kumpulkan poin anda dengan cara menukarkan sampah yang sudah terkumpul ke bank sampah",
+            "Tukarkan poin anda ke mitra UMKM untuk mendapatkan makanan"
+    };
     Context context;
     LayoutInflater layoutInflater;
 
     public SliderAdapter(Context context) {
         this.context = context;
     }
-
-    public int[] slide_image = {
-            R.drawable.ic_langkah_1_scan,
-            R.drawable.ic_langkah_2_kumpul_poin,
-            R.drawable.ic_langkah_3_makanan
-    };
-
-    public int[] bg_resource = {
-            R.drawable.bg_langkah_1,
-            R.drawable.bg_langkah_2,
-            R.drawable.bg_langkah_3
-    };
-
-    public String[] slide_heading = {
-            "Scan Sampah",
-            "Kumpulkan Poin",
-            "Tukar Poin Dengan Makanan"
-    };
-
-    public String[] slide_deskripsi = {
-            "Kumpulkan sampah anda dengan cara memindai sampah menggunakan fitur yang telah tersedia untuk mendapatkan poin",
-            "Kumpulkan poin anda dengan cara menukarkan sampah yang sudah terkumpul ke bank sampah",
-            "Tukarkan poin anda ke mitra UMKM untuk mendapatkan makanan"
-    };
 
     @Override
     public int getCount() {

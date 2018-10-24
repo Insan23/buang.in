@@ -1,4 +1,4 @@
-package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,13 +12,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Model.v_daftarSampah_model;
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.v_daftarSampah_model;
 
 public class v_daftarSampah_adapter extends RecyclerView.Adapter<v_daftarSampah_adapter.MyViewHolder> {
 
     private Context context;
     private List<v_daftarSampah_model> modelList;
+
+    public v_daftarSampah_adapter(Context context, List<v_daftarSampah_model> modelList) {
+        this.context = context;
+        this.modelList = modelList;
+    }
 
     @NonNull
     @Override
@@ -38,7 +43,7 @@ public class v_daftarSampah_adapter extends RecyclerView.Adapter<v_daftarSampah_
 
     @Override
     public int getItemCount() {
-        return modelList.size() ;
+        return modelList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -52,10 +57,5 @@ public class v_daftarSampah_adapter extends RecyclerView.Adapter<v_daftarSampah_
             status = (TextView) itemView.findViewById(R.id.volunteer_status_daftarSampah);
             gambar = (ImageView) itemView.findViewById(R.id.volunteer_gambar_daftarSampah);
         }
-    }
-
-    public v_daftarSampah_adapter(Context context, List<v_daftarSampah_model> modelList) {
-        this.context = context;
-        this.modelList = modelList;
     }
 }
