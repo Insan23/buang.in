@@ -1,10 +1,10 @@
 package id.ac.unej.ilkom.ods.buangin.Model;
 
 public class v_daftarSampah_model {
-    private String tanggal, waktu, status;
-    private int gambar;
+    private String tanggal, waktu, status,gambar;
 
-    public v_daftarSampah_model(String tanggal, String waktu, String status, int gambar) {
+
+    public v_daftarSampah_model(String tanggal, String waktu, String status, String gambar) {
 
         this.tanggal = tanggal;
         this.waktu = waktu;
@@ -36,11 +36,11 @@ public class v_daftarSampah_model {
         this.status = status;
     }
 
-    public int getGambar() {
+    public String getGambar() {
         return gambar;
     }
 
-    public void setGambar(int gambar) {
+    public void setGambar(String gambar) {
         this.gambar = gambar;
     }
 }

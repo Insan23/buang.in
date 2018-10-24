@@ -104,6 +104,14 @@ public class DialogSampah extends DialogFragment {
 
         final String kodeMD5 = md5(tanggalAwal + tanggalAkhir + uid);
 
+        SimpleDateFormat menit = new SimpleDateFormat("mm");
+        SimpleDateFormat detik = new SimpleDateFormat("ss");
+        String strMenit = menit.format(new Date());
+        String strDetik = detik.format(new Date());
+        String strUID = uid.substring(0, 3);
+
+        final String stringKode = strUID + strMenit + strDetik;
+
         kode.setText(kodeMD5);
         tanggal.setText(tanggalAwal);
         imgPreview.setImageBitmap(img);
@@ -115,7 +123,7 @@ public class DialogSampah extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Sampah tempSampah = new Sampah(kodeMD5, null, tglAwal, tglAkhir, uid, Sampah.VERIFIKASI_MENUNGGU, null);
-                dbRef.child("dataSampah").push().setValue(tempSampah, new DatabaseReference.CompletionListener() {
+                dbRef.child("dataSampah").child(stringKode).setValue(tempSampah, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         if (databaseError == null) {
@@ -140,7 +148,7 @@ public class DialogSampah extends DialogFragment {
     private String md5(String s) {
         try {
             // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(s.getBytes());
             byte messageDigest[] = digest.digest();
 

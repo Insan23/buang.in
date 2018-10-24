@@ -10,9 +10,11 @@
 
     <ImageView
         android:id="@+id/img_voucher"
-        android:layout_width="192dp"
+        android:layout_width="128dp"
         android:layout_height="96dp"
-        android:layout_margin="8dp" />
+        android:layout_margin="8dp"
+        android:background="#eeeeee"
+        android:src="@drawable/ic_camera_alt_black_24dp" />
 
     <TextView
         android:id="@+id/kuota_voucher"
@@ -55,15 +57,15 @@
         tools:text="150 Poin" />
 
     <!--<Button-->
-        <!--android:id="@+id/btn_beli_voucher"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:layout_below="@id/harga_voucher"-->
-        <!--android:layout_marginTop="4dp"-->
-        <!--android:layout_toEndOf="@id/logo_harga_voucher"-->
-        <!--android:layout_toRightOf="@id/logo_harga_voucher"-->
-        <!--android:background="@color/warnaGelap"-->
-        <!--android:text="Beli"-->
-        <!--android:textSize="14sp" />-->
+    <!--android:id="@+id/btn_beli_voucher"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="32dp"-->
+    <!--android:layout_below="@id/harga_voucher"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:layout_toEndOf="@id/logo_harga_voucher"-->
+    <!--android:layout_toRightOf="@id/logo_harga_voucher"-->
+    <!--android:background="@color/warnaGelap"-->
+    <!--android:text="Beli"-->
+    <!--android:textSize="14sp" />-->
 
 </RelativeLayout>

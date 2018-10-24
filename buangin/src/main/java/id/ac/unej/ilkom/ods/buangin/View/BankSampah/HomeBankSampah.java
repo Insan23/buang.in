@@ -21,6 +21,7 @@ public class HomeBankSampah extends AppCompatActivity {
     FragmentTransaction ft;
     FragmentManager fm;
     VerifikasiFragment verifikasi;
+    Verifikasi_Fragment_2 verifikasi_2;
     HomeFragment home;
     DaftarPerusahaanFragment daftarPerusahaan;
     TabRiwayatFragment tabRiwayat;
@@ -34,6 +35,7 @@ public class HomeBankSampah extends AppCompatActivity {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         verifikasi = new VerifikasiFragment();
+        verifikasi_2 = new Verifikasi_Fragment_2();
         home = new HomeFragment();
         daftarPerusahaan = new DaftarPerusahaanFragment();
         tabRiwayat = new TabRiwayatFragment();
@@ -48,7 +50,7 @@ public class HomeBankSampah extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_bawah_verifikasi:
-                        fm.beginTransaction().replace(R.id.container_bank_sampah, verifikasi).commit();
+                        fm.beginTransaction().replace(R.id.container_bank_sampah, verifikasi_2).commit();
                         break;
                     case R.id.nav_bawah_menu:
                         fm.beginTransaction().replace(R.id.container_bank_sampah, home).commit();

@@ -42,12 +42,10 @@ public class Welcome extends AppCompatActivity {
      * TODO tukar poin volunteer (ke produk mitra)
      * TODO riwayat penukaran voucher di volunteer
      * TODO verifikasi voucher di volunteer
-     * TODO tambah produk mitra
-     * TODO pencarian ID/Kode sampah milik volunteer di bank sampah
      * TODO riwayat penukaran voucher di mitra
      * TODO jumlah voucher berkurang di mitra
      * TODO fitur perusahaan request sampah kepada bank sampah dengan harga tersendiri
-     * TODO verifikasi per sampah di bank sampah (memilah sampah)
+     * TODO verifikasi per sampah di bank sampah (memilah sampah) ?
      *
      */
 

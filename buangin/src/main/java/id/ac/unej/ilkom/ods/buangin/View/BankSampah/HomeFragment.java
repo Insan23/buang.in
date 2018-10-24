@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
         mVerifikasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ft.replace(R.id.container_bank_sampah, new VerifikasiFragment()).commit();
+                ft.replace(R.id.container_bank_sampah, new Verifikasi_Fragment_2()).commit();
             }
         });
         mDaftarPerusahaan.setOnClickListener(new View.OnClickListener() {

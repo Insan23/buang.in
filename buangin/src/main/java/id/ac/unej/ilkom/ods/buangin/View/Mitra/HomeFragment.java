@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         mDaftarVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ft.replace(R.id.container_mitra, new TabDaftarVoucherFragment()).commit();
+                ft.replace(R.id.container_mitra, new DaftarVoucherFragment()).commit();
             }
         });
 

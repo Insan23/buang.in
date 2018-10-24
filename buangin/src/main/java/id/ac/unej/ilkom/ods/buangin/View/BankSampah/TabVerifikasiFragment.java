@@ -1,7 +1,10 @@
 package id.ac.unej.ilkom.ods.buangin.View.BankSampah;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +15,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.unej.ilkom.ods.buangin.Adapter.bs_verifikasi_adapter;
+import id.ac.unej.ilkom.ods.buangin.Adapter.Verifikasi_Adapter;
+import id.ac.unej.ilkom.ods.buangin.Model.Verifikasi;
 import id.ac.unej.ilkom.ods.buangin.Model.bs_verifikasi_model;
 import id.ac.unej.ilkom.ods.buangin.R;
 
@@ -25,15 +35,17 @@ import id.ac.unej.ilkom.ods.buangin.R;
 public class TabVerifikasiFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private bs_verifikasi_adapter adapter;
-    private List<bs_verifikasi_model> modelList;
+    private Verifikasi_Adapter adapter;
+    private List<Verifikasi> modelList;
     private EditText cari_kode;
     private Button cek;
+
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
 
     public TabVerifikasiFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,73 +58,50 @@ public class TabVerifikasiFragment extends Fragment {
         cek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringKode = cari_kode.getText().toString().trim();
+                final String stringKode = cari_kode.getText().toString().trim();
 
-                String str = "-LP3ugLU-XGy8RN_lLY-";
-                Toast.makeText(getContext(), stringKode, Toast.LENGTH_SHORT).show();
-//                mCallback.passData(stringKode);
-                DialogVerifikasi dialogVerifikasi = new DialogVerifikasi();
-                dialogVerifikasi.setKode(stringKode);
-                dialogVerifikasi.show(getChildFragmentManager(), "verifikasi");
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("dataSampah").child(stringKode);
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            DialogVerifikasi dialogVerifikasi = new DialogVerifikasi();
+                            dialogVerifikasi.setKode(stringKode);
+                            dialogVerifikasi.show(getChildFragmentManager(), "verifikasi");
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setCancelable(false)
+                                    .setTitle("buang.in")
+                                    .setMessage("Data sampah tidak tersedia, periksa kembali kodemu :)")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_verifikasi);
         modelList = new ArrayList<>();
-        adapter = new bs_verifikasi_adapter(getActivity(), modelList);
+        adapter = new Verifikasi_Adapter(modelList, getContext());
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        daftarVerifikasi();
         return view;
-    }
-
-    private void daftarVerifikasi() {
-        int[] pic = {
-                R.drawable.sampah_01,
-                R.drawable.sampah_02,
-                R.drawable.sampah_03,
-                R.drawable.sampah_04,
-                R.drawable.sampah0,
-                R.drawable.sampah1,
-                R.drawable.sampah2,
-                R.drawable.sampah3
-        };
-
-        bs_verifikasi_model a;
-        a = new bs_verifikasi_model(pic[0], "15 September 2018", "5", "01:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[2], "15 September 2018", "8", "01:10:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[1], "15 September 2018", "8", "00:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[5], "18 September 2018", "12", "00:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[3], "19 September 2018", "5", "01:20:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[3], "20 September 2018", "10", "00:50:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[2], "21 September 2018", "5", "00:10:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[0], "22 September 2018", "5", "01:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[1], "22 September 2018", "3", "01:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[1], "22 September 2018", "5", "01:00:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[6], "23 September 2018", "4", "02:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[7], "23 September 2018", "2", "01:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[5], "25 September 2018", "9", "02:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[2], "25 September 2018", "6", "01:30:20", "terima");
-        modelList.add(a);
-        a = new bs_verifikasi_model(pic[03], "26 September 2018", "3", "01:30:20", "terima");
-        modelList.add(a);
-
-        adapter.notifyDataSetChanged();
     }
 
 }

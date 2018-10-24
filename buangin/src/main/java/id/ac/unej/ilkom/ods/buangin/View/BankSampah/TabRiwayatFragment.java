@@ -65,20 +65,6 @@ public class TabRiwayatFragment extends Fragment {
         modelList.add(a);
         a = new bs_riwayat_model("25 September 2018", "3", "diterima", pic[4]);
         modelList.add(a);
-        a = new bs_riwayat_model("25 September 2018", "6", "diterima", pic[5]);
-        modelList.add(a);
-        a = new bs_riwayat_model("26 September 2018", "4", "diterima", pic[2]);
-        modelList.add(a);
-        a = new bs_riwayat_model("27 September 2018", "8", "diterima", pic[7]);
-        modelList.add(a);
-        a = new bs_riwayat_model("27 September 2018", "2", "diterima", pic[2]);
-        modelList.add(a);
-        a = new bs_riwayat_model("28 September 2018", "3", "diterima", pic[3]);
-        modelList.add(a);
-        a = new bs_riwayat_model("28 September 2018", "3", "diterima", pic[1]);
-        modelList.add(a);
-        a = new bs_riwayat_model("28 September 2018", "4", "diterima", pic[1]);
-        modelList.add(a);
 
         adapter.notifyDataSetChanged();
     }

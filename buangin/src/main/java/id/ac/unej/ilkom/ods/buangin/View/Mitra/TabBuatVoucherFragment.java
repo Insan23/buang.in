@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
@@ -31,9 +33,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
+import id.ac.unej.ilkom.ods.buangin.Model.Sampah;
 import id.ac.unej.ilkom.ods.buangin.Model.Voucher;
 import id.ac.unej.ilkom.ods.buangin.R;
 
@@ -63,9 +67,9 @@ public class TabBuatVoucherFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mitra_tab_buat_voucher, container, false);
 
-
+        auth = FirebaseAuth.getInstance();
         namaProduk = (EditText) view.findViewById(R.id.input_voucher_namaProduk);
-        deskripsi = (EditText) view.findViewById(R.id.input_ubahHarga_deskripsi);
+        deskripsi = (EditText) view.findViewById(R.id.input_voucher_deskripsi);
         poin = (EditText) view.findViewById(R.id.input_voucher_poin);
         kuota = (EditText) view.findViewById(R.id.input_voucher_jumlahKuota);
         voucher = (ImageView) view.findViewById(R.id.foto_produk_voucher);
@@ -88,12 +92,12 @@ public class TabBuatVoucherFragment extends Fragment {
         tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strNama = namaProduk.getText().toString().trim();
-                String strDeskripsi = deskripsi.getText().toString().trim();
-                String strPoin = poin.getText().toString().trim();
-                String strKuota = kuota.getText().toString().trim();
+                final String strNama = namaProduk.getText().toString().trim();
+                final String strDeskripsi = deskripsi.getText().toString().trim();
+                final String strPoin = poin.getText().toString().trim();
+                final String strKuota = kuota.getText().toString().trim();
 
-                final String uid = auth.getUid();
+                final String uid = auth.getCurrentUser().getUid();
 
                 dbRef = FirebaseDatabase.getInstance().getReference();
 
@@ -142,9 +146,9 @@ public class TabBuatVoucherFragment extends Fragment {
                                 String key = dbRef.getKey();
                                 StorageReference stor = FirebaseStorage.getInstance()
                                         .getReference("voucher_mitra")
-                                        .child(uid)
-                                        .child(key);
-
+                                        .child(key)
+                                        .child(uriFoto.getLastPathSegment());
+                                kirimStorage(stor, uriFoto, strNama, strDeskripsi, strPoin, strKuota, uid, key);
                             } else {
                                 Toast.makeText(getContext(), "Gagal Membuat Voucher", Toast.LENGTH_LONG).show();
                                 Log.w("TabBuatVoucherFragment", dbErr.getDetails());
@@ -182,13 +186,10 @@ public class TabBuatVoucherFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Log.d("CAMERA : ", "SUCCESS");
             hasilFoto = (Bitmap) data.getExtras().get("data");
             uriFoto = getImageUri(getContext(), hasilFoto);
 
             voucher.setImageBitmap(hasilFoto);
-
-            Toast.makeText(getContext(), "sukses", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -200,22 +201,22 @@ public class TabBuatVoucherFragment extends Fragment {
         return Uri.parse(path);
     }
 
-    private void kirimStorage(final StorageReference storageReference, Uri uri, final String key, final String kode, final String tAwal, final String tAkhir, final String uid) {
-//        storageReference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    String url = storageReference.getDownloadUrl().toString();
-//                    Log.d(TAG, "Download URL : " + url);
-//                    Sampah sampah = new Sampah(kode, url, tAwal, tAkhir, uid, Sampah.VERIFIKASI_MENUNGGU, null);
-////                    dbRef.child("dataSampah").child(key).setValue(sampah);
-//                } else {
-//                    Toast.makeText(getContext(), "Gagal Mengupload Foto : " + task.getException(), Toast.LENGTH_LONG).show();;
-//                    Log.w(TAG, "Image upload task was not successful.",
-//                            task.getException());
-//                }
-//            }
-//        });
+    private void kirimStorage(final StorageReference storageReference, Uri uri, final String namaVoucher, final String deskripsi, final String hargaPoin, final String jumlahKuota, final String uid, final String key) {
+        storageReference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    String url = storageReference.getDownloadUrl().toString();
+                    Log.d("TabBuatVoucherFragment", "URL foto Voucher: " + url);
+                    Voucher voucher = new Voucher(url, namaVoucher, deskripsi, hargaPoin, jumlahKuota, uid, Voucher.VOUCHER_BERLAKU);
+                    dbRef.child("dataVoucher").child(key).setValue(voucher);
+                } else {
+                    Log.w("TabBuatVoucherFragment", "Gagal Upload Foto" + task.getException());
+                    Toast.makeText(getContext(), "Gagal Upload Foto", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     @Override
