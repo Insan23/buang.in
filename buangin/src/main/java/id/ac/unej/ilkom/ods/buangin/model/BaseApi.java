@@ -22,6 +22,13 @@ import com.google.firebase.storage.FirebaseStorage;
 
 public class BaseApi {
 
+    public static final String TABEL_VOUCHER = "dataVoucher";
+    public static final String TABEL_VOUCHER_VOLUNTEER = "voucherVolunteer";
+    public static final String TABEL_SAMPAH = "dataSampah";
+    public static final String TABEL_BANK_SAMPAH = "dataBankSampah";
+    public static final String TABEL_PERUSAHAAN = "dataPerusahaan";
+    public static final String TABEL_PENGGUNA = "penguna";
+
     public static final String BASE_URL = "https://buang-in.firebaseio.com/";
     private static FirebaseAuth auth;
     private static FirebaseUser user;
