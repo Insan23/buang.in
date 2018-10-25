@@ -28,9 +28,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -39,6 +41,7 @@ import java.io.ByteArrayOutputStream;
 
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
+import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 
 import static android.app.Activity.RESULT_OK;
 import static id.ac.unej.ilkom.ods.buangin.util.Util.REQUEST_IMAGE_CAPTURE;
@@ -56,6 +59,8 @@ public class TabBuatVoucherFragment extends Fragment {
 
     private Bitmap hasilFoto;
     private Uri uriFoto;
+    private String uid;
+    private String namaMitra;
 
     public TabBuatVoucherFragment() {
 
@@ -67,6 +72,9 @@ public class TabBuatVoucherFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mitra_tab_buat_voucher, container, false);
 
         auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
+        dbRef = FirebaseDatabase.getInstance().getReference();
+
         namaProduk = (EditText) view.findViewById(R.id.input_voucher_namaProduk);
         deskripsi = (EditText) view.findViewById(R.id.input_voucher_deskripsi);
         poin = (EditText) view.findViewById(R.id.input_voucher_poin);
@@ -75,6 +83,20 @@ public class TabBuatVoucherFragment extends Fragment {
 
         batal = (Button) view.findViewById(R.id.btn_voucher_batal);
         tambah = (Button) view.findViewById(R.id.btn_voucher_tambah);
+
+        dbRef.child("pengguna").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    namaMitra = data.getValue(Pengguna.class).getNama();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         voucher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +118,6 @@ public class TabBuatVoucherFragment extends Fragment {
                 final String strPoin = poin.getText().toString().trim();
                 final String strKuota = kuota.getText().toString().trim();
 
-                final String uid = auth.getCurrentUser().getUid();
-
-                dbRef = FirebaseDatabase.getInstance().getReference();
 
                 boolean kirim = false;
 
@@ -135,7 +154,7 @@ public class TabBuatVoucherFragment extends Fragment {
                 }
 
                 if (kirim) {
-                    ModelVoucher voucher = new ModelVoucher(null, strNama, strDeskripsi, strPoin, strKuota, uid, ModelVoucher.VOUCHER_BERLAKU);
+                    ModelVoucher voucher = new ModelVoucher(uid, namaMitra, null, strNama, strDeskripsi, strPoin, strKuota, ModelVoucher.VOUCHER_BERLAKU);
 
                     dbRef.child("dataVoucher").push().setValue(voucher, new DatabaseReference.CompletionListener() {
                         @Override
@@ -207,7 +226,8 @@ public class TabBuatVoucherFragment extends Fragment {
                 if (task.isSuccessful()) {
                     String url = storageReference.getDownloadUrl().toString();
                     Log.d("TabBuatVoucherFragment", "URL foto ModelVoucher: " + url);
-                    ModelVoucher voucher = new ModelVoucher(url, namaVoucher, deskripsi, hargaPoin, jumlahKuota, uid, ModelVoucher.VOUCHER_BERLAKU);
+
+                    ModelVoucher voucher = new ModelVoucher(uid, namaMitra, url, namaVoucher, deskripsi, hargaPoin, jumlahKuota, ModelVoucher.VOUCHER_BERLAKU);
                     dbRef.child("dataVoucher").child(key).setValue(voucher);
                 } else {
                     Log.w("TabBuatVoucherFragment", "Gagal Upload Foto" + task.getException());

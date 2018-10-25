@@ -1,4 +1,4 @@
-//package id.ac.unej.ilkom.ods.buangin.Adapter;
+package id.ac.unej.ilkom.ods.buangin.adapter;//package id.ac.unej.ilkom.ods.buangin.Adapter;
 //
 //import android.content.Context;
 //import android.support.annotation.NonNull;

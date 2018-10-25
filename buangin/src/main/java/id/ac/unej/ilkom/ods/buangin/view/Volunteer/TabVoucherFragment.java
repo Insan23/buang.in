@@ -2,6 +2,7 @@ package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +33,7 @@ public class TabVoucherFragment extends Fragment {
     private RecyclerView recyclerView;
     private VoucherAdapter adapter;
     private List<ModelVoucher> modelList;
+    private DatabaseReference dbRef;
 
     public TabVoucherFragment() {
         // Required empty public constructor
@@ -37,46 +45,29 @@ public class TabVoucherFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_volunteer_tab_voucher, container, false);
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_voucher);
         modelList = new ArrayList<>();
+
+        dbRef.child("dataVoucher").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         adapter = new VoucherAdapter(getActivity(), modelList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-//        daftarVoucher();
-
         return view;
     }
 
-//    private void daftarVoucher() {
-//        int[] pic = {
-//                R.drawable.voucher,
-//                R.drawable.voucher_01,
-//                R.drawable.voucher_02,
-//                R.drawable.voucher_03,
-//                R.drawable.voucher_04,
-//                R.drawable.voucher_05,
-//                R.drawable.voucher_06,
-//                R.drawable.voucher_07
-//        };
-//
-//        v_voucher_model a = new v_voucher_model("Seblak Abah", "100", "4", pic[0]);
-//        modelList.add(a);
-//        a = new v_voucher_model("Lebong", "100", "4", pic[1]);
-//        modelList.add(a);
-//        a = new v_voucher_model("Big Burger", "100", "10", pic[2]);
-//        modelList.add(a);
-//        a = new v_voucher_model("Seblak Abah", "100", "7", pic[0]);
-//        modelList.add(a);
-//        a = new v_voucher_model("Seblak Abah", "100", "2", pic[0]);
-//        modelList.add(a);
-//        a = new v_voucher_model("Sari Roti", "100", "12", pic[5]);
-//        modelList.add(a);
-//        a = new v_voucher_model("Macarina", "100", "4", pic[6]);
-//        modelList.add(a);
-
-//        adapter.notifyDataSetChanged();
-//    }
 }
