@@ -30,7 +30,8 @@ public class InfoPoinFragment extends Fragment {
 
         TabAdapter infopoin_adapter = new TabAdapter(getChildFragmentManager());
         infopoin_adapter.tambahFragment(new TabPoinFragment(), "Poin");
-        infopoin_adapter.tambahFragment(new TabVoucherFragment(), "ModelVoucher");
+        infopoin_adapter.tambahFragment(new TabVoucherFragment(), "Voucher");
+        infopoin_adapter.tambahFragment(new TabRiwayatFragment(), "Riwayat");
 
 //        infopoin_adapter.tambahFragment(((HomeVolunteer) getActivity()).getTabPoin(), "Poin");
 //        infopoin_adapter.tambahFragment(((HomeVolunteer) getActivity()).getTabVoucher(), "ModelVoucher");

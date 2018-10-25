@@ -132,7 +132,7 @@ public class SampahkuFragment extends Fragment {
                         }
                     });
                     String tgl = sampah.getTanggalSubmit();
-                    String waktu = sampah.getTanggalBerakhir();
+                    String waktu = sampah.getTanggalAkhir();
                     String status = sampah.getStatusVerifikasi();
                     String gambar = sampah.getUrlFoto();
                     System.out.println("uid ku " + uid);
