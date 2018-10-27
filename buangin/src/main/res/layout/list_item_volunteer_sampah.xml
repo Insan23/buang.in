@@ -1,100 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="8dp">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/img_sampah"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_margin="8dp" />
-
-    <TextView
-        android:id="@+id/teks_tanggal"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/img_sampah"
-        android:layout_toRightOf="@id/img_sampah"
-        android:text="Tanggal\t\t\t\t\t: "
-        android:textSize="14sp" />
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/teks_berat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_tanggal"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/img_sampah"
-        android:layout_toRightOf="@id/img_sampah"
-        android:text="Sampah Didapat\t: "
-        android:textSize="14sp" />
+        <ImageView
+            android:id="@+id/volunteer_gambar_sampah"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_img_voucher" />
 
-    <TextView
-        android:id="@+id/tanggal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/teks_tanggal"
-        android:layout_toRightOf="@id/teks_tanggal"
-        android:textSize="14sp"
-        tools:text="20 September 2018" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/berat_sampah"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_tanggal"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/teks_berat"
-        android:layout_toRightOf="@id/teks_berat"
-        android:textSize="14sp"
-        tools:text="3 kg Sampah" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/teks_waktu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_berat"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/img_sampah"
-        android:layout_toRightOf="@id/img_sampah"
-        android:text="Waktu Tersisa\t\t: "
-        android:textSize="14sp" />
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:text="Kode"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/waktu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_berat"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/teks_waktu"
-        android:layout_toRightOf="@id/teks_waktu"
-        android:textSize="14sp"
-        tools:text="2 Hari" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/status_sampah"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@color/warnaUtama"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:text="Menunggu Verifikasi"
-        android:textColor="@color/warnaPutih" />
+                <TextView
+                    android:id="@+id/volunteer_kode_sampah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-    <!--<ImageView-->
-    <!--android:id="@+id/status_sampah"-->
-    <!--android:layout_width="72dp"-->
-    <!--android:layout_height="72dp"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--tools:src="@drawable/ic_check_black_24dp" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:text="Diambil"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/volunteer_ambil_sampah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:text="Berakhir"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/volunteer_akhir_sampah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/volunteer_status_sampah"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/warnaUtama"
+                    android:gravity="center"
+                    android:text="status"
+                    android:textAlignment="center"
+                    android:textColor="@color/warnaPutih"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

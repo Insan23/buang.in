@@ -14,13 +14,13 @@ public class Pengguna {
     private String nama;
     private String email;
     private String level;
-    private int poin;
+    private String poin;
 
     public Pengguna() {
         // Konstruktor default dibutuhkan untuk dapat dipanggil oleh DataSnapshot.getValue(User.class)
     }
 
-    public Pengguna(String nama, String email, String level, int poin) {
+    public Pengguna(String nama, String email, String level, String poin) {
         this.nama = nama;
         this.email = email;
         this.level = level;
@@ -59,11 +59,11 @@ public class Pengguna {
         this.email = email;
     }
 
-    public int getPoin() {
+    public String getPoin() {
         return this.poin;
     }
 
-    public void setPoin(int poin) {
+    public void setPoin(String poin) {
         this.poin = poin;
     }
 }

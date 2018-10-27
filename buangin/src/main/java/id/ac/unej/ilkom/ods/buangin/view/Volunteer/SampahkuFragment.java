@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.SampahAdapter;
 import id.ac.unej.ilkom.ods.buangin.adapter.v_daftarSampah_adapter;
 import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 import id.ac.unej.ilkom.ods.buangin.model.v_daftarSampah_model;
@@ -60,14 +61,14 @@ public class SampahkuFragment extends Fragment {
     private static final int CAMERA_REQUEST = 1888;
     String name = "";
     private RecyclerView recyclerView;
-    private v_daftarSampah_adapter adapter;
-    private List<v_daftarSampah_model> modelList;
+    private SampahAdapter adapter;
+    private List<ModelSampah> modelList;
+
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
     private FloatingActionButton buka_kamera;
-    private ImageView img_hasil;
     private TabVoucherFragment voucherFragment;
     private TabPoinFragment poinFragment;
 
@@ -84,7 +85,46 @@ public class SampahkuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_volunteer_sampah, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_daftarMySampah);
 
-        img_hasil = (ImageView) view.findViewById(R.id.img_scan);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        dbRef = database.getReference("dataSampah");
+
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                modelList.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    ModelSampah model = dataSnapshot1.getValue(ModelSampah.class);
+                    String stringStatus = model.getStatusVerifikasi();
+                    String stringUID = model.getUidVolunteer();
+                    String stringKode = model.getKodeSampah();
+                    String stringAmbil = model.getTanggalSubmit();
+                    String stringAkhit = model.getTanggalAkhir();
+                    String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    if (stringStatus.equalsIgnoreCase("menunggu") || stringUID == UID) {
+                        System.out.println("UID pengguna : " + stringUID + " = " + UID + " = " + stringStatus);
+                        model = new ModelSampah(stringKode, null, null, null, null, null, null, stringAmbil, stringAkhit, null, null, stringStatus);
+                        modelList.add(model);
+                    } else {
+
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        modelList = new ArrayList<>();
+        adapter = new SampahAdapter(getActivity(), modelList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
         buka_kamera = (FloatingActionButton) view.findViewById(R.id.btn_sampah_buka_kamera);
         buka_kamera.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -96,63 +136,8 @@ public class SampahkuFragment extends Fragment {
             }
         });
 
-        database = FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        dbRef = database.getReference("dataSampah").child(user.getUid());
-
-        modelList = new ArrayList<>();
-        adapter = new v_daftarSampah_adapter(getActivity(), modelList);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-        viewAllMySampah();
 
         return view;
-    }
-
-    private void viewAllMySampah() {
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                modelList.clear();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    final ModelSampah sampah = dataSnapshot1.getValue(ModelSampah.class);
-                    String uid = sampah.getUidVolunteer();
-                    String dbrefnya = dataSnapshot1.getKey();
-                    System.out.println("kuncinya " + dbrefnya);
-                    StorageReference stor = FirebaseStorage.getInstance()
-                            .getReference(uid)
-                            .child(dbrefnya);
-                    stor.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            sampah.setUrlFoto(uri.toString());
-                        }
-                    });
-                    String tgl = sampah.getTanggalSubmit();
-                    String waktu = sampah.getTanggalAkhir();
-                    String status = sampah.getStatusVerifikasi();
-                    String gambar = sampah.getUrlFoto();
-                    System.out.println("uid ku " + uid);
-                    System.out.println("kode sampa " + dbrefnya);
-                    System.out.println("tgl sub " + tgl);
-                    System.out.println("tgl akhir " + waktu);
-                    System.out.println("statusnya " + status);
-                    System.out.println("url gambare " + gambar);
-                    v_daftarSampah_model vm = new v_daftarSampah_model(tgl, waktu, status, "http://cdn2.tstatic.net/tribunnews/foto/bank/images/sampah-kemasan-plastik_20180425_211722.jpg");
-                    modelList.add(vm);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
     @Override

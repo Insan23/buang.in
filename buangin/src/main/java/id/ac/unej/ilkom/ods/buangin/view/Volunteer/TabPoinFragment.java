@@ -2,6 +2,7 @@ package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.adapter.PoinAdapter;
 import id.ac.unej.ilkom.ods.buangin.adapter.v_poin_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.ModelPoin;
 import id.ac.unej.ilkom.ods.buangin.model.v_poin_model;
 
 /**
@@ -22,8 +32,12 @@ import id.ac.unej.ilkom.ods.buangin.model.v_poin_model;
 public class TabPoinFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private v_poin_adapter poinAdapter;
-    private List<v_poin_model> modelList;
+    private PoinAdapter poinAdapter;
+    private List<ModelPoin> modelList;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     public TabPoinFragment() {
         // Required empty public constructor
@@ -33,50 +47,42 @@ public class TabPoinFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_volunteer_tab_poin, container, false);
+
+        final String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("dataPoin").child(UID);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    ModelPoin model = dataSnapshot1.getValue(ModelPoin.class);
+                    String stringPoin = model.getPoin();
+                    String stringDari = model.getDari();
+                    String stringUID = model.getUidVolunteer();
+                    String stringSumber = model.getSumber();
+
+                    if (stringUID == UID) {
+                        model = new ModelPoin(stringPoin, null, stringDari, stringSumber);
+                        modelList.add(model);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_poin);
         modelList = new ArrayList<>();
-        poinAdapter = new v_poin_adapter(getActivity(), modelList);
+        poinAdapter = new PoinAdapter(getActivity(), modelList);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(poinAdapter);
 
-        daftarpoin();
-
         return view;
     }
-
-    private void daftarpoin() {
-        v_poin_model a = new v_poin_model("21 September 2018", "40", "2");
-        modelList.add(a);
-        a = new v_poin_model("22 September 2018", "40", "4");
-        modelList.add(a);
-        a = new v_poin_model("23 September 2018", "40", "4");
-        modelList.add(a);
-        a = new v_poin_model("24 September 2018", "40", "4");
-        modelList.add(
-                a);
-        a = new v_poin_model("25 September 2018", "40", "4");
-        modelList.add(a);
-        a = new v_poin_model("26 September 2018", "10", "4");
-        modelList.add(a);
-        a = new v_poin_model("27 September 2018", "50", "5");
-        modelList.add(a);
-        a = new v_poin_model("28 September 2018", "60", "3");
-        modelList.add(a);
-        a = new v_poin_model("29 September 2018", "40", "4");
-        modelList.add(a);
-        a = new v_poin_model("20 September 2018", "70", "7");
-        modelList.add(a);
-        a = new v_poin_model("01 September 2018", "80", "4");
-        modelList.add(a);
-        a = new v_poin_model("02 September 2018", "40", "4");
-        modelList.add(a);
-
-        poinAdapter.notifyDataSetChanged();
-    }
-
 }

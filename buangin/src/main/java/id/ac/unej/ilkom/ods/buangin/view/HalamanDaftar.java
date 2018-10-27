@@ -118,7 +118,7 @@ public class HalamanDaftar extends AppCompatActivity {
                                         String email = user.getEmail();
 
                                         Toast.makeText(HalamanDaftar.this, "email : " + email, Toast.LENGTH_LONG).show();
-                                        Pengguna daftar = new Pengguna(strNama, email, Pengguna.VOLUNTEER, 0);
+                                        Pengguna daftar = new Pengguna(strNama, email, Pengguna.VOLUNTEER, "0");
 
                                         dbRef.child("pengguna").child(user.getUid()).push().setValue(daftar);
 
