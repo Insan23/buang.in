@@ -51,7 +51,7 @@ public class TabPoinFragment extends Fragment {
 
         final String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("dataPoin").child(UID);
+        databaseReference = firebaseDatabase.getReference("dataPoin");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

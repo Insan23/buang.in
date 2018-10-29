@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.ModelPoin;
 import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 
@@ -219,7 +220,7 @@ public class DialogVerifikasi extends DialogFragment {
                                             Double doubleHarga = Double.valueOf(stringHargaSampah);
                                             Double doublePoinSampah = doubleHarga / 100;
                                             Double dooubleTotalHarga = doubleHarga * Double.valueOf(stringBerat);
-                                            Double doubleTotalPoin = (Double.valueOf(doubleHarga) / 100) * Double.valueOf(stringBerat);
+                                            final Double doubleTotalPoin = (Double.valueOf(doubleHarga) / 100) * Double.valueOf(stringBerat);
 
                                             Double doublePoin = Double.valueOf(stringPoin) + doubleTotalPoin;
                                             System.out.println("poin total pengguna : " + String.valueOf(doublePoin));
@@ -280,14 +281,25 @@ public class DialogVerifikasi extends DialogFragment {
                                                     firebaseDatabase.getReference("dataSampah").child(kode).child("hargaSampah").setValue(String.valueOf(dooubleTotalHarga));
                                                     firebaseDatabase.getReference("pengguna").child(stringUID).child(stringKey).child("poin").setValue(String.valueOf(doublePoin));
 //                                                    pengguna.setPoin(String.valueOf(doublePoin));
-//
-//
-//                                                    fDat = FirebaseDatabase.getInstance();
-//                                                    dRef = fDat.getReference("pengguna").child(stringUID);
-//                                                    DatabaseReference reference = dRef.push();
-//                                                    String stringKey = reference.getKey();
-//                                                    System.out.println("key pengguna " + stringUID + " : " + stringKey);
-//                                                    firebaseDatabase.getReference("pengguna").child(stringUID).child(stringKey).child("poin").setValue(String.valueOf(doublePoin));
+
+                                                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                    DatabaseReference dRef = database.getReference("pengguna").child(uid);
+                                                    dRef.addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+                                                                Pengguna pengguna1 = dataSnapshot2.getValue(Pengguna.class);
+                                                                String namaBank = pengguna1.getNama();
+                                                                ModelPoin modelPoin = new ModelPoin(String.valueOf(doubleTotalPoin), stringUID, "Verifikasi Sampah", namaBank);
+                                                                database.getReference("dataPoin").push().setValue(modelPoin);
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                        }
+                                                    });
 
                                                     Toast.makeText(getContext(), "jenis : " + stringJenisSampah +
                                                                     ", berat : " + stringBerat + ", poin : " + String.valueOf(doubleTotalPoin) +

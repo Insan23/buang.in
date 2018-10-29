@@ -49,6 +49,37 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694168713709:android:625004b9a47de1dd",
+        "android_client_info": {
+          "package_name": "id.ac.unej.ilkom.ods.buangin.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694168713709-opf9bvkep5er8arqek41kd11hc2funoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3bT4vbfksmnebiDv1hSf2qelnMDio3JI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"

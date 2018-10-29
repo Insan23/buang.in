@@ -68,6 +68,7 @@ public class SampahkuFragment extends Fragment {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
+
     private FloatingActionButton buka_kamera;
     private TabVoucherFragment voucherFragment;
     private TabPoinFragment poinFragment;
@@ -102,7 +103,7 @@ public class SampahkuFragment extends Fragment {
                     String stringAmbil = model.getTanggalSubmit();
                     String stringAkhit = model.getTanggalAkhir();
                     String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    if (stringStatus.equalsIgnoreCase("menunggu") || stringUID == UID) {
+                    if (stringStatus.equalsIgnoreCase("menunggu") && stringUID == UID) {
                         System.out.println("UID pengguna : " + stringUID + " = " + UID + " = " + stringStatus);
                         model = new ModelSampah(stringKode, null, null, null, null, null, null, stringAmbil, stringAkhit, null, null, stringStatus);
                         modelList.add(model);
