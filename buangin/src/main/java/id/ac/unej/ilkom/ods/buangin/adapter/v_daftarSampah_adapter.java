@@ -13,14 +13,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 import id.ac.unej.ilkom.ods.buangin.model.v_daftarSampah_model;
 
 public class v_daftarSampah_adapter extends RecyclerView.Adapter<v_daftarSampah_adapter.MyViewHolder> {
 
     private Context context;
-    private List<v_daftarSampah_model> modelList;
+    private List<ModelSampah> modelList;
 
-    public v_daftarSampah_adapter(Context context, List<v_daftarSampah_model> modelList) {
+    public v_daftarSampah_adapter(Context context, List<ModelSampah> modelList) {
         this.context = context;
         this.modelList = modelList;
     }
@@ -34,11 +35,11 @@ public class v_daftarSampah_adapter extends RecyclerView.Adapter<v_daftarSampah_
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        v_daftarSampah_model model = modelList.get(position);
-        holder.tanggal.setText(model.getTanggal());
-        holder.waktu.setText(model.getWaktu());
-        holder.status.setText(model.getStatus());
-        holder.gambar.setImageURI(Uri.parse(model.getGambar()));
+        ModelSampah model = modelList.get(position);
+        holder.tanggal.setText(model.getTanggalSubmit());
+        holder.waktu.setText(model.getTanggalAkhir());
+        holder.status.setText(model.getStatusVerifikasi());
+        holder.gambar.setImageURI(Uri.parse(model.getUrlFoto()));
     }
 
     @Override

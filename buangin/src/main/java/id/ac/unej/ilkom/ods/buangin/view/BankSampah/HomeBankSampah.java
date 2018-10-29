@@ -44,7 +44,7 @@ public class HomeBankSampah extends AppCompatActivity {
 //        ft.replace(R.id.container_bank_sampah, verifikasi).commit();
         ft.add(R.id.container_bank_sampah, home, HomeFragment.class.getSimpleName()).commit();
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigasi_bawah_bank);
+        bottomNavigationView = (BottomNavigationView) findViewById(R. id.navigasi_bawah_bank);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

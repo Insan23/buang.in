@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ public class RiwayatPenukaranFragment extends Fragment {
     private RecyclerView recyclerView;
     private m_riwayat_adapter adapter;
     private List<m_riwayat_model> modelList;
+    private EditText kodeVoucher;
+    private ImageButton hapusKode, cekKode;
 
     public RiwayatPenukaranFragment() {
         // Required empty public constructor
@@ -36,6 +41,38 @@ public class RiwayatPenukaranFragment extends Fragment {
         // Inflate the layout for this fragment
         ((HomeMitra) getActivity()).setActionBarTitle("Riwayat Penukaran");
         View view = inflater.inflate(R.layout.fragment_mitra_riwayat_penukaran, container, false);
+
+        kodeVoucher = (EditText) view.findViewById(R.id.mitra_input_kode_voucher);
+        hapusKode = (ImageButton) view.findViewById(R.id.mitra_btn_hapus_kode_voucher);
+        cekKode = (ImageButton) view.findViewById(R.id.mitra_btn_cek_voucher);
+
+        cekKode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String stringKode = kodeVoucher.getText().toString().trim();
+                Boolean voucherAda = true;
+                if (stringKode.isEmpty()) {
+                    kodeVoucher.requestFocus();
+                    kodeVoucher.setError("Masukkan kode voucher");
+                    voucherAda = false;
+                } else {
+                    voucherAda = true;
+                }
+
+                if (voucherAda) {
+                    DialogVoucher voucher = new DialogVoucher();
+                    voucher.setKodeVoucher(stringKode);
+                    voucher.show(getChildFragmentManager(), "voucher");
+                }
+            }
+        });
+
+        hapusKode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kodeVoucher.setText("");
+            }
+        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_riwayatPenukaran);
         modelList = new ArrayList<>();

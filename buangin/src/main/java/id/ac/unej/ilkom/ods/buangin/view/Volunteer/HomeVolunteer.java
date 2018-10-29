@@ -4,6 +4,7 @@ package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -16,10 +17,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 import id.ac.unej.ilkom.ods.buangin.view.HalamanMasuk;
 import id.ac.unej.ilkom.ods.buangin.view.Pengaturan;
 import id.ac.unej.ilkom.ods.buangin.view.Riwayatku;
@@ -44,6 +52,8 @@ public class HomeVolunteer extends AppCompatActivity
     private FragmentTransaction ft;
 
     private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
