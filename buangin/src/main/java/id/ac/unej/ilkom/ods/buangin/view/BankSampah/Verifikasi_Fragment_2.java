@@ -30,6 +30,7 @@ import java.util.List;
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.adapter.Verifikasi_Adapter;
 import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
+import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 import id.ac.unej.ilkom.ods.buangin.model.bs_verifikasi_model_2;
 
 public class Verifikasi_Fragment_2 extends Fragment {
@@ -52,10 +53,35 @@ public class Verifikasi_Fragment_2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bank_sampah_verifikasi_2, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_verifikasi_2);
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("dataSampah");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list = new ArrayList<ModelSampah>();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    ModelSampah verifikasi = data.getValue(ModelSampah.class);
+                    if ((verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITERIMA) || verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITOLAK))) {
+                        list.add(verifikasi);
+                    } else {
 
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("Hello", "Database error : ", databaseError.toException());
+            }
+        });
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_verifikasi_2);
         nama = (TextView) view.findViewById(R.id.text_user_bank_sampah);
         level = (TextView) view.findViewById(R.id.text_level_bank_sampah);
+        cek_kode = (ImageButton) view.findViewById(R.id.btn_cek_kode_2);
+        hapus_kode = (ImageButton) view.findViewById(R.id.btn_hapus_kode);
+        kode_sampah = (EditText) view.findViewById(R.id.input_kode_sampah);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -67,9 +93,9 @@ public class Verifikasi_Fragment_2 extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    bs_verifikasi_model_2 verifikasiModel2 = dataSnapshot1.getValue(bs_verifikasi_model_2.class);
-                    String stringNama = verifikasiModel2.getNama();
-                    String stringLevel = verifikasiModel2.getLevel();
+                    Pengguna pengguna = dataSnapshot1.getValue(Pengguna.class);
+                    String stringNama = pengguna.getNama();
+                    String stringLevel = pengguna.getLevel();
 
                     nama.setText(stringNama);
                     level.setText(stringLevel);
@@ -83,10 +109,6 @@ public class Verifikasi_Fragment_2 extends Fragment {
 
             }
         });
-
-        cek_kode = (ImageButton) view.findViewById(R.id.btn_cek_kode_2);
-        hapus_kode = (ImageButton) view.findViewById(R.id.btn_hapus_kode);
-        kode_sampah = (EditText) view.findViewById(R.id.input_kode_sampah);
 
         hapus_kode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,29 +157,6 @@ public class Verifikasi_Fragment_2 extends Fragment {
                         }
                     });
                 }
-            }
-        });
-
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("dataSampah");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<ModelSampah>();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    ModelSampah verifikasi = data.getValue(ModelSampah.class);
-                    if ((verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITERIMA) || verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITOLAK)) && verifikasi.getUidBank().equals(UID)) {
-                        list.add(verifikasi);
-                    } else {
-
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("Hello", "Database error : ", databaseError.toException());
             }
         });
 

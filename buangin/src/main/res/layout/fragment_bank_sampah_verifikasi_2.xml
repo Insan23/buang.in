@@ -36,6 +36,7 @@
                         android:id="@+id/text_user_bank_sampah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:text="bank sampah"
                         android:textColor="@color/warnaPutih"
                         android:textSize="24sp" />
@@ -100,7 +101,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/input_kode_sampah"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp">

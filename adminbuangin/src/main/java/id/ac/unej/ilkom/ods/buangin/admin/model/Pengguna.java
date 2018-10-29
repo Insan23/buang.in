@@ -9,38 +9,41 @@ public class Pengguna {
     public static final String BANK_SAMPAH = "bank_sampah";
     public static final String MITRA = "mitra";
     public static final String PERUSAHAAN = "perusahaan";
+    public static final String ADMIN = "admin";
 
-    private String id;
+    private String uidVolunteer;
     private String nama;
+    private String namaPemilik;
+    private String namaInstansi;
     private String email;
+    private String password;
+    private String alamat;
+    private String telp;
     private String level;
-    private int poin;
+    private String poin;
 
     public Pengguna() {
-        // Konstruktor default dibutuhkan untuk dapat dipanggil oleh DataSnapshot.getValue(User.class)
     }
 
-    public Pengguna(String nama, String email, String level, int poin) {
+    public Pengguna(String uidVolunteer, String nama, String namaPemilik, String namaInstansi, String email, String password, String alamat, String telp, String level, String poin) {
+        this.uidVolunteer = uidVolunteer;
         this.nama = nama;
+        this.namaPemilik = namaPemilik;
+        this.namaInstansi = namaInstansi;
         this.email = email;
+        this.password = password;
+        this.alamat = alamat;
+        this.telp = telp;
         this.level = level;
         this.poin = poin;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
     public String getId() {
-        return id;
+        return uidVolunteer;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String uidVolunteer) {
+        this.uidVolunteer = uidVolunteer;
     }
 
     public String getNama() {
@@ -51,6 +54,22 @@ public class Pengguna {
         this.nama = nama;
     }
 
+    public String getNamaPemilik() {
+        return namaPemilik;
+    }
+
+    public void setNamaPemilik(String namaPemilik) {
+        this.namaPemilik = namaPemilik;
+    }
+
+    public String getNamaInstansi() {
+        return namaInstansi;
+    }
+
+    public void setNamaInstansi(String namaInstansi) {
+        this.namaInstansi = namaInstansi;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -59,11 +78,43 @@ public class Pengguna {
         this.email = email;
     }
 
-    public int getPoin() {
-        return this.poin;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPoin(int poin) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getTelp() {
+        return telp;
+    }
+
+    public void setTelp(String telp) {
+        this.telp = telp;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getPoin() {
+        return poin;
+    }
+
+    public void setPoin(String poin) {
         this.poin = poin;
     }
 }

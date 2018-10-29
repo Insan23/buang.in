@@ -106,7 +106,6 @@ public class DialogSampah extends DialogFragment {
 
         tanggalAkhir = formatter.format(akhir);
 
-
         SimpleDateFormat menit = new SimpleDateFormat("mm");
         SimpleDateFormat detik = new SimpleDateFormat("ss");
         String strMenit = menit.format(new Date());
@@ -114,8 +113,9 @@ public class DialogSampah extends DialogFragment {
         String strUID = uid.substring(0, 3);
 
         final String stringKode = md5(strUID + strMenit + strDetik);
+        final String strKode = stringKode.substring(0, 7);
 
-        kode.setText(stringKode);
+        kode.setText(strKode);
         tanggal.setText(tanggalAwal);
         imgPreview.setImageBitmap(img);
 
@@ -126,7 +126,7 @@ public class DialogSampah extends DialogFragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Pengguna pen = child.getValue(Pengguna.class);
-                    nama = pen.getNama();
+                    final String stringNama = pen.getNama();
                 }
             }
 
@@ -140,8 +140,8 @@ public class DialogSampah extends DialogFragment {
             @Override
             public void onClick(View v) {
                 //(String kodeSampah, String uidVolunteer, String namaVolunteer, String uidBank, String urlFoto, String jenisSampah, String poinSampah, String tanggalSubmit, String tanggalAkhir, String hargaSampah, String beratSampah, String statusVerifikasi)
-                ModelSampah tempSampah = new ModelSampah(stringKode, uid, nama, null, null, null, "0", tglAwal, tglAkhir, null, null, ModelSampah.VERIFIKASI_MENUNGGU);
-                dbRef.child("dataSampah").child(stringKode).setValue(tempSampah, new DatabaseReference.CompletionListener() {
+                ModelSampah tempSampah = new ModelSampah(strKode, uid, null, null, null, null, "0", tglAwal, tglAkhir, null, null, ModelSampah.VERIFIKASI_MENUNGGU);
+                dbRef.child("dataSampah").child(strKode).setValue(tempSampah, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         if (databaseError == null) {
@@ -151,7 +151,7 @@ public class DialogSampah extends DialogFragment {
                                     .child(uid)
                                     .child(key)
                                     .child(imgUri.getLastPathSegment());
-                            kirimDB(stor, imgUri, key, stringKode, tglAwal, tglAkhir, uid);
+                            kirimDB(stor, imgUri, key, strKode,tglAwal, tglAkhir, uid);
                         } else {
                             Log.w(TAG, "Database Error: " + databaseError.getDetails());
                         }

@@ -1,29 +1,21 @@
 package id.ac.unej.ilkom.ods.buangin.model;
 
 public class ModelPoin {
-
-    private String uid;
     private String poin;
+    private String uidVolunteer;
     private String dari;
     private String sumber;
 
     public ModelPoin() {
     }
 
-    public ModelPoin(String uid, String poin, String dari, String sumber) {
-        this.uid = uid;
+    public ModelPoin(String poin, String uidVolunteer, String dari, String sumber) {
         this.poin = poin;
+        this.uidVolunteer = uidVolunteer;
         this.dari = dari;
         this.sumber = sumber;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
 
     public String getPoin() {
         return poin;
@@ -31,6 +23,14 @@ public class ModelPoin {
 
     public void setPoin(String poin) {
         this.poin = poin;
+    }
+
+    public String getUidVolunteer() {
+        return uidVolunteer;
+    }
+
+    public void setUidVolunteer(String uidVolunteer) {
+        this.uidVolunteer = uidVolunteer;
     }
 
     public String getDari() {
