@@ -27,7 +27,8 @@
             android:layout_centerInParent="true"
             android:text="Tidak Ada Data Voucher"
             android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

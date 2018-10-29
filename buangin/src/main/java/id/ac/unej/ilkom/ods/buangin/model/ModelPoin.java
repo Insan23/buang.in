@@ -16,6 +16,7 @@ public class ModelPoin {
         this.sumber = sumber;
     }
 
+
     public String getPoin() {
         return poin;
     }
