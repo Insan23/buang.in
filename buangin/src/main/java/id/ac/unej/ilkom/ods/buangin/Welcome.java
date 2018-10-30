@@ -37,8 +37,6 @@ public class Welcome extends AppCompatActivity {
      * TODO jumlah voucher berkurang di mitra
      * TODO fitur perusahaan request sampah kepada bank sampah dengan harga tersendiri
      * TODO verifikasi per sampah di bank sampah (memilah sampah) ?
-     * tes commit basir
-     */
 
     private static final String TAG = "Welcome_Page";
 
