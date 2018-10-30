@@ -33,12 +33,11 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         Pengguna model = penggunaList.get(i);
-        myViewHolder.telp.setText(model.getTelp());
-        myViewHolder.email.setText(model.getEmail());
-        myViewHolder.poin.setText(model.getPoin());
-        myViewHolder.alamat.setText(model.getAlamat());
+        myViewHolder.nama.setText(model.getNamaPemilik());
         myViewHolder.instansi.setText(model.getNamaInstansi());
-        myViewHolder.nama.setText(model.getNama());
+        myViewHolder.email.setText(model.getEmail());
+        myViewHolder.alamat.setText(model.getAlamat());
+        myViewHolder.telp.setText(model.getTelp());
     }
 
     @Override
@@ -47,7 +46,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView nama, instansi, alamat, email, telp, poin;
+        private TextView nama, instansi, alamat, email, telp;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,7 +55,6 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.MyViewHolder> 
             alamat = (TextView) itemView.findViewById(R.id.bank_alamat);
             email = (TextView) itemView.findViewById(R.id.bank_email);
             telp = (TextView) itemView.findViewById(R.id.bank_telp);
-            poin = (TextView) itemView.findViewById(R.id.bank_poin);
         }
     }
 }

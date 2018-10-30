@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,37 +20,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.admin.R;
-import id.ac.unej.ilkom.ods.buangin.admin.adapter.MitraAdapter;
+import id.ac.unej.ilkom.ods.buangin.admin.adapter.AdminAdapter;
 import id.ac.unej.ilkom.ods.buangin.admin.model.Pengguna;
 
-public class FragmentMitra extends Fragment {
+public class FragmentAdmin extends Fragment {
     private RecyclerView recyclerView;
+
+    private List<Pengguna> penggunaList;
+    private AdminAdapter adapter;
+
     private FirebaseDatabase database;
     private DatabaseReference reference;
-
-    private MitraAdapter adapter;
-    private List<Pengguna> penggunaList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mitra, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_admin);
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("dataMitra");
+        reference = database.getReference("dataAdmin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 penggunaList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Pengguna model = dataSnapshot1.getValue(Pengguna.class);
-                    String nama = model.getNamaPemilik();
-                    String instansi = model.getNamaInstansi();
-                    String telp = model.getTelp();
-                    String alamat = model.getAlamat();
+                    String nama = model.getNama();
                     String email = model.getEmail();
+                    String alamat = model.getAlamat();
+                    String telp = model.getTelp();
 
-                    model = new Pengguna(null, null, nama, instansi, email, null, alamat, telp, null, null);
+                    model = new Pengguna(null, nama, null, null, email, null, alamat, telp, null, null);
                     penggunaList.add(model);
                 }
                 adapter.notifyDataSetChanged();
@@ -63,12 +63,10 @@ public class FragmentMitra extends Fragment {
             }
         });
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_mitra);
         penggunaList = new ArrayList<>();
-        adapter = new MitraAdapter(getContext(), penggunaList);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        adapter = new AdminAdapter(getContext(), penggunaList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
         return view;

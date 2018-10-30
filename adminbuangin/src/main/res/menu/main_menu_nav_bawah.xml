@@ -13,5 +13,11 @@
         android:icon="@drawable/ic_nav_pengguna"
         android:title="Daftar Pengguna"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/main_nav_poin"
+        android:enabled="true"
+        android:icon="@drawable/ic_nav_poin"
+        android:title="Poin"
+        app:showAsAction="ifRoom" />
 
 </menu>

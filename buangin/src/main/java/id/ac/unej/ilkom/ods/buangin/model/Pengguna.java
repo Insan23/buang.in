@@ -20,7 +20,8 @@ public class Pengguna {
         // Konstruktor default dibutuhkan untuk dapat dipanggil oleh DataSnapshot.getValue(User.class)
     }
 
-    public Pengguna(String nama, String email, String level, String poin) {
+    public Pengguna(String id, String nama, String email, String level, String poin) {
+        this.id = id;
         this.nama = nama;
         this.email = email;
         this.level = level;

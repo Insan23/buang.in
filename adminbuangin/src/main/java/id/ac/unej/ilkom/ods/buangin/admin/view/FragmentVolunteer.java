@@ -37,7 +37,6 @@ public class FragmentVolunteer extends Fragment {
 
     private VolunteerAdapter adapter;
     private List<Pengguna> penggunaList;
-    private HashMap<String, String> hashMap;
 
     @Nullable
     @Override
@@ -45,29 +44,22 @@ public class FragmentVolunteer extends Fragment {
         View view = inflater.inflate(R.layout.fragment_volunteer, container, false);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("pengguna");
+        databaseReference = firebaseDatabase.getReference("dataVolunteer");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 penggunaList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-                        Pengguna model = dataSnapshot2.getValue(Pengguna.class);
-                        String level = model.getLevel();
-                        String nama = model.getNama();
-                        String email = model.getEmail();
-                        String poin = model.getPoin();
-                        System.out.println("volunteer level : " + level);
-                        System.out.println("volunteer nama : " + nama);
-                        System.out.println("volunteer email : " + email);
-                        System.out.println("volunteer poin : " + poin);
-                        if (level.equalsIgnoreCase("volunteer")) {
-                            model = new Pengguna(null, nama, null, null, email, null, null, null, null, poin);
-                            penggunaList.add(model);
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
+                    Pengguna model = dataSnapshot1.getValue(Pengguna.class);
+                    String nama = model.getNama();
+                    String email = model.getEmail();
+                    System.out.println("volunteer nama : " + nama);
+                    System.out.println("volunteer email : " + email);
+
+                    model = new Pengguna(null, nama, null, null, email, null, null, null, null, null);
+                    penggunaList.add(model);
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -78,14 +70,10 @@ public class FragmentVolunteer extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_volunteer);
         penggunaList = new ArrayList<>();
-        adapter = new
-
-                VolunteerAdapter(getContext(), penggunaList);
+        adapter = new VolunteerAdapter(getContext(), penggunaList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new
-
-                DefaultItemAnimator());
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
         return view;

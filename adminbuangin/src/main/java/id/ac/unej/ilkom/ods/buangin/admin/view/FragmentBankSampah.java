@@ -38,26 +38,23 @@ public class FragmentBankSampah extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bank_sampah, container, false);
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("pengguna");
+        reference = database.getReference("dataBankSampah");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 penggunaList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Pengguna model = dataSnapshot1.getValue(Pengguna.class);
-                    String level = model.getLevel();
-                    String nama = model.getNama();
+                    String nama = model.getNamaPemilik();
                     String instansi = model.getNamaInstansi();
                     String telp = model.getTelp();
                     String alamat = model.getAlamat();
                     String email = model.getEmail();
-                    String poin = model.getPoin();
-                    if (level.equalsIgnoreCase("bank_sampah")) {
-                        model = new Pengguna(null, nama, null, instansi, email, null, alamat, telp, null, poin);
-                        penggunaList.add(model);
-                    }
-                    adapter.notifyDataSetChanged();
+
+                    model = new Pengguna(null, null, nama, instansi, email, null, alamat, telp, null, null);
+                    penggunaList.add(model);
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override

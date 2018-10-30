@@ -30,6 +30,7 @@ public class FragmentDaftarPengguna extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.pager_dafftar_pengguna);
 
         TabAdapter adapter = new TabAdapter(getChildFragmentManager());
+        adapter.tambahFragment(new FragmentAdmin(), "Admin");
         adapter.tambahFragment(new FragmentVolunteer(), "Volunteer");
         adapter.tambahFragment(new FragmentBankSampah(), "Bank Sampah");
         adapter.tambahFragment(new FragmentMitra(), "Mitra UMKM");

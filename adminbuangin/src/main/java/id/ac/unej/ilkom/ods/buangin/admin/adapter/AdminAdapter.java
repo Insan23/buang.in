@@ -13,11 +13,11 @@ import java.util.List;
 import id.ac.unej.ilkom.ods.buangin.admin.R;
 import id.ac.unej.ilkom.ods.buangin.admin.model.Pengguna;
 
-public class MitraAdapter extends RecyclerView.Adapter<MitraAdapter.MyViewHolder> {
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder> {
     private Context context;
     private List<Pengguna> penggunaList;
 
-    public MitraAdapter(Context context, List<Pengguna> penggunaList) {
+    public AdminAdapter(Context context, List<Pengguna> penggunaList) {
         this.context = context;
         this.penggunaList = penggunaList;
     }
@@ -25,15 +25,14 @@ public class MitraAdapter extends RecyclerView.Adapter<MitraAdapter.MyViewHolder
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_mitra, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_admin, viewGroup, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         Pengguna model = penggunaList.get(i);
-        myViewHolder.nama.setText(model.getNamaPemilik());
-        myViewHolder.instansi.setText(model.getNamaInstansi());
+        myViewHolder.nama.setText(model.getNama());
         myViewHolder.email.setText(model.getEmail());
         myViewHolder.alamat.setText(model.getAlamat());
         myViewHolder.telp.setText(model.getTelp());
@@ -45,15 +44,14 @@ public class MitraAdapter extends RecyclerView.Adapter<MitraAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView nama, instansi, alamat, email, telp;
+        private TextView nama, email, alamat, telp;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            nama = (TextView) itemView.findViewById(R.id.mitra_pemilik);
-            instansi = (TextView) itemView.findViewById(R.id.mitra_instansi);
-            alamat = (TextView) itemView.findViewById(R.id.mitra_alamat);
-            email = (TextView) itemView.findViewById(R.id.mitra_email);
-            telp = (TextView) itemView.findViewById(R.id.mitra_telp);
+            nama = (TextView) itemView.findViewById(R.id.admin_nama);
+            email = (TextView) itemView.findViewById(R.id.admin_email);
+            alamat = (TextView) itemView.findViewById(R.id.admin_alamat);
+            telp = (TextView) itemView.findViewById(R.id.admin_telp);
         }
     }
 }

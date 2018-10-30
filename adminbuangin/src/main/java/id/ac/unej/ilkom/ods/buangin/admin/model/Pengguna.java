@@ -11,7 +11,7 @@ public class Pengguna {
     public static final String PERUSAHAAN = "perusahaan";
     public static final String ADMIN = "admin";
 
-    private String uidVolunteer;
+    private String id;
     private String nama;
     private String namaPemilik;
     private String namaInstansi;
@@ -25,8 +25,8 @@ public class Pengguna {
     public Pengguna() {
     }
 
-    public Pengguna(String uidVolunteer, String nama, String namaPemilik, String namaInstansi, String email, String password, String alamat, String telp, String level, String poin) {
-        this.uidVolunteer = uidVolunteer;
+    public Pengguna(String id, String nama, String namaPemilik, String namaInstansi, String email, String password, String alamat, String telp, String level, String poin) {
+        this.id = id;
         this.nama = nama;
         this.namaPemilik = namaPemilik;
         this.namaInstansi = namaInstansi;
@@ -39,11 +39,11 @@ public class Pengguna {
     }
 
     public String getId() {
-        return uidVolunteer;
+        return id;
     }
 
-    public void setId(String uidVolunteer) {
-        this.uidVolunteer = uidVolunteer;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNama() {

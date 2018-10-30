@@ -30,6 +30,7 @@ public class Home extends AppCompatActivity {
     FragmentManager fm;
     FragmentDaftarHarga daftarHarga;
     FragmentDaftarPengguna daftarPengguna;
+    FragmentPoin fragmentPoin;
 
     private FirebaseUser firebaseUser;
     private FirebaseAuth firebaseAuth;
@@ -49,6 +50,7 @@ public class Home extends AppCompatActivity {
         ft = fm.beginTransaction();
         daftarHarga = new FragmentDaftarHarga();
         daftarPengguna = new FragmentDaftarPengguna();
+        fragmentPoin = new FragmentPoin();
 
         ft.add(R.id.main_frameLayout, daftarHarga, FragmentDaftarHarga.class.getSimpleName()).commit();
 
@@ -63,6 +65,10 @@ public class Home extends AppCompatActivity {
                     case R.id.main_nav_pengguna:
                         fm.beginTransaction().replace(R.id.main_frameLayout, daftarPengguna).commit();
                         break;
+                    case R.id.main_nav_poin:
+                        fm.beginTransaction().replace(R.id.main_frameLayout, fragmentPoin).commit();
+                        break;
+                    default:
                 }
             }
         });

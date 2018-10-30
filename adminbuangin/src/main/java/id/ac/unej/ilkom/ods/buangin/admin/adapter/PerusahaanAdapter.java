@@ -32,11 +32,11 @@ public class PerusahaanAdapter extends RecyclerView.Adapter<PerusahaanAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         Pengguna model = penggunaList.get(i);
-        myViewHolder.telp.setText(model.getTelp());
+        myViewHolder.nama.setText(model.getNamaPemilik());
+        myViewHolder.instansi.setText(model.getNamaInstansi());
         myViewHolder.email.setText(model.getEmail());
         myViewHolder.alamat.setText(model.getAlamat());
-        myViewHolder.instansi.setText(model.getNamaInstansi());
-        myViewHolder.nama.setText(model.getNama());
+        myViewHolder.telp.setText(model.getTelp());
     }
 
     @Override
