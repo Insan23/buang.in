@@ -71,13 +71,21 @@ public class TabVoucherFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    listVoucher.clear();
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
                         ModelVoucher perVoucher = data.getValue(ModelVoucher.class);
                         int jml = Integer.valueOf(perVoucher.getJumlahKuota());
+                        Log.d("TABVOU", "Jumlah Voucher:" + jml + ", jml voucher string" + perVoucher.getJumlahKuota());
+                        Log.d("TabVou", "status voucher:" + perVoucher.getStatusVoucher());
                         if (perVoucher.getStatusVoucher().equals(ModelVoucher.VOUCHER_BERLAKU) && jml > 0) {
+                            perVoucher.setKey(data.getKey());
                             listVoucher.add(perVoucher);
                         } else {
-                            //bila voucher tidak tersedia kuotanya
+                            Log.d("TabVou", "Voucher kosong");
+                            if (listVoucher.size() == 0) {
+                                recyclerView.setVisibility(View.GONE);
+                                listKosong.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                     recyclerView.setVisibility(View.VISIBLE);
@@ -100,46 +108,8 @@ public class TabVoucherFragment extends Fragment {
 
             @Override
             public void onItemClick(final ModelVoucher model) {
-                loading(true);
-                dbRef.child("dataVoucher").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            ModelVoucher perVoucher = data.getValue(ModelVoucher.class);
-                            if (perVoucher.getUidMitra().equals(model.getUidMitra()) && perVoucher.getNamaVoucher().equals(model.getNamaVoucher())) {
-                                int jml = Integer.valueOf(perVoucher.getJumlahKuota());
-                                if (jml > 0) {
-                                    bolehBeli = true;
-                                    String jumlahBaru = String.valueOf(jml - 1);
-                                    updateVoucher(data.getKey(), jumlahBaru);
-                                    return;
-                                } else {
-                                    bolehBeli = false;
-                                    return;
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        loading(false);
-                    }
-                });
-                loading(false);
-                if (bolehBeli) {
-                    prosesBeli(model);
-                } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(getContext())
-                            .setMessage("Kuota voucher sudah habis")
-                            .setPositiveButton("kembali", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    dialog.show();
-                }
+                bolehBeli = false;
+                prosesBeli(model);
             }
         });
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
@@ -152,36 +122,61 @@ public class TabVoucherFragment extends Fragment {
 
 
     private void prosesBeli(final ModelVoucher voucher) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext())
-                .setTitle("Beli Voucher")
-                .setMessage("Yakin ingin membeli voucher " + voucher.getNamaVoucher() + " seharga " + voucher.getHargaPoin() + " poin?")
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, int which) {
-                        loading(true);
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        String kode = user.getUid().substring(0, 3) + Util.md5(Util.tanggalSekarang());
-                        //namaVolunteer, namaMitra, kodeVoucher, url_foto, namaVoucher, deskripsi, hargaPoin, statusVoucher
-                        ModelVoucherVolunteer beli = new ModelVoucherVolunteer("", voucher.getNamaMitra(), kode, voucher.getUrl_foto(), voucher.getNamaVoucher(), voucher.getDeskripsi(), voucher.getHargaPoin(), ModelVoucherVolunteer.VOUCHER_DIBELI);
+        loading(true);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext()).setTitle("Beli Voucher").setMessage("Yakin ingin membeli voucher " + voucher.getNamaVoucher() + " seharga " + voucher.getHargaPoin() + " poin?").setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, int which) {
 
-                        dbRef = FirebaseDatabase.getInstance().getReference();
-                        dbRef.child(BaseApi.TABEL_VOUCHER_VOLUNTEER).push().setValue(beli).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "Berhasil membeli voucher", Toast.LENGTH_LONG).show();
-                                dialog.dismiss();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TabVoucherFragment.class.getSimpleName(), "Gagal mengirim data:" + e.getMessage());
-                                Toast.makeText(getContext(), "Gagal membeli voucher", Toast.LENGTH_LONG).show();
-                                dialog.dismiss();
-                            }
-                        });
-                        loading(false);
+                dbRef = FirebaseDatabase.getInstance().getReference().child(BaseApi.TABEL_VOUCHER).child(voucher.getKey()).child("jumlahKuota");
+                dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final int jml = Integer.valueOf(dataSnapshot.getValue().toString());
+                        if (jml > 0) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            final String kode = voucher.getUidMitra().substring(0, 3) + user.getUid().substring(0, 3) + Util.waktuEpochSekarang().toUpperCase();
+                            ModelVoucherVolunteer beli = new ModelVoucherVolunteer("", voucher.getNamaMitra(), kode, voucher.getUrl_foto(), voucher.getNamaVoucher(), voucher.getDeskripsi(), voucher.getHargaPoin(), ModelVoucherVolunteer.VOUCHER_DIBELI);
+
+                            dbRef = FirebaseDatabase.getInstance().getReference();
+                            dbRef.child(BaseApi.TABEL_VOUCHER_VOLUNTEER).push().setValue(beli).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    AlertDialog.Builder dialogBerhasil = new AlertDialog.Builder(getContext()).setTitle("Berhasil").setMessage("Pembelian Berhasil, Kode Voucher Anda : " + kode + "\nCek Voucher Anda Di Tab Riwayat").setPositiveButton("kembali", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            updateVoucher(voucher.getKey(), jml);
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialogBerhasil.show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TabVoucherFragment.class.getSimpleName(), "Gagal mengirim data:" + e.getMessage());
+                                    Toast.makeText(getContext(), "Gagal membeli voucher", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
+                            });
+                            loading(false);
+                        } else {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext()).setMessage("Kuota voucher sudah habis").setPositiveButton("kembali", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+                        }
                     }
-                })
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -199,9 +194,10 @@ public class TabVoucherFragment extends Fragment {
         }
     }
 
-    private void updateVoucher(String key, String kuotaBaru) {
+    private void updateVoucher(String key, int kuota) {
+        String jumlahBaru = String.valueOf(kuota - 1);
         dbRef = FirebaseDatabase.getInstance().getReference();
-        dbRef.child(BaseApi.TABEL_VOUCHER).child(key).child("jumlahKuota").setValue(kuotaBaru);
+        dbRef.child(BaseApi.TABEL_VOUCHER).child(key).child("jumlahKuota").setValue(jumlahBaru);
     }
 
 }

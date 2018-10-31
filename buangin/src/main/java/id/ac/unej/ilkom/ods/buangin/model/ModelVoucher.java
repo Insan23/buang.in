@@ -8,6 +8,7 @@ public class ModelVoucher {
     //apabila stok voucher sudah habis
     public static final String VOUCHER_TIDAK_BERLAKU = "tidak_berlaku";
 
+    private String key;
     private String uidMitra;
     private String namaMitra;
     private String url_foto;
@@ -94,5 +95,13 @@ public class ModelVoucher {
 
     public void setStatusVoucher(String statusVoucher) {
         this.statusVoucher = statusVoucher;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

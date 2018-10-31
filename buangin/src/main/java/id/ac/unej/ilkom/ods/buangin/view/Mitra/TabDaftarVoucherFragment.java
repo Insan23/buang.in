@@ -77,11 +77,16 @@ public class TabDaftarVoucherFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG, "Gagal Membaca Data" + databaseError.getDetails());
-                Toast.makeText(getContext(), "Gagal Membaca Data", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), "Gagal Membaca Data", Toast.LENGTH_LONG).show();
             }
         });
 
-        VoucherAdapter adapter = new VoucherAdapter(getContext(), listVoucher);
+        VoucherAdapter adapter = new VoucherAdapter(getContext(), listVoucher, new VoucherAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ModelVoucher model) {
+                Toast.makeText(getContext(), "Tentukan aksi saat klik voucher", Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;

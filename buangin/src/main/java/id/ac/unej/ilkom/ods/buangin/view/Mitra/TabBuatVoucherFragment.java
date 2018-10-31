@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 import id.ac.unej.ilkom.ods.buangin.R;
+import id.ac.unej.ilkom.ods.buangin.model.BaseApi;
 import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
 import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 
@@ -48,6 +50,8 @@ import static id.ac.unej.ilkom.ods.buangin.util.Util.REQUEST_IMAGE_CAPTURE;
 import static id.ac.unej.ilkom.ods.buangin.util.Util.WRITE_EXTERNAL;
 
 public class TabBuatVoucherFragment extends Fragment {
+
+    private final String TAG = TabBuatVoucherFragment.class.getSimpleName();
 
     private EditText namaProduk, deskripsi, poin, kuota;
     private ImageView voucher;
@@ -154,22 +158,27 @@ public class TabBuatVoucherFragment extends Fragment {
                 }
 
                 if (kirim) {
-                    ModelVoucher voucher = new ModelVoucher(uid, namaMitra, null, strNama, strDeskripsi, strPoin, strKuota, ModelVoucher.VOUCHER_BERLAKU);
+                    final StorageReference ref = FirebaseStorage.getInstance().getReference(BaseApi.DIR_FOTO_VOUCHER).child(uriFoto.getLastPathSegment());
 
-                    dbRef.child("dataVoucher").push().setValue(voucher, new DatabaseReference.CompletionListener() {
+                    UploadTask uploadFoto = ref.putFile(uriFoto);
+
+                    Task<Uri> uploading = uploadFoto.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
-                        public void onComplete(@Nullable DatabaseError dbErr, @NonNull DatabaseReference dbRef) {
-                            if (dbErr == null) {
-                                Toast.makeText(getContext(), "Berhasil Membuat ModelVoucher", Toast.LENGTH_LONG).show();
-                                String key = dbRef.getKey();
-                                StorageReference stor = FirebaseStorage.getInstance()
-                                        .getReference("voucher_mitra")
-                                        .child(key)
-                                        .child(uriFoto.getLastPathSegment());
-                                kirimStorage(stor, uriFoto, strNama, strDeskripsi, strPoin, strKuota, uid, key);
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "Gagal upload foto voucher:" + task.getException());
+                            }
+                            return ref.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                String urlDownload = task.getResult().toString();
+                                ModelVoucher voucher = new ModelVoucher(uid, namaMitra, urlDownload, strNama, strDeskripsi, strPoin, strKuota, ModelVoucher.VOUCHER_BERLAKU);
+                                dbRef.child("dataVoucher").push().setValue(voucher);
                             } else {
-                                Toast.makeText(getContext(), "Gagal Membuat ModelVoucher", Toast.LENGTH_LONG).show();
-                                Log.w("TabBuatVoucherFragment", dbErr.getDetails());
+                                Log.w(TAG, "Gagal mengambil url voucher");
                             }
                         }
                     });

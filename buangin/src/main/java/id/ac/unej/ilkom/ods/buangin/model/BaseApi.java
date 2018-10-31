@@ -29,6 +29,10 @@ public class BaseApi {
     public static final String TABEL_PERUSAHAAN = "dataPerusahaan";
     public static final String TABEL_PENGGUNA = "penguna";
 
+    public static final String DIR_FOTO_VOUCHER = "voucher_mitra";
+    public static final String DIR_FOTO_PROFIL = "foto_profil";
+    public static final String DIR_FOTO_SAMPAH = "sampah_volunteer";
+
     public static final String BASE_URL = "https://buang-in.firebaseio.com/";
     private static FirebaseAuth auth;
     private static FirebaseUser user;

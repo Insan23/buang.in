@@ -2,9 +2,7 @@ package id.ac.unej.ilkom.ods.buangin.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Util {
@@ -19,7 +17,7 @@ public class Util {
 
     public static final int REQUEST_IMAGE_CAPTURE = 102;
 
-    public static final long MAX_SIZE = 1024 * 1024 * 1024;
+    public static final long MB = 20 * 1024 * 1024;
 
     public Util() {
 
@@ -47,6 +45,13 @@ public class Util {
     public static String tanggalSekarang() {
         String tanggal = "";
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy-HH:mm");
+        tanggal = formatter.format(new Date());
+        return tanggal;
+    }
+
+    public static String waktuEpochSekarang() {
+        String tanggal = "";
+        SimpleDateFormat formatter = new SimpleDateFormat("mmSSS");
         tanggal = formatter.format(new Date());
         return tanggal;
     }
