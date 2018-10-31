@@ -116,11 +116,14 @@ public class HalamanDaftar extends AppCompatActivity {
                                         Log.d(TAG, "createUserWithEmail:success");
                                         FirebaseUser user = auth.getCurrentUser();
                                         String email = user.getEmail();
+                                        String uid = user.getUid();
 
                                         Toast.makeText(HalamanDaftar.this, "email : " + email, Toast.LENGTH_LONG).show();
-                                        Pengguna daftar = new Pengguna(strNama, email, Pengguna.VOLUNTEER, "0");
+                                        Pengguna daftar = new Pengguna(null, strNama, email, Pengguna.VOLUNTEER, "0");
+                                        Pengguna dataVolunteer = new Pengguna(uid, strNama, email, null, null);
 
-                                        dbRef.child("pengguna").child(user.getUid()).push().setValue(daftar);
+                                        dbRef.child("pengguna").child(uid).push().setValue(daftar);
+                                        dbRef.child("dataVolunteer").push().setValue(dataVolunteer);
 
                                         Toast.makeText(HalamanDaftar.this, "Pendaftaran Berhasil", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(HalamanDaftar.this, HalamanMasuk.class));

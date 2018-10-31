@@ -39,27 +39,23 @@ public class FragmentPerusahaan extends Fragment {
 
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("pengguna");
+        reference = database.getReference("dataPerusahaan");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 penggunaList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Pengguna model = dataSnapshot1.getValue(Pengguna.class);
-                    String level = model.getLevel();
-                    String nama = model.getNama();
+                    String nama = model.getNamaPemilik();
                     String instansi = model.getNamaInstansi();
                     String telp = model.getTelp();
                     String alamat = model.getAlamat();
                     String email = model.getEmail();
-                    if (level.equalsIgnoreCase("perusahaan")) {
-                        model = new Pengguna(null, nama, null, instansi, email, null, alamat, telp, null, null);
-                        penggunaList.add(model);
-                    } else {
 
-                    }
-                    adapter.notifyDataSetChanged();
+                    model = new Pengguna(null, null, nama, instansi, email, null, alamat, telp, null, null,null);
+                    penggunaList.add(model);
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override

@@ -2,18 +2,28 @@ package id.ac.unej.ilkom.ods.buangin.view.Volunteer;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.adapter.v_daftarBank_adapter;
+import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
 import id.ac.unej.ilkom.ods.buangin.model.v_daftarBank_model;
 
 /**
@@ -25,6 +35,12 @@ public class BankSampahFragment extends Fragment {
     private v_daftarBank_adapter adapter;
     private List<v_daftarBank_model> modelList;
 
+    private TextView namaVolunteer, levelVolunteer;
+
+    private FirebaseDatabase database;
+    private DatabaseReference reference, dRef;
+    private FirebaseAuth auth;
+
     public BankSampahFragment() {
         // Required empty public constructor
     }
@@ -34,8 +50,58 @@ public class BankSampahFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((HomeVolunteer) getActivity()).setActionBarTitle("Bank ModelSampah");
+        ((HomeVolunteer) getActivity()).setActionBarTitle("Daftar Bank Sampah");
         View view = inflater.inflate(R.layout.fragment_volunteer_daftar_bank_sampah, container, false);
+
+        namaVolunteer = (TextView) view.findViewById(R.id.volunteer_bank_nama);
+        levelVolunteer = (TextView) view.findViewById(R.id.volunteer_bank_level);
+
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        String UID = auth.getUid();
+        dRef = database.getReference("pengguna").child(UID);
+        dRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Pengguna pengguna = dataSnapshot1.getValue(Pengguna.class);
+                    String nama = pengguna.getNama();
+                    String level = pengguna.getLevel();
+
+                    namaVolunteer.setText(nama);
+                    levelVolunteer.setText(level);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        reference = database.getReference("dataBankSampah");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                modelList.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    v_daftarBank_model model = dataSnapshot1.getValue(v_daftarBank_model.class);
+                    String pemilik = model.getNamaPemilik();
+                    String instansi = model.getNamaInstansi();
+                    String telp = model.getTelp();
+                    String alamat = model.getAlamat();
+
+                    model = new v_daftarBank_model(null,pemilik, instansi, alamat, telp);
+                    modelList.add(model);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_daftarBankSampah);
         modelList = new ArrayList<>();
@@ -44,34 +110,6 @@ public class BankSampahFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        daftarBankSampah();
-
         return view;
-    }
-
-    private void daftarBankSampah() {
-        int[] pic = {
-                R.drawable.banksampah_01,
-                R.drawable.banksampah_2,
-                R.drawable.banksampah_03,
-                R.drawable.banksampah_04,
-                R.drawable.banksampah_05,
-                R.drawable.banksampah_06
-        };
-
-        v_daftarBank_model a = new v_daftarBank_model("Suka Maju", "Adi Surya", "Jl. Bengawan Solo Gg. 2", pic[0]);
-        modelList.add(a);
-        a = new v_daftarBank_model("Cipta Lingkungan", "Pramojo", "Jl. Slamet Gg. 3", pic[1]);
-        modelList.add(a);
-        a = new v_daftarBank_model("Bank Prapto", "Riki", "Jl. Bengawan Solo Gg. 25", pic[2]);
-        modelList.add(a);
-        a = new v_daftarBank_model("Bank Dermawan", "Rukanah", "Jl. Kalimantan Gg. 5", pic[3]);
-        modelList.add(a);
-        a = new v_daftarBank_model("Cinta Bersih", "Indah", "Jl. Jawa Gg. 2", pic[4]);
-        modelList.add(a);
-        a = new v_daftarBank_model("Cinta Kasih", "Hari", "Jl. Bengawan Solo Gg. 3", pic[5]);
-        modelList.add(a);
-
-        adapter.notifyDataSetChanged();
     }
 }

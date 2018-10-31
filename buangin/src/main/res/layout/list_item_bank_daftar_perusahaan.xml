@@ -1,79 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="8dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/img_perusahaan"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_margin="8dp" />
-
-    <TextView
-        android:id="@+id/teks_nama_perusahaan"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/img_perusahaan"
-        android:layout_toRightOf="@id/img_perusahaan"
-        android:text="Nama Perusahaan\t: "
-        android:textSize="14sp" />
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/teks_pemilik_perusahaan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_nama_perusahaan"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/img_perusahaan"
-        android:layout_toRightOf="@id/img_perusahaan"
-        android:text="Nama Pemilik\t\t\t\t: "
-        android:textSize="14sp" />
+        <ImageView
+            android:id="@+id/bank_perusahaan_gambar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_img_voucher" />
 
-    <TextView
-        android:id="@+id/nama_perusahaan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/teks_nama_perusahaan"
-        android:layout_toRightOf="@id/teks_nama_perusahaan"
-        android:textSize="14sp"
-        tools:text="Berkah Asri" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nama_pemilik_perusahaan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_nama_perusahaan"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/teks_pemilik_perusahaan"
-        android:layout_toRightOf="@id/teks_pemilik_perusahaan"
-        android:textSize="14sp"
-        tools:text="Asriah" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/teks_alamat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_pemilik_perusahaan"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/img_perusahaan"
-        android:layout_toRightOf="@id/img_perusahaan"
-        android:text="Alamat\t\t\t\t\t\t\t: "
-        android:textSize="14sp" />
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Perusahaan"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/alamat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/teks_pemilik_perusahaan"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/teks_alamat"
-        android:layout_toRightOf="@id/teks_alamat"
-        android:textSize="14sp"
-        tools:text="Sumbersari" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bank_perusahaan_instansi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pemilik"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bank_perusahaan_pemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bank_perusahaan_alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Deskripsi"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bank_perusahaan_deskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

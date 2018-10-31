@@ -40,8 +40,8 @@ public class UbahHargaFragment extends Fragment {
         daftarHarga = new TabDaftarHargaFragment();
 
         TabAdapter ubahHargaAdapter = new TabAdapter(getChildFragmentManager());
-        ubahHargaAdapter.tambahFragment(daftarHarga, "Daftar Harga");
-        ubahHargaAdapter.tambahFragment(ubahHarga, "Tambah Produk");
+        ubahHargaAdapter.tambahFragment(daftarHarga, "Daftar Bank Sampah");
+        ubahHargaAdapter.tambahFragment(ubahHarga, "Infoku");
 
         viewPager.setAdapter(ubahHargaAdapter);
         tabLayout.setupWithViewPager(viewPager);

@@ -34,7 +34,6 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
         Pengguna model = penggunaList.get(i);
         myViewholder.nama.setText(model.getNama());
         myViewholder.email.setText(model.getEmail());
-        myViewholder.poin.setText(model.getPoin());
     }
 
     @Override
@@ -43,13 +42,12 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
     }
 
     public class MyViewholder extends RecyclerView.ViewHolder {
-        private TextView nama, email, poin;
+        private TextView nama, email;
 
         public MyViewholder(@NonNull View itemView) {
             super(itemView);
             nama = (TextView) itemView.findViewById(R.id.volunteer_nama);
             email = (TextView) itemView.findViewById(R.id.volunteer_email);
-            poin = (TextView) itemView.findViewById(R.id.volunteer_poin);
         }
     }
 }

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
     private Spinner jenisLevel;
     private EditText poin;
     private Button simpan;
+    private ImageButton kembali;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -61,6 +63,7 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
         password = (TextInputEditText) findViewById(R.id.daftar_password);
         alamat = (TextInputEditText) findViewById(R.id.daftar_alamat);
         telp = (TextInputEditText) findViewById(R.id.daftar_telepon);
+        kembali = (ImageButton) findViewById(R.id.daftar_btn_kembali);
 
         poin.setEnabled(false);
         poin.setText("0");
@@ -177,24 +180,40 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     FirebaseUser user = firebaseAuth.getCurrentUser();
                                                     String strEmail = user.getEmail();
+                                                    String UID = user.getUid();
 
                                                     if (stringLevel.equalsIgnoreCase("admin")) {
-                                                        Pengguna simpanAdmin = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, stringAlamat, stringTelp, stringLevel, null);
-                                                        databaseReference.child("pengguna").child(user.getUid()).push().setValue(simpanAdmin);
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.ADMIN, null, null);
+                                                        Pengguna dataAdmin = new Pengguna(UID, stringPemilik, null, null, strEmail, null, stringAlamat, stringTelp, null, null, null);
+                                                        databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
+                                                        databaseReference.child("dataAdmin").push().setValue(dataAdmin);
 
-                                                        Toast.makeText(getApplicationContext(), "Simpan " + stringLevel + " BUANG.IN", Toast.LENGTH_SHORT).show();
                                                         dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
                                                     } else if (stringLevel.equalsIgnoreCase("bank sampah")) {
-                                                        Pengguna simpanBank = new Pengguna(null, stringPemilik, null, stringInstansi, strEmail, stringPassword, stringAlamat, stringTelp, stringLevel, stringPoin);
-                                                        databaseReference.child("pengguna").child(user.getUid()).push().setValue(simpanBank);
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.BANK_SAMPAH, stringPoin, null);
+                                                        Pengguna dataBankSampah = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null, null);
 
-                                                        Toast.makeText(getApplicationContext(), "Simpan " + stringLevel, Toast.LENGTH_SHORT).show();
+                                                        String strInstansi = stringInstansi.replace(" ", "").replace(".", "").replace(",", "").toLowerCase();
+                                                        String strUid = UID.substring(0, 3).toLowerCase();
+                                                        String kodeBankSampah = strUid + strInstansi;
+
+                                                        databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
+                                                        databaseReference.child("dataBankSampah").child(kodeBankSampah).setValue(dataBankSampah);
+
                                                         dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
-                                                    } else if (stringLevel.equalsIgnoreCase("perusahaan") || stringLevel.equalsIgnoreCase("mitra umkm")) {
-                                                        Pengguna simpan = new Pengguna(null, stringPemilik, null, stringInstansi, strEmail, stringPassword, stringAlamat, stringTelp, stringLevel, null);
-                                                        databaseReference.child("pengguna").child(user.getUid()).push().setValue(simpan);
+                                                    } else if (stringLevel.equalsIgnoreCase("perusahaan")) {
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.PERUSAHAAN, null, null);
+                                                        Pengguna dataPerusahaan = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null, "-");
+                                                        databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
+                                                        databaseReference.child("dataPerusahaan").push().setValue(dataPerusahaan);
 
-                                                        Toast.makeText(getApplicationContext(), "Simpan " + stringLevel, Toast.LENGTH_SHORT).show();
+                                                        dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
+                                                    } else if (stringLevel.equalsIgnoreCase("mitra umkm")) {
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.MITRA, null, null);
+                                                        Pengguna dataMitra = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null, null);
+                                                        databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
+                                                        databaseReference.child("dataMitra").push().setValue(dataMitra);
+
                                                         dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
                                                     }
                                                 } else {
@@ -226,6 +245,43 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        kembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String stringPemilik = namaPemilik.getText().toString().trim();
+                String stringInstansi = namaInstansi.getText().toString().trim();
+                String stringEmail = email.getText().toString().trim();
+                String stringPassword = password.getText().toString().trim();
+                String stringAlamat = alamat.getText().toString().trim();
+                String stringTelp = telp.getText().toString().trim();
+
+                if (stringPemilik.isEmpty() || stringInstansi.isEmpty() || stringEmail.isEmpty() || stringPassword.isEmpty()
+                        || stringAlamat.isEmpty() || stringTelp.isEmpty()) {
+                    startActivity(new Intent(getApplicationContext(), Home.class));
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DaftarPenggunaBaru.this)
+                            .setCancelable(false)
+                            .setTitle("Batal simpan")
+                            .setMessage("Batal simpan data pengguna baru?")
+                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                    startActivity(new Intent(getApplicationContext(), Home.class));
+                                }
+                            })
+                            .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
             }
         });
     }

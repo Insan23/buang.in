@@ -1,29 +1,56 @@
 package id.ac.unej.ilkom.ods.buangin.model;
 
 public class v_daftarBank_model {
-    private String namaBank, pemilik, alamat;
-    private int gambar;
+    private String id, namaPemilik, namaInstansi, alamat, telp;
 
-    public v_daftarBank_model(String namaBank, String pemilik, String alamat, int gambar) {
-        this.namaBank = namaBank;
-        this.pemilik = pemilik;
+    public v_daftarBank_model() {
+    }
+
+    public v_daftarBank_model(String id,String namaPemilik, String namaInstansi, String alamat, String telp) {
+        this.id=id;
+        this.namaPemilik = namaPemilik;
+        this.namaInstansi = namaInstansi;
         this.alamat = alamat;
-        this.gambar = gambar;
+        this.telp = telp;
     }
 
-    public String getNamaBank() {
-        return namaBank;
+    public String getId() {
+        return id;
     }
 
-    public String getPemilik() {
-        return pemilik;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNamaPemilik() {
+        return namaPemilik;
+    }
+
+    public void setNamaPemilik(String namaPemilik) {
+        this.namaPemilik = namaPemilik;
+    }
+
+    public String getNamaInstansi() {
+        return namaInstansi;
+    }
+
+    public void setNamaInstansi(String namaInstansi) {
+        this.namaInstansi = namaInstansi;
     }
 
     public String getAlamat() {
         return alamat;
     }
 
-    public int getGambar() {
-        return gambar;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getTelp() {
+        return telp;
+    }
+
+    public void setTelp(String telp) {
+        this.telp = telp;
     }
 }

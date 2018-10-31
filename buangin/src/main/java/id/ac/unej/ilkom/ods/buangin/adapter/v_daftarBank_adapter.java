@@ -26,17 +26,17 @@ public class v_daftarBank_adapter extends RecyclerView.Adapter<v_daftarBank_adap
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_volunteer_daftarbank, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_volunteer_bank, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         v_daftarBank_model model = modelList.get(position);
-        holder.namaBank.setText(model.getNamaBank());
-        holder.pemilik.setText(model.getPemilik());
+        holder.pemilik.setText(model.getNamaPemilik());
+        holder.instansi.setText(model.getNamaInstansi());
         holder.alamat.setText(model.getAlamat());
-        holder.gambar.setImageResource(model.getGambar());
+        holder.telp.setText(model.getTelp());
     }
 
     @Override
@@ -45,15 +45,16 @@ public class v_daftarBank_adapter extends RecyclerView.Adapter<v_daftarBank_adap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView namaBank, pemilik, alamat;
+        public TextView instansi, pemilik, alamat, telp;
         private ImageView gambar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            namaBank = (TextView) itemView.findViewById(R.id.volunteer_namaBank_daftarBank);
-            pemilik = (TextView) itemView.findViewById(R.id.volunteer_pemilik_daftarBank);
-            alamat = (TextView) itemView.findViewById(R.id.volunteer_alamat_daftarBank);
-            gambar = (ImageView) itemView.findViewById(R.id.volunteer_gambar_daftarBank);
+            instansi = (TextView) itemView.findViewById(R.id.volunteer_bank_instansi);
+            pemilik = (TextView) itemView.findViewById(R.id.volunteer_bank_pemilik);
+            alamat = (TextView) itemView.findViewById(R.id.volunteer_bank_alamat);
+//            gambar = (ImageView) itemView.findViewById(R.id.volunteer_bank_img);
+            telp = (TextView) itemView.findViewById(R.id.volunteer_bank_telp);
         }
     }
 }
