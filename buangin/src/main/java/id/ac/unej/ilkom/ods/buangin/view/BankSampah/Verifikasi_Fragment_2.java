@@ -61,10 +61,15 @@ public class Verifikasi_Fragment_2 extends Fragment {
                 list = new ArrayList<ModelSampah>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     ModelSampah verifikasi = data.getValue(ModelSampah.class);
+//                    String kode = verifikasi.getKodeSampah();
+//                    String submit = verifikasi.getTanggalSubmit();
+//                    String berat = verifikasi.getBeratSampah();
+//                    String jenis = verifikasi.getJenisSampah();
+//                    String poin = verifikasi.getPoinSampah();
+//                    String harga = verifikasi.getHargaSampah();
+//                    String status = verifikasi.getStatusVerifikasi();
                     if ((verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITERIMA) || verifikasi.getStatusVerifikasi().equals(ModelSampah.VERIFIKASI_DITOLAK))) {
                         list.add(verifikasi);
-                    } else {
-
                     }
                     adapter.notifyDataSetChanged();
                 }

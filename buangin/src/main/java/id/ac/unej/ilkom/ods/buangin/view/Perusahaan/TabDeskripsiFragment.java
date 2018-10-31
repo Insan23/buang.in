@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.model.bs_daftarPerusahaan_model;
 
-public class TabUbahHargaFragment extends Fragment {
+public class TabDeskripsiFragment extends Fragment {
     private EditText namaProduk, hargaProduk;
     private Button tambah;
     private FirebaseUser firebaseUser;
@@ -36,7 +36,7 @@ public class TabUbahHargaFragment extends Fragment {
     private EditText deskripsi;
     private TextView textDeskripsi;
 
-    public TabUbahHargaFragment() {
+    public TabDeskripsiFragment() {
 
     }
 
