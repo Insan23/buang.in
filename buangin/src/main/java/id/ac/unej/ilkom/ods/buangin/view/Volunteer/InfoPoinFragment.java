@@ -41,8 +41,6 @@ public class InfoPoinFragment extends Fragment {
         ((HomeVolunteer) getActivity()).setActionBarTitle("Info Poin");
 
         View view = inflater.inflate(R.layout.fragment_volunteer_info_poin, container, false);
-        tabLayout = (TabLayout) view.findViewById(R.id.tab_infopoin);
-        viewPager = (ViewPager) view.findViewById(R.id.pager_infopoin);
 
         nama = (TextView) view.findViewById(R.id.infopoin_nama);
         poin = (TextView) view.findViewById(R.id.infopoin_poin);
@@ -71,6 +69,8 @@ public class InfoPoinFragment extends Fragment {
 
             }
         });
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_infopoin);
+        viewPager = (ViewPager) view.findViewById(R.id.pager_infopoin);
 
         TabAdapter infopoin_adapter = new TabAdapter(getChildFragmentManager());
         infopoin_adapter.tambahFragment(new TabPoinFragment(), "Poin");

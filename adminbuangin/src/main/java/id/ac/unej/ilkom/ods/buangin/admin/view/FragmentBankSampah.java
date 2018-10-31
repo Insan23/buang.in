@@ -51,7 +51,7 @@ public class FragmentBankSampah extends Fragment {
                     String alamat = model.getAlamat();
                     String email = model.getEmail();
 
-                    model = new Pengguna(null, null, nama, instansi, email, null, alamat, telp, null, null);
+                    model = new Pengguna(null, null, nama, instansi, email, null, alamat, telp, null, null,null);
                     penggunaList.add(model);
                 }
                 adapter.notifyDataSetChanged();

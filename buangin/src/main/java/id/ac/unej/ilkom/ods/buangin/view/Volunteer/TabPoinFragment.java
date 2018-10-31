@@ -55,6 +55,7 @@ public class TabPoinFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                modelList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     ModelPoin model = dataSnapshot1.getValue(ModelPoin.class);
                     String stringPoin = model.getPoin();
@@ -62,11 +63,14 @@ public class TabPoinFragment extends Fragment {
                     String stringUID = model.getUidVolunteer();
                     String stringSumber = model.getSumber();
 
-                    if (stringUID == UID) {
+//                    model = new ModelPoin(stringPoin, null, stringDari, stringSumber);
+//                    modelList.add(model);
+                    if (stringUID.equalsIgnoreCase(UID)) {
                         model = new ModelPoin(stringPoin, null, stringDari, stringSumber);
                         modelList.add(model);
                     }
                 }
+                poinAdapter.notifyDataSetChanged();
             }
 
             @Override

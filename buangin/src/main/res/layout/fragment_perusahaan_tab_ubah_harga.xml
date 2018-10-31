@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,95 +12,76 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Produk"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=":"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/input_ubahHarga_namaProduk"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Deskripsi"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=":"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/input_ubahHarga_deskripsi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Harga"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=":"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/input_ubahHarga_hargaBaru"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_ubahHarga_ubah"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
-                android:background="@color/warnaUtama"
-                android:text="Tambah"
-                android:textAllCaps="false"
-                android:textColor="@color/warnaPutih" />
+                android:layout_height="wrap_content"
+                android:text="Deskripsi Kebutuhan"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/perusahaan_text_deskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="deskripsi"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/perusahaan_input_deskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="Deskripsi baru" />
 
         </LinearLayout>
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/perusahaan_btn_ubah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/warnaKuning"
+        android:foreground="?android:attr/actionBarItemBackground"
+        android:src="@drawable/ic_ubah"
+        android:visibility="visible"
+        app:backgroundTint="@color/warnaKuning" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/perusahaan_btn_simpan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_toLeftOf="@id/perusahaan_btn_batal"
+        android:backgroundTint="@color/warnaUtama"
+        android:foreground="?android:attr/actionBarItemBackground"
+        android:src="@drawable/ic_simpan"
+        android:visibility="gone"
+        app:backgroundTint="@color/warnaUtama" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/perusahaan_btn_batal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/warnaKuning"
+        android:foreground="?android:attr/actionBarItemBackground"
+        android:src="@drawable/ic_batal"
+        android:visibility="gone"
+        app:backgroundTint="@color/warnaKuning" />
 
 </RelativeLayout>

@@ -183,15 +183,15 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
                                                     String UID = user.getUid();
 
                                                     if (stringLevel.equalsIgnoreCase("admin")) {
-                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.ADMIN, null);
-                                                        Pengguna dataAdmin = new Pengguna(UID, stringPemilik, null, null, strEmail, null, stringAlamat, stringTelp, null, null);
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.ADMIN, null, null);
+                                                        Pengguna dataAdmin = new Pengguna(UID, stringPemilik, null, null, strEmail, null, stringAlamat, stringTelp, null, null, null);
                                                         databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
                                                         databaseReference.child("dataAdmin").push().setValue(dataAdmin);
 
                                                         dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
                                                     } else if (stringLevel.equalsIgnoreCase("bank sampah")) {
-                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.BANK_SAMPAH, stringPoin);
-                                                        Pengguna dataBankSampah = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null);
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.BANK_SAMPAH, stringPoin, null);
+                                                        Pengguna dataBankSampah = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null, null);
 
                                                         String strInstansi = stringInstansi.replace(" ", "").replace(".", "").replace(",", "").toLowerCase();
                                                         String strUid = UID.substring(0, 3).toLowerCase();
@@ -202,15 +202,15 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
 
                                                         dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
                                                     } else if (stringLevel.equalsIgnoreCase("perusahaan")) {
-                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.PERUSAHAAN, null);
-                                                        Pengguna dataPerusahaan = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null);
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.PERUSAHAAN, null, null);
+                                                        Pengguna dataPerusahaan = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null, "-");
                                                         databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
                                                         databaseReference.child("dataPerusahaan").push().setValue(dataPerusahaan);
 
                                                         dialogSimpan("Data Pengguna Baru", stringLevel, strEmail);
                                                     } else if (stringLevel.equalsIgnoreCase("mitra umkm")) {
-                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.MITRA, null);
-                                                        Pengguna dataMitra = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null);
+                                                        Pengguna pengguna = new Pengguna(null, stringPemilik, null, null, strEmail, stringPassword, null, null, Pengguna.MITRA, null, null);
+                                                        Pengguna dataMitra = new Pengguna(UID, null, stringPemilik, stringInstansi, strEmail, null, stringAlamat, stringTelp, null, null, null);
                                                         databaseReference.child("pengguna").child(UID).push().setValue(pengguna);
                                                         databaseReference.child("dataMitra").push().setValue(dataMitra);
 

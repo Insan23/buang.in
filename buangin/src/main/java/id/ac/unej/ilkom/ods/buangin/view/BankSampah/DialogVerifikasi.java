@@ -38,6 +38,7 @@ import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.model.ModelPoin;
 import id.ac.unej.ilkom.ods.buangin.model.ModelSampah;
 import id.ac.unej.ilkom.ods.buangin.model.Pengguna;
+import id.ac.unej.ilkom.ods.buangin.model.v_daftarBank_model;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +69,7 @@ public class DialogVerifikasi extends DialogFragment {
     private Uri imgUri;
 
     private FirebaseDatabase firebaseDatabase, fDat;
+    private FirebaseAuth auth;
     private DatabaseReference databaseReference, dRef, postsRef;
 
 //    private static final String[] jenis = {"botol plastik", "kertas", "jenis lain"};
@@ -213,6 +215,7 @@ public class DialogVerifikasi extends DialogFragment {
                                     terima.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
+                                            dismiss();
                                             Boolean bolehVerifikasi = true;
                                             String stringBerat = berat.getText().toString().trim();
                                             String stringJenisSampah = sampah.getText().toString().trim();
@@ -271,7 +274,8 @@ public class DialogVerifikasi extends DialogFragment {
                                                     berat.requestFocus();
                                                     berat.setError("Masukan berat sampah terlebih dahulu");
                                                 } else {
-                                                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                    dismiss();
+                                                    final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                                     firebaseDatabase.getReference("dataSampah").child(kode).child("jenisSampah").setValue(stringJenisSampah);
                                                     firebaseDatabase.getReference("dataSampah").child(kode).child("statusVerifikasi").setValue(ModelSampah.VERIFIKASI_DITERIMA);
                                                     firebaseDatabase.getReference("dataSampah").child(kode).child("idBank").setValue(uid);
@@ -280,18 +284,26 @@ public class DialogVerifikasi extends DialogFragment {
                                                     firebaseDatabase.getReference("dataSampah").child(kode).child("tanggalSubmit").setValue(stringTanggalSubmit);
                                                     firebaseDatabase.getReference("dataSampah").child(kode).child("hargaSampah").setValue(String.valueOf(dooubleTotalHarga));
                                                     firebaseDatabase.getReference("pengguna").child(stringUID).child(stringKey).child("poin").setValue(String.valueOf(doublePoin));
+
+
+//                                                    ModelPoin modelPoin = new ModelPoin(String.valueOf(doubleTotalPoin),stringUID,)
 //                                                    pengguna.setPoin(String.valueOf(doublePoin));
 
-                                                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                                    DatabaseReference dRef = database.getReference("pengguna").child(uid);
-                                                    dRef.addValueEventListener(new ValueEventListener() {
+                                                    DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("dataBankSampah");
+                                                    databaseReference1.addValueEventListener(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                             for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-                                                                Pengguna pengguna1 = dataSnapshot2.getValue(Pengguna.class);
-                                                                String namaBank = pengguna1.getNama();
-                                                                ModelPoin modelPoin = new ModelPoin(String.valueOf(doubleTotalPoin), stringUID, "Verifikasi Sampah", namaBank);
-                                                                database.getReference("dataPoin").push().setValue(modelPoin);
+                                                                v_daftarBank_model model2 = dataSnapshot2.getValue(v_daftarBank_model.class);
+                                                                String UID = model2.getId();
+
+                                                                String stringNamaInstansi = model2.getNamaInstansi();
+                                                                System.out.println("UID bank sampah : " + uid + ", UID data bank : " + UID + ", nama instansi : " + stringNamaInstansi);
+                                                                if (UID.equalsIgnoreCase(uid)) {
+                                                                    System.out.println("UID bank sampah 2 : " + uid + ", UID data bank 2 : " + UID + ", nama instansi 2 : " + stringNamaInstansi);
+                                                                    ModelPoin modelPoin = new ModelPoin(String.valueOf(doubleTotalPoin), stringUID, stringNamaInstansi, "verifikasi sampah");
+                                                                    firebaseDatabase.getReference("dataPoin").push().setValue(modelPoin);
+                                                                }
                                                             }
                                                         }
 
@@ -314,11 +326,11 @@ public class DialogVerifikasi extends DialogFragment {
                                                                 @Override
                                                                 public void onClick(DialogInterface dialog, int which) {
                                                                     dialog.cancel();
+                                                                    dismiss();
                                                                 }
                                                             });
                                                     AlertDialog alertDialog = builder.create();
                                                     alertDialog.show();
-                                                    dismiss();
                                                 }
                                             }
                                         }

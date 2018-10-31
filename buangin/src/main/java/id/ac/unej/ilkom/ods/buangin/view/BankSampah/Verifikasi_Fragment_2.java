@@ -131,6 +131,7 @@ public class Verifikasi_Fragment_2 extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
+                                kode_sampah.setText("");
                                 DialogVerifikasi dialogVerifikasi = new DialogVerifikasi();
                                 dialogVerifikasi.setKode(stringKode);
                                 dialogVerifikasi.show(getChildFragmentManager(), "verifikasi");

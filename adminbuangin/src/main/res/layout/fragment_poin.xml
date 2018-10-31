@@ -3,20 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/poin_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="-8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daftar Poin"
+                android:textColor="@color/warnaPutih"
+                android:textSize="24sp" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
     <EditText
         android:id="@+id/poin_input_kode_bank"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/poin_appbar"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_toLeftOf="@id/poin_btn_cek_bank"
-        android:hint="text" />
+        android:hint="Kode Bank Sampah" />
 
     <ImageButton
         android:id="@+id/poin_btn_cek_bank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/poin_appbar"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"

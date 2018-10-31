@@ -51,7 +51,7 @@ public class FragmentAdmin extends Fragment {
                     String alamat = model.getAlamat();
                     String telp = model.getTelp();
 
-                    model = new Pengguna(null, nama, null, null, email, null, alamat, telp, null, null);
+                    model = new Pengguna(null, nama, null, null, email, null, alamat, telp, null, null,null);
                     penggunaList.add(model);
                 }
                 adapter.notifyDataSetChanged();

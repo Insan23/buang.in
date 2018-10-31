@@ -26,17 +26,17 @@ public class bs_daftarPerusahaan_adapter extends RecyclerView.Adapter<bs_daftarP
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_bank_daftar_perusahaan, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_bank_daftar_perusahaan, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         bs_daftarPerusahaan_model model = modelList.get(position);
-        holder.gambar.setImageResource(model.getGambar());
+        holder.instansi.setText(model.getNamaInstansi());
+        holder.pemilik.setText(model.getNamaPemilik());
         holder.alamat.setText(model.getAlamat());
-        holder.pemilik.setText(model.getPemilik());
-        holder.perusahaan.setText(model.getPerusahaan());
+        holder.deskripsi.setText(model.getDeskripsi());
     }
 
     @Override
@@ -45,15 +45,16 @@ public class bs_daftarPerusahaan_adapter extends RecyclerView.Adapter<bs_daftarP
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView perusahaan, pemilik, alamat;
+        TextView instansi, pemilik, alamat, deskripsi;
         ImageView gambar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            perusahaan = (TextView) itemView.findViewById(R.id.bank_nama_perusahaan);
-            pemilik = (TextView) itemView.findViewById(R.id.bank_pemilik_perusahaan);
-            alamat = (TextView) itemView.findViewById(R.id.bank_alamat_perusahaan);
-            gambar = (ImageView) itemView.findViewById(R.id.bank_gambar_perusahaan);
+            instansi = (TextView) itemView.findViewById(R.id.bank_perusahaan_instansi);
+            pemilik = (TextView) itemView.findViewById(R.id.bank_perusahaan_pemilik);
+            alamat = (TextView) itemView.findViewById(R.id.bank_perusahaan_alamat);
+            deskripsi = (TextView) itemView.findViewById(R.id.bank_perusahaan_deskripsi);
+            gambar = (ImageView) itemView.findViewById(R.id.bank_perusahaan_gambar);
         }
     }
 }

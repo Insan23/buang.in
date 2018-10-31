@@ -35,24 +35,6 @@ public class TabDaftarHargaFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        daftarHarga();
-
         return view;
-    }
-
-    private void daftarHarga() {
-        int[] pic = {
-                R.drawable.sampah_01,
-                R.drawable.sampah_02,
-                R.drawable.sampah_03
-        };
-        p_ubahHarga_model a = new p_ubahHarga_model("kaleng", "Rudi", "2000", "Jl. Kembang Gg. 3", pic[0]);
-        modelList.add(a);
-        a = new p_ubahHarga_model("kertas", "Rudi", "1000", "Jl. Kembang Gg. 3", pic[0]);
-        modelList.add(a);
-        a = new p_ubahHarga_model("botol plastik", "Rudi", "500", "Jl. Kembang Gg. 3", pic[0]);
-        modelList.add(a);
-
-        adapter.notifyDataSetChanged();
     }
 }

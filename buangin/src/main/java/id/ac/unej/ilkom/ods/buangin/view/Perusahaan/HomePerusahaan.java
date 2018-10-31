@@ -38,6 +38,8 @@ public class HomePerusahaan extends AppCompatActivity {
         daftarHargaFragment = new TabDaftarHargaFragment();
         ubahHargaFragment = new TabUbahHargaFragment();
 
+        fm.beginTransaction().replace(R.id.container_perusahaan, homeFragment).commit();
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.nav_perusahaan);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -45,13 +47,14 @@ public class HomePerusahaan extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_bawah_ubah_harga_perusahaan:
                         fm.beginTransaction().replace(R.id.container_perusahaan, hargaFragment).commit();
+                        break;
                     case R.id.nav_bawah_home_perusahaan:
                         fm.beginTransaction().replace(R.id.container_perusahaan, homeFragment).commit();
+                        break;
                 }
                 return true;
             }
         });
-        ft.replace(R.id.container_perusahaan, homeFragment).commit();
     }
 
 //    public void setActionBarTitle(String title){

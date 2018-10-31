@@ -56,7 +56,7 @@ public class FragmentVolunteer extends Fragment {
                     System.out.println("volunteer nama : " + nama);
                     System.out.println("volunteer email : " + email);
 
-                    model = new Pengguna(null, nama, null, null, email, null, null, null, null, null);
+                    model = new Pengguna(null, nama, null, null, email, null, null, null, null, null, null);
                     penggunaList.add(model);
                 }
                 adapter.notifyDataSetChanged();
