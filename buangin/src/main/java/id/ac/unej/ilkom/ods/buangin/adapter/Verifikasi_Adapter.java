@@ -26,7 +26,7 @@ public class Verifikasi_Adapter extends RecyclerView.Adapter<Verifikasi_Adapter.
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview_bank_verifikasi, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_bank_verifikasi, parent, false);
         MyHolder holder = new MyHolder(view);
         return holder;
     }
@@ -36,10 +36,10 @@ public class Verifikasi_Adapter extends RecyclerView.Adapter<Verifikasi_Adapter.
         ModelSampah model = list.get(position);
         holder.kode.setText(model.getKodeSampah());
         holder.submit.setText(model.getTanggalSubmit());
-        holder.poin.setText(model.getPoinSampah());
-        holder.jenis.setText(model.getJenisSampah());
-        holder.harga.setText(model.getHargaSampah());
         holder.berat.setText(model.getBeratSampah());
+        holder.jenis.setText(model.getJenisSampah());
+        holder.poin.setText(model.getPoinSampah());
+        holder.harga.setText(model.getHargaSampah());
         holder.status.setText(model.getStatusVerifikasi());
     }
 

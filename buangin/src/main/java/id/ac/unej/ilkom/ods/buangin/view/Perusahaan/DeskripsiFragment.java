@@ -14,18 +14,18 @@ import com.google.firebase.auth.FirebaseUser;
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.adapter.TabAdapter;
 
-public class UbahHargaFragment extends Fragment {
+public class DeskripsiFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private TabUbahHargaFragment ubahHarga;
-    private TabDaftarHargaFragment daftarHarga;
+    private TabDeskripsiFragment ubahHarga;
+    private TabDaftarBankFragment daftarHarga;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
-    public UbahHargaFragment() {
+    public DeskripsiFragment() {
 
     }
 
@@ -36,8 +36,8 @@ public class UbahHargaFragment extends Fragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tab_ubah_harga);
         viewPager = (ViewPager) view.findViewById(R.id.pager_ubah_harga);
-        ubahHarga = new TabUbahHargaFragment();
-        daftarHarga = new TabDaftarHargaFragment();
+        ubahHarga = new TabDeskripsiFragment();
+        daftarHarga = new TabDaftarBankFragment();
 
         TabAdapter ubahHargaAdapter = new TabAdapter(getChildFragmentManager());
         ubahHargaAdapter.tambahFragment(daftarHarga, "Daftar Bank Sampah");

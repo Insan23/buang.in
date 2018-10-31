@@ -21,10 +21,10 @@ public class HomePerusahaan extends AppCompatActivity {
     FragmentTransaction ft;
     FragmentManager fm;
 
-    UbahHargaFragment hargaFragment;
+    DeskripsiFragment hargaFragment;
     HomeFragment homeFragment;
-    TabDaftarHargaFragment daftarHargaFragment;
-    TabUbahHargaFragment ubahHargaFragment;
+    TabDaftarBankFragment daftarHargaFragment;
+    TabDeskripsiFragment ubahHargaFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,10 @@ public class HomePerusahaan extends AppCompatActivity {
 
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        hargaFragment = new UbahHargaFragment();
+        hargaFragment = new DeskripsiFragment();
         homeFragment = new HomeFragment();
-        daftarHargaFragment = new TabDaftarHargaFragment();
-        ubahHargaFragment = new TabUbahHargaFragment();
+        daftarHargaFragment = new TabDaftarBankFragment();
+        ubahHargaFragment = new TabDeskripsiFragment();
 
         fm.beginTransaction().replace(R.id.container_perusahaan, homeFragment).commit();
 
@@ -83,11 +83,11 @@ public class HomePerusahaan extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public TabDaftarHargaFragment getDaftarHargaFragment() {
+    public TabDaftarBankFragment getDaftarHargaFragment() {
         return daftarHargaFragment;
     }
 
-    public TabUbahHargaFragment getUbahHargaFragment() {
+    public TabDeskripsiFragment getUbahHargaFragment() {
         return ubahHargaFragment;
     }
 }

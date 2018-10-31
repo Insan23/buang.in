@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.container_perusahaan, new UbahHargaFragment());
+                ft.replace(R.id.container_perusahaan, new DeskripsiFragment());
                 ft.commit();
             }
         });
