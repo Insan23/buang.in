@@ -25,8 +25,8 @@ import java.util.List;
 
 import id.ac.unej.ilkom.ods.buangin.R;
 import id.ac.unej.ilkom.ods.buangin.adapter.VoucherAdapter;
+import id.ac.unej.ilkom.ods.buangin.model.BaseApi;
 import id.ac.unej.ilkom.ods.buangin.model.ModelVoucher;
-import id.ac.unej.ilkom.ods.buangin.util.Util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,10 +56,8 @@ public class TabDaftarVoucherFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_daftarVoucher);
         listVoucher = new ArrayList<>();
         listKosong = (TextView) view.findViewById(R.id.teks_kosong);
-
-        final String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        dbRef = FirebaseDatabase.getInstance().getReference(Util.DATA_VOUCHER_REFERENCE);
+      
+        dbRef = FirebaseDatabase.getInstance().getReference(BaseApi.TABEL_VOUCHER);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
