@@ -124,13 +124,15 @@ public class HomeVolunteer extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_timbalBalik) {
-            fm.beginTransaction().replace(R.id.container_volunteer, new UmpanBalik()).commit();
-        } else if (id == R.id.nav_riwayat) {
-            fm.beginTransaction().replace(R.id.container_volunteer, new Riwayatku()).commit();
-        } else if (id == R.id.nav_pengaturan) {
-            fm.beginTransaction().replace(R.id.container_volunteer, new Pengaturan()).commit();
-        } else if (id == R.id.nav_logout) {
+//        if (id == R.id.nav_timbalBalik) {
+//            fm.beginTransaction().replace(R.id.container_volunteer, new UmpanBalik()).commit();
+//        } else if (id == R.id.nav_riwayat) {
+//            fm.beginTransaction().replace(R.id.container_volunteer, new Riwayatku()).commit();
+//        } else
+//        if (id == R.id.nav_pengaturan) {
+//            fm.beginTransaction().replace(R.id.container_volunteer, new Pengaturan()).commit();
+//        } else
+        if (id == R.id.nav_logout) {
             logout();
         }
 

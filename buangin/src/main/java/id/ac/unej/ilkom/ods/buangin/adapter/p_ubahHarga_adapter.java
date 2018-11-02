@@ -55,7 +55,7 @@ public class p_ubahHarga_adapter extends RecyclerView.Adapter<p_ubahHarga_adapte
             pemilik = (TextView) itemView.findViewById(R.id.perusahaan_bank_pemilik);
             telp = (TextView) itemView.findViewById(R.id.perusahaan_bank_telp);
             alamat = (TextView) itemView.findViewById(R.id.perusahaan_bank_alamat);
-            gambar = (ImageView) itemView.findViewById(R.id.perusahaan_bank_gambar);
+//            gambar = (ImageView) itemView.findViewById(R.id.perusahaan_bank_gambar);
         }
     }
 }

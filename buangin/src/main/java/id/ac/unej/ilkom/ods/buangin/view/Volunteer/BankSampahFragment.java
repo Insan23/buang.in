@@ -53,31 +53,28 @@ public class BankSampahFragment extends Fragment {
         ((HomeVolunteer) getActivity()).setActionBarTitle("Daftar Bank Sampah");
         View view = inflater.inflate(R.layout.fragment_volunteer_daftar_bank_sampah, container, false);
 
-        namaVolunteer = (TextView) view.findViewById(R.id.volunteer_bank_nama);
-        levelVolunteer = (TextView) view.findViewById(R.id.volunteer_bank_level);
+//        namaVolunteer = (TextView) view.findViewById(R.id.volunteer_bank_nama);
+//        levelVolunteer = (TextView) view.findViewById(R.id.volunteer_bank_level);
 
         database = FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance();
-        String UID = auth.getUid();
-        dRef = database.getReference("pengguna").child(UID);
-        dRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Pengguna pengguna = dataSnapshot1.getValue(Pengguna.class);
-                    String nama = pengguna.getNama();
-                    String level = pengguna.getLevel();
-
-                    namaVolunteer.setText(nama);
-                    levelVolunteer.setText(level);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        auth = FirebaseAuth.getInstance();
+//        String UID = auth.getUid();
+//        dRef = database.getReference("pengguna").child(UID);
+//        dRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//                    Pengguna pengguna = dataSnapshot1.getValue(Pengguna.class);
+//                    String nama = pengguna.getNama();
+//                    String level = pengguna.getLevel();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         reference = database.getReference("dataBankSampah");
         reference.addValueEventListener(new ValueEventListener() {

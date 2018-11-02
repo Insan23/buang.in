@@ -24,14 +24,14 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.bg_langkah_3
     };
     public String[] slide_heading = {
-            "Scan ModelSampah",
+            "Foto Sampah",
             "Kumpulkan Poin",
             "Tukar Poin Dengan Makanan"
     };
     public String[] slide_deskripsi = {
-            "Kumpulkan sampah anda dengan cara memindai sampah menggunakan fitur yang telah tersedia untuk mendapatkan poin",
-            "Kumpulkan poin anda dengan cara menukarkan sampah yang sudah terkumpul ke bank sampah",
-            "Tukarkan poin anda ke mitra UMKM untuk mendapatkan makanan"
+            "Kumpulkan sampah Anda dengan cara memindai sampah menggunakan fitur yang telah tersedia untuk mendapatkan poin",
+            "Kumpulkan poin Anda dengan cara menukarkan sampah yang sudah terkumpul ke bank sampah",
+            "Tukarkan poin Anda ke mitra UMKM untuk mendapatkan makanan"
     };
     Context context;
     LayoutInflater layoutInflater;

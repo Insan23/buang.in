@@ -57,14 +57,20 @@ public class TabDaftarVoucherFragment extends Fragment {
         listVoucher = new ArrayList<>();
         listKosong = (TextView) view.findViewById(R.id.teks_kosong);
 
+        final String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         dbRef = FirebaseDatabase.getInstance().getReference(Util.DATA_VOUCHER_REFERENCE);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    listVoucher.clear();
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
                         ModelVoucher perVoucher = data.getValue(ModelVoucher.class);
-                        listVoucher.add(perVoucher);
+                        String uid = perVoucher.getUidMitra();
+                        if (uid.equals(UID)) {
+                            listVoucher.add(perVoucher);
+                        }
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     listKosong.setVisibility(View.GONE);

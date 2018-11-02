@@ -43,7 +43,7 @@ public class HalamanMasuk extends AppCompatActivity {
 
     private TextInputEditText email, password;
     private Button masuk;
-    private TextView daftar, lupaPassword;
+    private TextView daftar;
     private String strEmail, strPassword;
 
     private FirebaseAuth auth;

@@ -46,7 +46,6 @@ public class bs_daftarPerusahaan_adapter extends RecyclerView.Adapter<bs_daftarP
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView instansi, pemilik, alamat, deskripsi;
-        ImageView gambar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -54,7 +53,6 @@ public class bs_daftarPerusahaan_adapter extends RecyclerView.Adapter<bs_daftarP
             pemilik = (TextView) itemView.findViewById(R.id.bank_perusahaan_pemilik);
             alamat = (TextView) itemView.findViewById(R.id.bank_perusahaan_alamat);
             deskripsi = (TextView) itemView.findViewById(R.id.bank_perusahaan_deskripsi);
-            gambar = (ImageView) itemView.findViewById(R.id.bank_perusahaan_gambar);
         }
     }
 }
