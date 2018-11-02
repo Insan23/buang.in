@@ -28,6 +28,7 @@ public class BaseApi {
     public static final String TABEL_BANK_SAMPAH = "dataBankSampah";
     public static final String TABEL_PERUSAHAAN = "dataPerusahaan";
     public static final String TABEL_PENGGUNA = "penguna";
+    public static final String TABEL_POIN_VOLUNTEER = "dataPoin";
 
     public static final String DIR_FOTO_VOUCHER = "voucher_mitra";
     public static final String DIR_FOTO_PROFIL = "foto_profil";

@@ -39,7 +39,7 @@ public class Welcome extends AppCompatActivity {
      * TODO verifikasi per sampah di bank sampah (memilah sampah) ?
      * **/
 
-    private static final String TAG = "Welcome_Page";
+    private static final String TAG = Welcome.class.getSimpleName();
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -64,7 +64,7 @@ public class Welcome extends AppCompatActivity {
                     @Override
                     public void run() {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("id.ac.unej.ilkom.ods.buangin", 0);
-                        if (pref.getBoolean("first_launch", true)) {
+                        if (pref.getBoolean("first_launch", false)) {
                             pref.edit().putBoolean("first_lauch", false).commit();
                             startActivity(new Intent(Welcome.this, HalamanAwal.class));
                         } else {

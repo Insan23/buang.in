@@ -9,25 +9,29 @@ public class ModelVoucherVolunteer {
 
     private String namaVolunteer;
     private String namaMitra;
+    private String uidMitra;
     private String kodeVoucher;
     private String url_foto;
     private String namaVoucher;
     private String deskripsi;
     private String hargaPoin;
     private String statusVoucher;
+    private String tanggal;
 
     public ModelVoucherVolunteer() {
     }
 
-    public ModelVoucherVolunteer(String namaVolunteer, String namaMitra, String kodeVoucher, String url_foto, String namaVoucher, String deskripsi, String hargaPoin, String statusVoucher) {
+    public ModelVoucherVolunteer(String namaVolunteer, String namaMitra, String uidMitra, String kodeVoucher, String url_foto, String namaVoucher, String deskripsi, String hargaPoin, String statusVoucher, String tanggal) {
         this.namaVolunteer = namaVolunteer;
         this.namaMitra = namaMitra;
+        this.uidMitra = uidMitra;
         this.kodeVoucher = kodeVoucher;
         this.url_foto = url_foto;
         this.namaVoucher = namaVoucher;
         this.deskripsi = deskripsi;
         this.hargaPoin = hargaPoin;
         this.statusVoucher = statusVoucher;
+        this.tanggal = tanggal;
     }
 
     public String getNamaVolunteer() {
@@ -44,6 +48,14 @@ public class ModelVoucherVolunteer {
 
     public void setNamaMitra(String namaMitra) {
         this.namaMitra = namaMitra;
+    }
+
+    public String getUidMitra() {
+        return uidMitra;
+    }
+
+    public void setUidMitra(String uidMitra) {
+        this.uidMitra = uidMitra;
     }
 
     public String getKodeVoucher() {
@@ -92,5 +104,13 @@ public class ModelVoucherVolunteer {
 
     public void setStatusVoucher(String statusVoucher) {
         this.statusVoucher = statusVoucher;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 }

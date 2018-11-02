@@ -24,25 +24,25 @@ import id.ac.unej.ilkom.ods.buangin.model.ModelVoucherVolunteer;
 
 import static id.ac.unej.ilkom.ods.buangin.util.Util.MB;
 
-public class RiwayatAdapterVolunteer extends RecyclerView.Adapter<RiwayatAdapterVolunteer.MyViewHolder> {
+public class RiwayatAdapterMitra extends RecyclerView.Adapter<RiwayatAdapterMitra.ViewHolder> {
 
     private Context context;
     private List<ModelVoucherVolunteer> list;
 
-    public RiwayatAdapterVolunteer(Context context, List<ModelVoucherVolunteer> list) {
+    public RiwayatAdapterMitra(Context context, List<ModelVoucherVolunteer> list) {
         this.context = context;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_volunteer_riwayat, parent, false);
-        return new MyViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_mitra_riwayat, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(list.get(position));
     }
 
@@ -51,29 +51,32 @@ public class RiwayatAdapterVolunteer extends RecyclerView.Adapter<RiwayatAdapter
         return list.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView img;
+        public TextView judul;
+        public TextView harga;
+        public TextView tanggal;
         public TextView kode;
         public TextView status;
-        public TextView namaMitra;
-        public TextView harga;
-        public TextView judul;
+        private TextView namaVolunteer;
 
-        public MyViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.voulunteer_img_voucher);
-            kode = (TextView) itemView.findViewById(R.id.volunteer_kode_voucher);
-            status = (TextView) itemView.findViewById(R.id.volunteer_status_voucher);
-            namaMitra = (TextView) itemView.findViewById(R.id.volunteer_mitra_voucher);
-            harga = (TextView) itemView.findViewById(R.id.volunteer_harga_voucher);
-            judul = (TextView) itemView.findViewById(R.id.volunteer_judul_voucher);
+            img = itemView.findViewById(R.id.mitra_gambar_riwayat);
+            judul = itemView.findViewById(R.id.volunteer_judul_voucher);
+            namaVolunteer = itemView.findViewById(R.id.teks_nama_volunteer);
+            harga = itemView.findViewById(R.id.teks_poin);
+            tanggal = itemView.findViewById(R.id.mitra_tanggal_tukar);
+            status = itemView.findViewById(R.id.status_voucher);
+            kode = itemView.findViewById(R.id.mitra_kode);
         }
 
         public void bind(ModelVoucherVolunteer model) {
-            namaMitra.setText(model.getNamaMitra());
-            status.setText(model.getStatusVoucher());
-            harga.setText(model.getHargaPoin());
             judul.setText(model.getNamaVoucher());
+            namaVolunteer.setText(model.getNamaVolunteer());
+            harga.setText(model.getHargaPoin());
+            tanggal.setText(model.getTanggal());
+            status.setText(model.getStatusVoucher());
             kode.setText(model.getKodeVoucher());
 
             StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(model.getUrl_foto());
