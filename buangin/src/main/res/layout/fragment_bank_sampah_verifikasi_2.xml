@@ -20,16 +20,14 @@
                 android:layout_marginRight="16dp"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/bg_img_voucher" />
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="80dp"-->
+                    <!--android:src="@drawable/bg_img_voucher" />-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
                     <TextView

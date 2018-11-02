@@ -22,8 +22,7 @@ import id.ac.unej.ilkom.ods.buangin.view.Pengaturan;
 import id.ac.unej.ilkom.ods.buangin.view.Riwayatku;
 import id.ac.unej.ilkom.ods.buangin.view.UmpanBalik;
 
-public class HomeMitra extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener /*, HomeFragment.OnMenuClickListener */ {
+public class HomeMitra extends AppCompatActivity /*, HomeFragment.OnMenuClickListener */ {
 
     public static String ACTIVE = "fragment_mitra_aktif";
 
@@ -64,14 +63,14 @@ public class HomeMitra extends AppCompatActivity
 
         ft.add(R.id.container_mitra, m_home, HomeFragment.class.getSimpleName()).commit();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mitra);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mitra);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_side_mitra);
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_side_mitra);
+//        navigationView.setNavigationItemSelectedListener(this);
 
         android.support.v4.app.FragmentTransaction ft_sampah = getSupportFragmentManager().beginTransaction();
         ft_sampah.replace(R.id.container_mitra, new HomeFragment());
@@ -129,24 +128,24 @@ public class HomeMitra extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_timbalBalik) {
-            fm.beginTransaction().replace(R.id.container_mitra, f_nav_timbalBalik).commit();
-        } else if (id == R.id.nav_riwayat) {
-            fm.beginTransaction().replace(R.id.container_mitra, f_nav_riwayat).commit();
-        } else if (id == R.id.nav_pengaturan) {
-            fm.beginTransaction().replace(R.id.container_mitra, f_nav_pengaturan).commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mitra);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_timbalBalik) {
+//            fm.beginTransaction().replace(R.id.container_mitra, f_nav_timbalBalik).commit();
+//        } else if (id == R.id.nav_riwayat) {
+//            fm.beginTransaction().replace(R.id.container_mitra, f_nav_riwayat).commit();
+//        } else if (id == R.id.nav_pengaturan) {
+//            fm.beginTransaction().replace(R.id.container_mitra, f_nav_pengaturan).commit();
+//        }
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_mitra);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
 //    public void onMenuSelected(int position) {
 //        switch (position) {

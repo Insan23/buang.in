@@ -54,6 +54,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:id="@+id/daftar_gambar"-->
+                    <!--android:layout_width="130dp"-->
+                    <!--android:layout_height="130dp"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:src="@drawable/img_foto" />-->
+
+                <!--<ImageButton-->
+                    <!--android:id="@+id/daftar_btn_upload_gambar"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@id/daftar_gambar"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="-24dp"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:background="@drawable/style_bulat_gray"-->
+                    <!--android:foreground="?android:attr/actionBarItemBackground"-->
+                    <!--android:padding="8dp"-->
+                    <!--android:src="@drawable/ic_foto" />-->
+            <!--</RelativeLayout>-->
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -168,6 +193,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/style_btn_hijau"
+        android:foreground="?android:attr/actionBarItemBackground"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
         android:text="Simpan"

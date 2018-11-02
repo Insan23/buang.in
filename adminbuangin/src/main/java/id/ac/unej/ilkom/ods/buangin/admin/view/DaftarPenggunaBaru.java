@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,7 +38,8 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
     private Spinner jenisLevel;
     private EditText poin;
     private Button simpan;
-    private ImageButton kembali;
+    private ImageButton kembali, uploadGambar;
+    private ImageView gambar;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -64,6 +66,8 @@ public class DaftarPenggunaBaru extends AppCompatActivity {
         alamat = (TextInputEditText) findViewById(R.id.daftar_alamat);
         telp = (TextInputEditText) findViewById(R.id.daftar_telepon);
         kembali = (ImageButton) findViewById(R.id.daftar_btn_kembali);
+        gambar = (ImageView) findViewById(R.id.daftar_gambar);
+        uploadGambar = (ImageButton) findViewById(R.id.daftar_btn_upload_gambar);
 
         poin.setEnabled(false);
         poin.setText("0");

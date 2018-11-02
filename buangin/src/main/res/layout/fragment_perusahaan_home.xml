@@ -97,7 +97,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:paddingLeft="8dp"
-                        android:text="Ubah Harga"
+                        android:text="Daftar Bank Sampah"
                         android:textColor="@color/warnaUtama"
                         android:textSize="24sp" />
 

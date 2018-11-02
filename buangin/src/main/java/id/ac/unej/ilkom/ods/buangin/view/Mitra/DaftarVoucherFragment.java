@@ -34,8 +34,8 @@ public class DaftarVoucherFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.pager_voucher);
 
         TabAdapter voucher_adapter = new TabAdapter(getChildFragmentManager());
-        voucher_adapter.tambahFragment(new TabDaftarVoucherFragment(), "Daftar ModelVoucher");
-        voucher_adapter.tambahFragment(new TabBuatVoucherFragment(), "Buat ModelVoucher");
+        voucher_adapter.tambahFragment(new TabDaftarVoucherFragment(), "Daftar Voucher");
+        voucher_adapter.tambahFragment(new TabBuatVoucherFragment(), "Buat Voucher");
 
         viewPager.setAdapter(voucher_adapter);
         tabLayout.setupWithViewPager(viewPager);
